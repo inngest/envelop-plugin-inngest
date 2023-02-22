@@ -10,6 +10,7 @@
     "prepare": "husky install",
     "postinstall": "patch-package",
     "lint": "eslint --config .eslintrc.json --ext .ts . --max-warnings 0",
+    "ci:build": "yarn build && yarn lint && yarn test && yarn ts:check && yarn bob check",
     "ci:lint": "eslint --config .eslintrc.json --ext .ts . --max-warnings 0 --output-file eslint_report.json --format json",
     "lint:prettier": "prettier --cache --ignore-path .gitignore --check .",
     "prebuild": "rimraf packages/*/dist packages/plugins/*/dist",
