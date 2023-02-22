@@ -1,0 +1,19 @@
+name: ⚙️ CI
+
+on: pull_request
+
+jobs:
+  ci:
+    name: ⚙️ CI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: yarn install
+      - run: yarn build
+      - run: yarn lint
+      - run: yarn test
+      - run: yarn ts:check
+      - run: yarn bob check
