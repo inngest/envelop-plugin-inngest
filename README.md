@@ -10,12 +10,6 @@ It's philosophy is to:
 - provide fine-grained control over what events are sent such as operations (queries, mutations, or subscriptions), introspection events, when GraphQL errors occur, if result data should be included, type and schema coordinate denylists ... and more.
 - be customized with event prefix, name and user context functions
 
-# Getting Started
-
-```terminal
-yarn add @envelop/inngest
-```
-
 ## About Inngest
 
 Inngest makes it simple for you to write delayed or background jobs by triggering functions from events — decoupling your code from your application.

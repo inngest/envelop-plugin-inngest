@@ -13,7 +13,7 @@ It's philosophy is to:
 # Getting Started
 
 ```terminal
-yarn add @envelop/inngest
+yarn add inngest/envelop-plugin-inngest
 ```
 
 ## About Inngest
@@ -51,12 +51,12 @@ Envelop is created and maintained by [The Guild](https://the-guild.dev/).
 When configuring `useInngest`, you will need to setup and setup an [Inngest client](https://www.inngest.com/docs/quick-start) with the necessary [event keys](https://www.inngest.com/docs/events/creating-an-event-key).
 
 ```ts
-import { Inngest } from "inngest";
+import { Inngest } from 'inngest'
 
-import { useInngest } from "@envelop/inngest";
-import { createYoga, createSchema } from "graphql-yoga";
+import { useInngest } from '@envelop/inngest'
+import { createYoga, createSchema } from 'graphql-yoga'
 
-const inngestClient = new Inngest({ name: "My App" });
+const inngestClient = new Inngest({ name: 'My App' })
 
 // Provide your schema
 const yoga = createYoga({
@@ -68,18 +68,18 @@ const yoga = createYoga({
     `,
     resolvers: {
       Query: {
-        greetings: () => "Hello World!",
-      },
-    },
+        greetings: () => 'Hello World!'
+      }
+    }
   }),
-  plugins: [useInngest({ inngestClient })],
-});
+  plugins: [useInngest({ inngestClient })]
+})
 
 // Start the server and explore http://localhost:4000/graphql
-const server = createServer(yoga);
+const server = createServer(yoga)
 server.listen(4000, () => {
-  console.info("Server is running on http://localhost:4000/graphql");
-});
+  console.info('Server is running on http://localhost:4000/graphql')
+})
 ```
 
 ### Logging
@@ -87,13 +87,13 @@ server.listen(4000, () => {
 You may set any [Yoga-compatible logger](https://the-guild.dev/graphql/yoga-server/docs/features/logging-and-debugging)
 
 ```ts
-import { Inngest } from "inngest";
+import { Inngest } from 'inngest'
 
-import { useInngest } from "@envelop/inngest";
-import { createYoga, createSchema, createLogger } from "graphql-yoga";
+import { useInngest } from '@envelop/inngest'
+import { createYoga, createSchema, createLogger } from 'graphql-yoga'
 
-const inngestClient = new Inngest({ name: "My App" });
-const logger = createLogger();
+const inngestClient = new Inngest({ name: 'My App' })
+const logger = createLogger()
 
 // Provide your schema
 const yoga = createYoga({
@@ -105,24 +105,24 @@ const yoga = createYoga({
     `,
     resolvers: {
       Query: {
-        greetings: () => "Hello World!",
-      },
-    },
+        greetings: () => 'Hello World!'
+      }
+    }
   }),
-  plugins: [useInngest({ inngestClient, logging: logger })],
-});
+  plugins: [useInngest({ inngestClient, logging: logger })]
+})
 ```
 
 #### Disable Logging
 
 ```ts
-import { Inngest } from "inngest";
+import { Inngest } from 'inngest'
 
-import { useInngest } from "@envelop/inngest";
-import { createYoga, createSchema, createLogger } from "graphql-yoga";
+import { useInngest } from '@envelop/inngest'
+import { createYoga, createSchema, createLogger } from 'graphql-yoga'
 
-const inngestClient = new Inngest({ name: "My App" });
-const logger = createLogger();
+const inngestClient = new Inngest({ name: 'My App' })
+const logger = createLogger()
 
 // Provide your schema
 const yoga = createYoga({
@@ -134,24 +134,24 @@ const yoga = createYoga({
     `,
     resolvers: {
       Query: {
-        greetings: () => "Hello World!",
-      },
-    },
+        greetings: () => 'Hello World!'
+      }
+    }
   }),
-  plugins: [useInngest({ inngestClient, logging: false })],
-});
+  plugins: [useInngest({ inngestClient, logging: false })]
+})
 ```
 
 #### Set Log Level
 
 ```ts
-import { Inngest } from "inngest";
+import { Inngest } from 'inngest'
 
-import { useInngest } from "@envelop/inngest";
-import { createYoga, createSchema, createLogger } from "graphql-yoga";
+import { useInngest } from '@envelop/inngest'
+import { createYoga, createSchema, createLogger } from 'graphql-yoga'
 
-const inngestClient = new Inngest({ name: "My App" });
-const logger = createLogger();
+const inngestClient = new Inngest({ name: 'My App' })
+const logger = createLogger()
 
 // Provide your schema
 const yoga = createYoga({
@@ -163,12 +163,12 @@ const yoga = createYoga({
     `,
     resolvers: {
       Query: {
-        greetings: () => "Hello World!",
-      },
-    },
+        greetings: () => 'Hello World!'
+      }
+    }
   }),
-  plugins: [useInngest({ inngestClient, logging: "warn" })],
-});
+  plugins: [useInngest({ inngestClient, logging: 'warn' })]
+})
 ```
 
 ### Custom Event Payload Functions
@@ -190,12 +190,12 @@ will be `graphql/test-query.query`
 In the case where you want to completely override the function to construct the entire event name, you can define a `buildEventNameFunction`:
 
 ```ts
-import { Inngest } from "inngest";
+import { Inngest } from 'inngest'
 
-import { useInngest } from "@envelop/inngest";
-import { createYoga, createSchema } from "graphql-yoga";
+import { useInngest } from '@envelop/inngest'
+import { createYoga, createSchema } from 'graphql-yoga'
 
-const inngestClient = new Inngest({ name: "My App" });
+const inngestClient = new Inngest({ name: 'My App' })
 
 // Provide your schema
 const yoga = createYoga({
@@ -207,17 +207,17 @@ const yoga = createYoga({
     `,
     resolvers: {
       Query: {
-        greetings: () => "Hello World!",
-      },
-    },
+        greetings: () => 'Hello World!'
+      }
+    }
   }),
   plugins: [
     useInngest({
       inngestClient,
-      buildEventNameFunction: async () => "custom-graphql/noun.verb",
-    }),
-  ],
-});
+      buildEventNameFunction: async () => 'custom-graphql/noun.verb'
+    })
+  ]
+})
 ```
 
 #### Build Custom Event Name Prefix
@@ -225,12 +225,12 @@ const yoga = createYoga({
 The `buildEventNamePrefixFunction` option lets you pass a function to customize the prefix for the event name
 
 ```ts
-import { Inngest } from "inngest";
+import { Inngest } from 'inngest'
 
-import { useInngest } from "@envelop/inngest";
-import { createYoga, createSchema } from "graphql-yoga";
+import { useInngest } from '@envelop/inngest'
+import { createYoga, createSchema } from 'graphql-yoga'
 
-const inngestClient = new Inngest({ name: "My App" });
+const inngestClient = new Inngest({ name: 'My App' })
 
 // Provide your schema
 const yoga = createYoga({
@@ -242,17 +242,17 @@ const yoga = createYoga({
     `,
     resolvers: {
       Query: {
-        greetings: () => "Hello World!",
-      },
-    },
+        greetings: () => 'Hello World!'
+      }
+    }
   }),
   plugins: [
     useInngest({
       inngestClient,
-      buildEventNamePrefixFunction: async () => "custom-graphql",
-    }),
-  ],
-});
+      buildEventNamePrefixFunction: async () => 'custom-graphql'
+    })
+  ]
+})
 ```
 
 ### User Context
@@ -264,23 +264,21 @@ The `buildUserContextFunction` option let's you define the user context info sen
 #### Build Custom User Context Info
 
 ```ts
-import { Inngest } from "inngest";
+import { Inngest } from 'inngest'
 
-import { useInngest } from "@envelop/inngest";
-import { createYoga, createSchema } from "graphql-yoga";
+import { useInngest } from '@envelop/inngest'
+import { createYoga, createSchema } from 'graphql-yoga'
 
-const inngestClient = new Inngest({ name: "My App" });
+const inngestClient = new Inngest({ name: 'My App' })
 
-export const userContext: BuildUserContextFunction = (
-  options: InngestUserContextOptions
-) => {
-  const currentUser = options.params.args.contextValue.currentUser;
+export const userContext: BuildUserContextFunction = (options: InngestUserContextOptions) => {
+  const currentUser = options.params.args.contextValue.currentUser
 
   if (currentUser) {
-    return { id: currentUser.id };
+    return { id: currentUser.id }
   }
-  return {};
-};
+  return {}
+}
 
 // Provide your schema
 const yoga = createYoga({
@@ -292,14 +290,12 @@ const yoga = createYoga({
     `,
     resolvers: {
       Query: {
-        greetings: () => "Hello World!",
-      },
-    },
+        greetings: () => 'Hello World!'
+      }
+    }
   }),
-  plugins: [
-    useInngest({ inngestClient, buildUserContextFunction: userContext }),
-  ],
-});
+  plugins: [useInngest({ inngestClient, buildUserContextFunction: userContext })]
+})
 ```
 
 ### Control What Events Sent
@@ -320,12 +316,12 @@ There are options that give you control over the defaults that:
 To send only queries, configure the `sendOperations` option:
 
 ```ts
-import { Inngest } from "inngest";
+import { Inngest } from 'inngest'
 
-import { useInngest, SendableOperation } from "@envelop/inngest";
-import { createYoga, createSchema } from "graphql-yoga";
+import { useInngest, SendableOperation } from '@envelop/inngest'
+import { createYoga, createSchema } from 'graphql-yoga'
 
-const inngestClient = new Inngest({ name: "My App" });
+const inngestClient = new Inngest({ name: 'My App' })
 
 // Provide your schema
 const yoga = createYoga({
@@ -337,14 +333,12 @@ const yoga = createYoga({
     `,
     resolvers: {
       Query: {
-        greetings: () => "Hello World!",
-      },
-    },
+        greetings: () => 'Hello World!'
+      }
+    }
   }),
-  plugins: [
-    useInngest({ inngestClient, sendOperations: [SendableOperation.QUERY] }),
-  ],
-});
+  plugins: [useInngest({ inngestClient, sendOperations: [SendableOperation.QUERY] })]
+})
 ```
 
 #### Send Errors
@@ -354,12 +348,12 @@ If you want to send the event even when an GraphQL Error occurs, you can set `se
 Note: that in order for you to include the error information, you will also need to set `includeRawResult` to `true` as well.
 
 ```ts
-import { Inngest } from "inngest";
+import { Inngest } from 'inngest'
 
-import { useInngest } from "@envelop/inngest";
-import { createYoga, createSchema } from "graphql-yoga";
+import { useInngest } from '@envelop/inngest'
+import { createYoga, createSchema } from 'graphql-yoga'
 
-const inngestClient = new Inngest({ name: "My App" });
+const inngestClient = new Inngest({ name: 'My App' })
 
 // Provide your schema
 const yoga = createYoga({
@@ -371,12 +365,12 @@ const yoga = createYoga({
     `,
     resolvers: {
       Query: {
-        greetings: () => "Hello World!",
-      },
-    },
+        greetings: () => 'Hello World!'
+      }
+    }
   }),
-  plugins: [useInngest({ inngestClient, sendErrors: true })],
-});
+  plugins: [useInngest({ inngestClient, sendErrors: true })]
+})
 ```
 
 #### Send Introspection Queries
@@ -384,12 +378,12 @@ const yoga = createYoga({
 If you want to send an event when an introspection query occurs, you can set `sendIntrospection` to `true`:
 
 ```ts
-import { Inngest } from "inngest";
+import { Inngest } from 'inngest'
 
-import { useInngest } from "@envelop/inngest";
-import { createYoga, createSchema } from "graphql-yoga";
+import { useInngest } from '@envelop/inngest'
+import { createYoga, createSchema } from 'graphql-yoga'
 
-const inngestClient = new Inngest({ name: "My App" });
+const inngestClient = new Inngest({ name: 'My App' })
 
 // Provide your schema
 const yoga = createYoga({
@@ -401,12 +395,12 @@ const yoga = createYoga({
     `,
     resolvers: {
       Query: {
-        greetings: () => "Hello World!",
-      },
-    },
+        greetings: () => 'Hello World!'
+      }
+    }
   }),
-  plugins: [useInngest({ inngestClient, sendIntrospection: true })],
-});
+  plugins: [useInngest({ inngestClient, sendIntrospection: true })]
+})
 ```
 
 #### Send Anonymous Queries
@@ -416,12 +410,12 @@ If you want to send an event when an anonymous query occurs, you can set `sendAn
 Note: Anonymous query events will be send with an event name like `graphql/anonymous-d32327f2ad0fef67462baf2b8410a2b4b2cc8db57e67bb5b3c95efa595b39f30.query` where an operation id is generated based on the operation, document and variables in the request.
 
 ```ts
-import { Inngest } from "inngest";
+import { Inngest } from 'inngest'
 
-import { useInngest } from "@envelop/inngest";
-import { createYoga, createSchema } from "graphql-yoga";
+import { useInngest } from '@envelop/inngest'
+import { createYoga, createSchema } from 'graphql-yoga'
 
-const inngestClient = new Inngest({ name: "My App" });
+const inngestClient = new Inngest({ name: 'My App' })
 
 // Provide your schema
 const yoga = createYoga({
@@ -433,12 +427,12 @@ const yoga = createYoga({
     `,
     resolvers: {
       Query: {
-        greetings: () => "Hello World!",
-      },
-    },
+        greetings: () => 'Hello World!'
+      }
+    }
   }),
-  plugins: [useInngest({ inngestClient, sendAnonymousOperations: true })],
-});
+  plugins: [useInngest({ inngestClient, sendAnonymousOperations: true })]
+})
 ```
 
 #### Do Not Send Events where Types or Schema Coordinates are in a Denylist
@@ -448,12 +442,12 @@ There may a reason to block sending the event if the result data contains inform
 ##### Deny list of Types
 
 ```ts
-import { Inngest } from "inngest";
+import { Inngest } from 'inngest'
 
-import { useInngest } from "@envelop/inngest";
-import { createYoga, createSchema } from "graphql-yoga";
+import { useInngest } from '@envelop/inngest'
+import { createYoga, createSchema } from 'graphql-yoga'
 
-const inngestClient = new Inngest({ name: "My App" });
+const inngestClient = new Inngest({ name: 'My App' })
 
 // Provide your schema
 const yoga = createYoga({
@@ -465,23 +459,23 @@ const yoga = createYoga({
     `,
     resolvers: {
       Query: {
-        greetings: () => "Hello World!",
-      },
-    },
+        greetings: () => 'Hello World!'
+      }
+    }
   }),
-  plugins: [useInngest({ inngestClient, denylist: { types: ["User"] } })],
-});
+  plugins: [useInngest({ inngestClient, denylist: { types: ['User'] } })]
+})
 ```
 
 ##### Deny list of Schema Coordinates
 
 ```ts
-import { Inngest } from "inngest";
+import { Inngest } from 'inngest'
 
-import { useInngest } from "@envelop/inngest";
-import { createYoga, createSchema } from "graphql-yoga";
+import { useInngest } from '@envelop/inngest'
+import { createYoga, createSchema } from 'graphql-yoga'
 
-const inngestClient = new Inngest({ name: "My App" });
+const inngestClient = new Inngest({ name: 'My App' })
 
 // Provide your schema
 const yoga = createYoga({
@@ -493,17 +487,17 @@ const yoga = createYoga({
     `,
     resolvers: {
       Query: {
-        greetings: () => "Hello World!",
-      },
-    },
+        greetings: () => 'Hello World!'
+      }
+    }
   }),
   plugins: [
     useInngest({
       inngestClient,
-      denylist: { schemCoordinates: ["Query.user", "Query.users"] },
-    }),
-  ],
-});
+      denylist: { schemCoordinates: ['Query.user', 'Query.users'] }
+    })
+  ]
+})
 ```
 
 ### Result Payload
@@ -543,12 +537,12 @@ returns a single `Post`, the event payload will include the types in the result 
 You may send the complete raw result by setting `includeRawResult` to `true`:
 
 ```ts
-import { Inngest } from "inngest";
+import { Inngest } from 'inngest'
 
-import { useInngest } from "@envelop/inngest";
-import { createYoga, createSchema } from "graphql-yoga";
+import { useInngest } from '@envelop/inngest'
+import { createYoga, createSchema } from 'graphql-yoga'
 
-const inngestClient = new Inngest({ name: "My App" });
+const inngestClient = new Inngest({ name: 'My App' })
 
 // Provide your schema
 const yoga = createYoga({
@@ -560,23 +554,23 @@ const yoga = createYoga({
     `,
     resolvers: {
       Query: {
-        greetings: () => "Hello World!",
-      },
-    },
+        greetings: () => 'Hello World!'
+      }
+    }
   }),
-  plugins: [useInngest({ inngestClient, includeRawResult: true })],
-});
+  plugins: [useInngest({ inngestClient, includeRawResult: true })]
+})
 ```
 
 ### Redact Sensitive Information from Result Data
 
 ```ts
-import { Inngest } from "inngest";
+import { Inngest } from 'inngest'
 
-import { useInngest } from "@envelop/inngest";
-import { createYoga, createSchema } from "graphql-yoga";
+import { useInngest } from '@envelop/inngest'
+import { createYoga, createSchema } from 'graphql-yoga'
 
-const inngestClient = new Inngest({ name: "My App" });
+const inngestClient = new Inngest({ name: 'My App' })
 
 // Provide your schema
 const yoga = createYoga({
@@ -593,19 +587,19 @@ const yoga = createYoga({
     resolvers: {
       Query: {
         greetings: () => {
-          body: "Hello World!";
-        },
-      },
-    },
+          body: 'Hello World!'
+        }
+      }
+    }
   }),
   plugins: [
     useInngest({
       inngestClient,
       includeRawResult: true,
-      redactRawResultOptions: { paths: ["*.body"] },
-    }),
-  ],
-});
+      redactRawResultOptions: { paths: ['*.body'] }
+    })
+  ]
+})
 ```
 
 Then the `body` will not show `Hello World!` but rather `[REDACTED]`.
