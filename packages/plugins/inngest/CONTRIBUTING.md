@@ -35,6 +35,8 @@ and then `yarn` and then build, test, and run type check.
 
 Be sure to restore current packages for latest GraphQL dependency.
 
+5. Create a [changeset](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md) via `yarn changeset`
+
 ## All
 
 ```terminal
