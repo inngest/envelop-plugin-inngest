@@ -6,7 +6,7 @@
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/dthyresson/envelop-plugin-inngest.git",
+    "url": "https://github.com/inngest/envelop-plugin-inngest/blob/main/package.json",
     "directory": "packages/plugins/inngest"
   },
   "main": "dist/cjs/index.js",
