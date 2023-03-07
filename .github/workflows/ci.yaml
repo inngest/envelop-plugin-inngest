@@ -1,6 +1,9 @@
 name: ⚙️ CI
 
-on: pull_request
+on:
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
 
 jobs:
   ci:
@@ -8,11 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - run: yarn install
-      - run: yarn build
+      - uses: ./.github/actions/setup
       - run: yarn lint
       - run: yarn test
       - run: yarn ts:check

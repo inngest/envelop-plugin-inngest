@@ -1,0 +1,31 @@
+name: 🚀 Release
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  ci:
+    name: ⚙️ CI
+    uses: ./.github/workflows/ci.yaml
+    secrets: inherit
+
+  release:
+    name: 🚀 Release
+    needs: [ci]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - uses: changesets/action@v1
+        id: changesets
+        with:
+          publish: yarn release
+        env:
+          GITHUB_TOKEN: ${{ secrets.CHANGESET_GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@2.3.0/schema.json",
-  "changelog": ["@changesets/changelog-github", { "repo": "dthyresson/envelop-plugin-inngest" }],
+  "changelog": ["@changesets/changelog-github", { "repo": "inngest/envelop-plugin-inngest" }],
   "commit": false,
   "fixed": [],
   "linked": [],
