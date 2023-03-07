@@ -1,0 +1,20 @@
+name: "Setup"
+description: "Sets up Node, installs dependencies, and builds the project."
+inputs:
+  working-directory:  # id of input
+    description: 'The directory to run the action in.'
+    required: false
+    default: '.'
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - run: yarn install
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+    - run: yarn build
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
