@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@envelop/testing": "5.0.6",
-    "@graphql-tools/utils": "8.8.0",
+    "@graphql-tools/utils": "8.13.1",
     "@types/fast-redact": "3.0.2",
     "@types/humps": "2.0.2",
     "graphql": "16.6.0",
@@ -56,7 +56,7 @@
   },
   "dependencies": {
     "@envelop/core": "3.0.6",
-    "@graphql-tools/utils": "8.8.0",
+    "@graphql-tools/utils": "8.13.1",
     "@whatwg-node/fetch": "0.6.5",
     "fast-json-stable-stringify": "2.1.0",
     "fast-redact": "3.1.2",
