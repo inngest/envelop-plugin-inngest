@@ -34,7 +34,7 @@
     "@graphql-tools/schema": "8.5.1",
     "@theguild/prettier-config": "0.1.1",
     "@types/jest": "27.4.1",
-    "@types/node": "16.11.26",
+    "@types/node": "16.18.15",
     "@typescript-eslint/eslint-plugin": "5.36.2",
     "@typescript-eslint/parser": "5.36.2",
     "bob-the-bundler": "4.0.0",
