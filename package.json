@@ -4,7 +4,8 @@
   "license": "MIT",
   "workspaces": [
     "packages/*",
-    "packages/plugins/*"
+    "packages/plugins/*",
+    "packages/setup/*"
   ],
   "scripts": {
     "prepare": "husky install",
@@ -13,8 +14,9 @@
     "ci:build": "yarn build && yarn lint && yarn test && yarn ts:check && yarn bob check",
     "ci:lint": "eslint --config .eslintrc.json --ext .ts . --max-warnings 0 --output-file eslint_report.json --format json",
     "lint:prettier": "prettier --cache --ignore-path .gitignore --check .",
-    "prebuild": "rimraf packages/*/dist packages/plugins/*/dist",
-    "build": "bob build",
+    "prebuild": "rimraf packages/*/dist packages/plugins/*/dist packages/setup/*/dist",
+    "postbuild": "rm -rf packages/setup/redwoodjs/dist/templates && mkdir packages/setup/redwoodjs/dist/templates && cp -rf packages/setup/redwoodjs/templates/* packages/setup/redwoodjs/dist/templates",
+    "build": "bob build && yarn postbuild",
     "ts:check": "tsc --noEmit",
     "test": "jest",
     "test:core": "jest ./packages/core --coverage",
