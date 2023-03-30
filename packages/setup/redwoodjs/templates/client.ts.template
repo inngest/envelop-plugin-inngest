@@ -2,6 +2,7 @@ import { Inngest } from 'inngest'
 
 export const INNGEST_APP_NAME = 'Redwood_Inngest'
 
+// inngest client to be used in services and functions
 export const inngest = new Inngest({
   name: INNGEST_APP_NAME,
   eventKey: 'Redwood',

@@ -17,10 +17,12 @@ function isErrorWithExitCode(e: unknown): e is ErrorWithExitCode {
 // NOTE: Since inngest excels in TS, doesn't make sense to support JS
 // but then should have a check to see if RedwoodJS project is not TS and suggest to convert to TS
 export const handler = async ({ force }: { force: boolean }) => {
+  const SRC_INNGEST_PATH = path.join(getPaths().api.src, 'inngest');
+
   const tasks = new Listr(
     [
       {
-        title: 'Installing packages...',
+        title: 'Installing inngest packages ...',
         task: () => {
           return new Listr(
             [
@@ -45,7 +47,7 @@ export const handler = async ({ force }: { force: boolean }) => {
         },
       },
       {
-        title: 'Configure Inngest...',
+        title: 'Configure inngest ...',
         task: () => {
           const inngestServerFunctionTemplate = fs.readFileSync(
             path.resolve(__dirname, '..', 'templates', 'inngest.ts.template'),
@@ -56,8 +58,6 @@ export const handler = async ({ force }: { force: boolean }) => {
             existingFiles: 'OVERWRITE',
           });
 
-          const SRC_INNGEST_PATH = path.join(getPaths().api.src, 'inngest');
-
           fs.ensureDirSync(SRC_INNGEST_PATH);
 
           const inngestClientTemplate = fs.readFileSync(
@@ -66,7 +66,22 @@ export const handler = async ({ force }: { force: boolean }) => {
           );
 
           writeFile(path.join(SRC_INNGEST_PATH, 'client.ts'), inngestClientTemplate, { existingFiles: 'OVERWRITE' });
+        },
+      },
+      {
+        title: 'Configure inngest GraphQL plugin ...',
+        task: () => {
+          const inngestPluginTemplate = fs.readFileSync(
+            path.resolve(__dirname, '..', 'templates', 'plugin.ts.template'),
+            'utf-8'
+          );
 
+          writeFile(path.join(SRC_INNGEST_PATH, 'plugin.ts'), inngestPluginTemplate, { existingFiles: 'OVERWRITE' });
+        },
+      },
+      {
+        title: 'Adding inngest helloWorld example ...',
+        task: () => {
           const inngestHelloWorldTemplate = fs.readFileSync(
             path.resolve(__dirname, '..', 'templates', 'helloWorld.ts.template'),
             'utf-8'

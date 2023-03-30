@@ -6,6 +6,7 @@ Command for setting up Inngest background jobs and events support in a RedwoodJS
 
 ```
 yarn dlx inngest-setup-redwoodjs
+node ../../inngest/envelop-plugin-inngest/packages/setup/redwoodjs/dist/cjs/index.js
 ```
 
 Run the command above inside your RW project and it'll install and create the Inngest client in your RedwoodJS project.
@@ -13,7 +14,7 @@ Run the command above inside your RW project and it'll install and create the In
 ### Run the Inngest dev server
 
 ```
- npx inngest-cli@latest
+ npx inngest-cli@latest dev
 ```
 
 ### Navigate to the Inngest dev server
