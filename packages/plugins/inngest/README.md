@@ -13,7 +13,7 @@ It's philosophy is to:
 # Getting Started
 
 ```terminal
-yarn add inngest/envelop-plugin-inngest
+yarn add envelop-plugin-inngest
 ```
 
 ## Usage Example
@@ -23,7 +23,7 @@ When configuring `useInngest`, you will need to setup and setup an [Inngest clie
 ```ts
 import { Inngest } from 'inngest'
 
-import { useInngest } from 'inngest/envelop-plugin-inngest'
+import { useInngest } from 'envelop-plugin-inngest'
 import { createYoga, createSchema } from 'graphql-yoga'
 
 const inngestClient = new Inngest({ name: 'My App' })
@@ -59,7 +59,7 @@ You may set any [Yoga-compatible logger](https://the-guild.dev/graphql/yoga-serv
 ```ts
 import { Inngest } from 'inngest'
 
-import { useInngest } from 'inngest/envelop-plugin-inngest'
+import { useInngest } from 'envelop-plugin-inngest'
 import { createYoga, createSchema, createLogger } from 'graphql-yoga'
 
 const inngestClient = new Inngest({ name: 'My App' })
@@ -88,7 +88,7 @@ const yoga = createYoga({
 ```ts
 import { Inngest } from 'inngest'
 
-import { useInngest } from 'inngest/envelop-plugin-inngest'
+import { useInngest } from 'envelop-plugin-inngest'
 import { createYoga, createSchema, createLogger } from 'graphql-yoga'
 
 const inngestClient = new Inngest({ name: 'My App' })
@@ -117,7 +117,7 @@ const yoga = createYoga({
 ```ts
 import { Inngest } from 'inngest'
 
-import { useInngest } from 'inngest/envelop-plugin-inngest'
+import { useInngest } from 'envelop-plugin-inngest'
 import { createYoga, createSchema, createLogger } from 'graphql-yoga'
 
 const inngestClient = new Inngest({ name: 'My App' })
@@ -162,7 +162,7 @@ In the case where you want to completely override the function to construct the 
 ```ts
 import { Inngest } from 'inngest'
 
-import { useInngest } from 'inngest/envelop-plugin-inngest'
+import { useInngest } from 'envelop-plugin-inngest'
 import { createYoga, createSchema } from 'graphql-yoga'
 
 const inngestClient = new Inngest({ name: 'My App' })
@@ -197,7 +197,7 @@ The `buildEventNamePrefixFunction` option lets you pass a function to customize 
 ```ts
 import { Inngest } from 'inngest'
 
-import { useInngest } from 'inngest/envelop-plugin-inngest'
+import { useInngest } from 'envelop-plugin-inngest'
 import { createYoga, createSchema } from 'graphql-yoga'
 
 const inngestClient = new Inngest({ name: 'My App' })
@@ -236,7 +236,7 @@ The `buildUserContextFunction` option let's you define the user context info sen
 ```ts
 import { Inngest } from 'inngest'
 
-import { useInngest } from 'inngest/envelop-plugin-inngest'
+import { useInngest } from 'envelop-plugin-inngest'
 import { createYoga, createSchema } from 'graphql-yoga'
 
 const inngestClient = new Inngest({ name: 'My App' })
@@ -320,7 +320,7 @@ Note: that in order for you to include the error information, you will also need
 ```ts
 import { Inngest } from 'inngest'
 
-import { useInngest } from 'inngest/envelop-plugin-inngest'
+import { useInngest } from 'envelop-plugin-inngest'
 import { createYoga, createSchema } from 'graphql-yoga'
 
 const inngestClient = new Inngest({ name: 'My App' })
@@ -350,7 +350,7 @@ If you want to send an event when an introspection query occurs, you can set `se
 ```ts
 import { Inngest } from 'inngest'
 
-import { useInngest } from 'inngest/envelop-plugin-inngest'
+import { useInngest } from 'envelop-plugin-inngest'
 import { createYoga, createSchema } from 'graphql-yoga'
 
 const inngestClient = new Inngest({ name: 'My App' })
@@ -382,7 +382,7 @@ Note: Anonymous query events will be send with an event name like `graphql/anony
 ```ts
 import { Inngest } from 'inngest'
 
-import { useInngest } from 'inngest/envelop-plugin-inngest'
+import { useInngest } from 'envelop-plugin-inngest'
 import { createYoga, createSchema } from 'graphql-yoga'
 
 const inngestClient = new Inngest({ name: 'My App' })
@@ -414,7 +414,7 @@ There may a reason to block sending the event if the result data contains inform
 ```ts
 import { Inngest } from 'inngest'
 
-import { useInngest } from 'inngest/envelop-plugin-inngest'
+import { useInngest } from 'envelop-plugin-inngest'
 import { createYoga, createSchema } from 'graphql-yoga'
 
 const inngestClient = new Inngest({ name: 'My App' })
@@ -442,7 +442,7 @@ const yoga = createYoga({
 ```ts
 import { Inngest } from 'inngest'
 
-import { useInngest } from 'inngest/envelop-plugin-inngest'
+import { useInngest } from 'envelop-plugin-inngest'
 import { createYoga, createSchema } from 'graphql-yoga'
 
 const inngestClient = new Inngest({ name: 'My App' })
@@ -509,7 +509,7 @@ You may send the complete raw result by setting `includeRawResult` to `true`:
 ```ts
 import { Inngest } from 'inngest'
 
-import { useInngest } from 'inngest/envelop-plugin-inngest'
+import { useInngest } from 'envelop-plugin-inngest'
 import { createYoga, createSchema } from 'graphql-yoga'
 
 const inngestClient = new Inngest({ name: 'My App' })
@@ -537,7 +537,7 @@ const yoga = createYoga({
 ```ts
 import { Inngest } from 'inngest'
 
-import { useInngest } from 'inngest/envelop-plugin-inngest'
+import { useInngest } from 'envelop-plugin-inngest'
 import { createYoga, createSchema } from 'graphql-yoga'
 
 const inngestClient = new Inngest({ name: 'My App' })
