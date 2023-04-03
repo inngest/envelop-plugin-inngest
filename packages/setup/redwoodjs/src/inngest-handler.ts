@@ -6,7 +6,9 @@ import execa from 'execa';
 import { Listr } from 'listr2';
 
 import { colors, getPaths, writeFile } from '@redwoodjs/cli-helpers';
-
+import { getRWPaths } from './lib/get-rw-paths';
+import { runTransform } from './lib/run-transform';
+import { isTSProject } from './lib/is-ts-project';
 interface ErrorWithExitCode extends Error {
   exitCode?: number;
 }
@@ -70,6 +72,26 @@ export const handler = async ({ force }: { force: boolean }) => {
       },
       {
         title: 'Configure inngest GraphQL plugin ...',
+        task: async () => {
+          const graphqlHandlerFile = isTSProject ? 'graphql.ts' : 'graphql.js';
+
+          const transformPath = path.join(__dirname, 'modify-graphql-handler.ts');
+          const targetPaths = [path.join(getRWPaths().api.base, 'src', 'functions', graphqlHandlerFile)];
+
+          // eslint-disable-next-line no-console
+          console.log('graphqlHandlerFile', graphqlHandlerFile, transformPath, targetPaths);
+
+          const result = await runTransform({
+            transformPath,
+            targetPaths,
+          });
+
+          // eslint-disable-next-line no-console
+          console.log('result', result);
+        },
+      },
+      {
+        title: 'Modify GraphQLHandler to use plugin ...',
         task: () => {
           const inngestPluginTemplate = fs.readFileSync(
             path.resolve(__dirname, '..', 'templates', 'plugin.ts.template'),
