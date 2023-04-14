@@ -6,9 +6,7 @@ import execa from 'execa';
 import { Listr } from 'listr2';
 
 import { colors, getPaths, writeFile } from '@redwoodjs/cli-helpers';
-import { getRWPaths } from './lib/get-rw-paths';
-import { runTransform } from './lib/run-transform';
-import { isTSProject } from './lib/is-ts-project';
+
 interface ErrorWithExitCode extends Error {
   exitCode?: number;
 }
@@ -20,34 +18,27 @@ function isErrorWithExitCode(e: unknown): e is ErrorWithExitCode {
 // but then should have a check to see if RedwoodJS project is not TS and suggest to convert to TS
 export const handler = async ({ force }: { force: boolean }) => {
   const SRC_INNGEST_PATH = path.join(getPaths().api.src, 'inngest');
+  // eslint-disable-next-line no-console
+  console.log('>>>>>>>>>>>>>>>>> HIIII');
 
   const tasks = new Listr(
     [
       {
-        title: 'Installing inngest packages ...',
+        title: 'Install inngest packages ...',
         task: () => {
-          return new Listr(
-            [
-              {
-                title: 'Install inngest',
-                task: () => {
-                  execa.commandSync(
-                    'yarn workspace api add envelop-plugin-inngest',
-                    // eslint-disable-next-line dot-notation
-                    process.env['RWJS_CWD']
-                      ? {
-                          // eslint-disable-next-line dot-notation
-                          cwd: process.env['RWJS_CWD'],
-                        }
-                      : {}
-                  );
-                },
-              },
-            ],
-            { rendererOptions: { collapse: false } }
+          execa.commandSync(
+            'yarn workspace api add envelop-plugin-inngest',
+            // eslint-disable-next-line dot-notation
+            process.env['RWJS_CWD']
+              ? {
+                  // eslint-disable-next-line dot-notation
+                  cwd: process.env['RWJS_CWD'],
+                }
+              : {}
           );
         },
       },
+
       {
         title: 'Configure inngest ...',
         task: () => {
@@ -71,27 +62,7 @@ export const handler = async ({ force }: { force: boolean }) => {
         },
       },
       {
-        title: 'Configure inngest GraphQL plugin ...',
-        task: async () => {
-          const graphqlHandlerFile = isTSProject ? 'graphql.ts' : 'graphql.js';
-
-          const transformPath = path.join(__dirname, 'modify-graphql-handler.ts');
-          const targetPaths = [path.join(getRWPaths().api.base, 'src', 'functions', graphqlHandlerFile)];
-
-          // eslint-disable-next-line no-console
-          console.log('graphqlHandlerFile', graphqlHandlerFile, transformPath, targetPaths);
-
-          const result = await runTransform({
-            transformPath,
-            targetPaths,
-          });
-
-          // eslint-disable-next-line no-console
-          console.log('result', result);
-        },
-      },
-      {
-        title: 'Modify GraphQLHandler to use plugin ...',
+        title: 'Add the Inngest GraphQL plugin ...',
         task: () => {
           const inngestPluginTemplate = fs.readFileSync(
             path.resolve(__dirname, '..', 'templates', 'plugin.ts.template'),
@@ -102,7 +73,7 @@ export const handler = async ({ force }: { force: boolean }) => {
         },
       },
       {
-        title: 'Adding inngest helloWorld example ...',
+        title: 'Add inngest helloWorld example ...',
         task: () => {
           const inngestHelloWorldTemplate = fs.readFileSync(
             path.resolve(__dirname, '..', 'templates', 'helloWorld.ts.template'),
@@ -112,6 +83,21 @@ export const handler = async ({ force }: { force: boolean }) => {
           return writeFile(path.join(SRC_INNGEST_PATH, 'helloWorld.ts'), inngestHelloWorldTemplate, {
             existingFiles: 'OVERWRITE',
           });
+        },
+      },
+      {
+        title: 'Modify the GraphQL handler to useInngest ...',
+        task: async () => {
+          execa.commandSync(
+            'npx @redwoodjs/codemods use-inngest',
+            // eslint-disable-next-line dot-notation
+            process.env['RWJS_CWD']
+              ? {
+                  // eslint-disable-next-line dot-notation
+                  cwd: process.env['RWJS_CWD'],
+                }
+              : {}
+          );
         },
       },
     ],
