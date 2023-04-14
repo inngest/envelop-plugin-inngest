@@ -18,8 +18,6 @@ function isErrorWithExitCode(e: unknown): e is ErrorWithExitCode {
 // but then should have a check to see if RedwoodJS project is not TS and suggest to convert to TS
 export const handler = async ({ force }: { force: boolean }) => {
   const SRC_INNGEST_PATH = path.join(getPaths().api.src, 'inngest');
-  // eslint-disable-next-line no-console
-  console.log('>>>>>>>>>>>>>>>>> HIIII');
 
   const tasks = new Listr(
     [
