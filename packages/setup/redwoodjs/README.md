@@ -1,66 +1,29 @@
 # inngest-setup-redwoodjs
 
-Command for setting up Inngest background jobs and events support in a RedwoodJS project
+Command for setting up Inngest background jobs and events support in a RedwoodJS project and auto-instrument the GraphQL api via the envelop-plugin-inngest plugin.
 
 ## Usage
 
 ```
 yarn dlx inngest-setup-redwoodjs
-node ../../inngest/envelop-plugin-inngest/packages/setup/redwoodjs/dist/cjs/index.js
 ```
 
 Run the command above inside your RW project and it'll install and create the Inngest client in your RedwoodJS project.
 
-### Run the Inngest dev server
+## Command
 
-```
- npx inngest-cli@latest dev
-```
+The setup command will configure a RedwoodJS project to use inngest and auto-instrument the Gra[phQL API.]
 
-### Navigate to the Inngest dev server
+- installs required Inngest packages
+- sets up all needed inngest files
+- creates the plugin for RedwoodJS GraphQLHandler
+- runs a codemod to transform the GraphQLHandler to use the Inngest plugin
 
-```
-http://127.0.0.1:8288/
-```
-
-### Sending Events to Inngest
-
-To quickly test out your event from the dev server click the "Send Event" button in top right and add you event data.
-
-```
-{
-  "name": "test/hello.world",
-  "data": {
-    "name": "Redwood"
-  },
-}
-```
-
-To send an event from a redwood service you can import the inngest client and call the send method with your event data
-
-```
-import { inngest } from 'src/inngest/client'
-
-await inngest.send({
-  // The event name
-  name: "test/hello.world",
-  // The event's data
-  data: {
-    name: 'Redwood',
-  }
-```
+Tests for codemod and included.
 
 ## Note
 
-Currently this only works for TS projects. (Also see below 😉)
-
-## Contributing
-
-If you want to add JS support, or contribute any other changes an easy way to test this locally is:
-
-```
-yarn start --cwd ../rw-example-project --force
-```
+Currently this setup command only works for RedwoodJS projects with TypeScript.
 
 ### Releasing
 
