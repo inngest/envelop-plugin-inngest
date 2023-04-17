@@ -1,4 +1,4 @@
-import type { FileInfo, API, ArrayExpression, ObjectProperty, Identifier } from 'jscodeshift';
+import type { FileInfo, API, ArrayExpression, Property, Identifier } from 'jscodeshift';
 
 module.exports = function (file: FileInfo, api: API) {
   const j = api.jscodeshift;
@@ -42,8 +42,7 @@ module.exports = function (file: FileInfo, api: API) {
       }
 
       const extraPluginsProp = optionsProps.properties?.find(
-        (p): p is ObjectProperty =>
-          j.ObjectProperty.check(p) && j.Identifier.check(p.key) && p.key.name === 'extraPlugins'
+        (p): p is Property => j.Property.check(p) && j.Identifier.check(p.key) && p.key.name === 'extraPlugins'
       );
 
       if (extraPluginsProp) {
@@ -60,6 +59,7 @@ module.exports = function (file: FileInfo, api: API) {
         }
       } else {
         // `extraPlugins` property does not exist
+        console.debug('extraPlugins prop does not exist');
         optionsProps.properties?.push(
           j.property('init', j.identifier('extraPlugins'), j.arrayExpression([j.identifier('inngestPlugin')]))
         );
