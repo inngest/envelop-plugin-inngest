@@ -59,7 +59,6 @@ module.exports = function (file: FileInfo, api: API) {
         }
       } else {
         // `extraPlugins` property does not exist
-        console.debug('extraPlugins prop does not exist');
         optionsProps.properties?.push(
           j.property('init', j.identifier('extraPlugins'), j.arrayExpression([j.identifier('inngestPlugin')]))
         );
