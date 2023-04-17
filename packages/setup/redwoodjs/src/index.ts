@@ -6,6 +6,8 @@ import { hideBin } from 'yargs/helpers';
 import yargs from 'yargs';
 import Parser from 'yargs-parser';
 
+import { isTypeScriptProject } from '@redwoodjs/cli-helpers';
+
 import { scriptName, description, builder, handler } from './inngest.js';
 
 let { cwd, help } = Parser(hideBin(process.argv));
@@ -31,6 +33,12 @@ try {
 
     if (redwoodTOMLPath) {
       cwd = path.dirname(redwoodTOMLPath);
+    }
+
+    if (!isTypeScriptProject()) {
+      throw new Error(
+        `Inngest works best with TypeScript. Please run \`yarn rw setup typescript\` to convert your project to TypeScript first.`
+      );
     }
   }
 } catch (error) {

@@ -7,6 +7,8 @@ import { Listr } from 'listr2';
 
 import { colors, getPaths, writeFile } from '@redwoodjs/cli-helpers';
 
+import * as jscodeshift from 'jscodeshift/src/Runner';
+
 interface ErrorWithExitCode extends Error {
   exitCode?: number;
 }
@@ -14,6 +16,7 @@ interface ErrorWithExitCode extends Error {
 function isErrorWithExitCode(e: unknown): e is ErrorWithExitCode {
   return typeof (e as ErrorWithExitCode)?.exitCode !== 'undefined';
 }
+
 // NOTE: Since inngest excels in TS, doesn't make sense to support JS
 // but then should have a check to see if RedwoodJS project is not TS and suggest to convert to TS
 export const handler = async ({ force }: { force: boolean }) => {
@@ -84,18 +87,35 @@ export const handler = async ({ force }: { force: boolean }) => {
         },
       },
       {
-        title: 'Modify the GraphQL handler to useInngest ...',
+        title: 'Modify the GraphQL handler to the useInngest plugin ...',
         task: async () => {
-          execa.commandSync(
-            'npx @redwoodjs/codemods use-inngest',
-            // eslint-disable-next-line dot-notation
-            process.env['RWJS_CWD']
-              ? {
-                  // eslint-disable-next-line dot-notation
-                  cwd: process.env['RWJS_CWD'],
-                }
-              : {}
-          );
+          const SRC_GRAPHQL_FUNCTION_FILE = path.join(getPaths().api.functions, 'graphql.ts');
+          const SRC_INNGEST_CODEMOD_FILE = path.join(__dirname, 'use-inngest-codemod.js');
+
+          const defaultJscodeshiftOpts = {
+            verbose: 0,
+            dry: false,
+            print: false,
+            babel: false,
+            extensions: 'js',
+            ignorePattern: '**/node_modules/**',
+            ignoreConfig: [],
+            runInBand: false,
+            silent: false,
+            parser: 'ts',
+            parserConfig: {},
+            failOnError: true,
+            stdin: false,
+          };
+
+          try {
+            await jscodeshift.run(SRC_INNGEST_CODEMOD_FILE, [SRC_GRAPHQL_FUNCTION_FILE], {
+              ...defaultJscodeshiftOpts,
+            });
+          } catch (e: any) {
+            // eslint-disable-next-line no-console
+            console.error('Failed to modify the GraphQL handler', e.message);
+          }
         },
       },
     ],
