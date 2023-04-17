@@ -4,12 +4,11 @@ interface BaseOptions {
   cwd: string | undefined;
 }
 
-interface ForceOptions extends BaseOptions {
+export interface ForceOptions extends BaseOptions {
   force: boolean;
 }
 
 export const scriptName = 'inngest-setup-redwoodjs';
-
 export const description = 'Set up Inngest';
 
 export const builder = (yargs: Yargs.Argv<BaseOptions>) => {

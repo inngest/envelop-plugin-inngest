@@ -8,7 +8,7 @@ import Parser from 'yargs-parser';
 
 import { isTypeScriptProject } from '@redwoodjs/cli-helpers';
 
-import { scriptName, description, builder, handler } from './inngest.js';
+import { scriptName, description, builder, handler } from './inngest-commands.js';
 
 let { cwd, help } = Parser(hideBin(process.argv));
 // eslint-disable-next-line dot-notation
