@@ -70,14 +70,18 @@
   "dependencies": {
     "@redwoodjs/cli-helpers": "4.5.0",
     "@iarna/toml": "2.2.5",
+    "camelcase": "6.3.0",
     "chalk": "4.1.2",
     "deepmerge": "4.3.1",
     "execa": "5.1.1",
     "fast-glob": "3.2.12",
     "findup-sync": "5.0.0",
     "fs-extra": "11.1.0",
+    "humanize-string": "2.1.0",
     "jscodeshift": "0.14.0",
     "listr2": "5.0.7",
+    "param-case": "3.0.4",
+    "pascalcase": "1.0.0",
     "typescript": "5.0.3",
     "yargs-parser": "21.1.1",
     "yargs": "17.7.1"
@@ -88,6 +92,7 @@
     "@types/yargs": "17.0.22",
     "@types/jscodeshift": "0.11.6",
     "@redwoodjs/cli-helpers": "4.5.0",
+    "@types/pascalcase": "1.0.1",
     "pkgroll": "1.9.0",
     "tsx": "3.12.3"
   },
