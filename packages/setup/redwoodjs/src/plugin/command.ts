@@ -8,19 +8,21 @@ export interface ForceOptions extends BaseOptions {
   force: boolean;
 }
 
-export const scriptName = 'inngest-setup-redwoodjs';
-export const description = 'Set up Inngest';
+export const description = 'Set up Inngest plugin';
 
 export const builder = (yargs: Yargs.Argv<BaseOptions>) => {
   return yargs.option('force', {
     alias: 'f',
-    default: false,
-    description: 'Overwrite existing configuration',
+    default: true,
+    description: 'Overwrite existing files',
     type: 'boolean',
   });
 };
 
 export const handler = async (options: ForceOptions) => {
-  const { handler } = await import('./inngest-handler');
+  // setup plugin
+  // eslint-disable-next-line no-console
+  console.debug('setup plugin', options);
+  const { handler } = await import('./handler');
   return handler(options);
 };

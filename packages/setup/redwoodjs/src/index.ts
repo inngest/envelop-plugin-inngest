@@ -8,7 +8,19 @@ import Parser from 'yargs-parser';
 
 import { isTypeScriptProject } from '@redwoodjs/cli-helpers';
 
-import { scriptName, description, builder, handler } from './inngest-commands.js';
+import {
+  description as pluginDescription,
+  builder as pluginBuilder,
+  handler as pluginHandler,
+} from './plugin/command.js';
+
+import {
+  description as functionDescription,
+  builder as functionBuilder,
+  handler as functionHandler,
+} from './function/command.js';
+
+export const scriptName = 'inngest-setup-redwoodjs';
 
 let { cwd, help } = Parser(hideBin(process.argv));
 // eslint-disable-next-line dot-notation
@@ -53,12 +65,16 @@ try {
 // eslint-disable-next-line dot-notation
 process.env['RWJS_CWD'] = cwd;
 
+export const command = 'setup <command>';
+
 yargs
+  .demandCommand()
   .scriptName(scriptName)
   .option('cwd', {
     type: 'string',
     demandOption: false,
     description: 'Working directory to use (where `redwood.toml` is located)',
   })
-  .command('$0', description, builder, handler)
+  .command('plugin', pluginDescription, pluginBuilder, pluginHandler)
+  .command('function <name>', functionDescription, functionBuilder, functionHandler)
   .parse();
