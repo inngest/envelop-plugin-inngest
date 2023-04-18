@@ -34,14 +34,6 @@ export const builder = (yargs: Yargs.Argv) => {
 };
 
 export const handler = async (options: any) => {
-  // setup plugin
-  // eslint-disable-next-line no-console
-  console.debug('setup function', options);
   const { handler } = await import('./handler');
   return handler(options);
-
-  // generate background function
-  // generate scheduled function
-  // generate delayed function
-  // generate step function
 };

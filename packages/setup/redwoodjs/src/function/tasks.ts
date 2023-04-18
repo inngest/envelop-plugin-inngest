@@ -135,16 +135,11 @@ const writeFunctionFile = (filename: string, template: string) => {
 };
 
 export const tasks = (options: SetupFunctionTasksOptions) => {
-  // eslint-disable-next-line no-console
-  console.debug('options', options);
-
   return new Listr(
     [
       {
         title: `Create a ${options.type} Inngest function named ${options.name} ...`,
         task: () => {
-          // eslint-disable-next-line no-console
-
           switch (options.type) {
             case 'background': {
               const { filename, template } = getBackgroundFunctionTemplate(options.name);

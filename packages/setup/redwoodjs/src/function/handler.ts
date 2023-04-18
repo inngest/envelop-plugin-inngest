@@ -1,6 +1,6 @@
 import { colors } from '@redwoodjs/cli-helpers';
 
-import { tasks as setupPluginTasks } from './tasks';
+import { tasks as setupFunctionTasks } from './tasks';
 import type { SetupFunctionTasksOptions } from './tasks';
 
 interface ErrorWithExitCode extends Error {
@@ -12,7 +12,7 @@ function isErrorWithExitCode(e: unknown): e is ErrorWithExitCode {
 }
 
 export const handler = async ({ cwd, force, name, type }: SetupFunctionTasksOptions) => {
-  const tasks = setupPluginTasks({ cwd, force, name, type });
+  const tasks = setupFunctionTasks({ cwd, force, name, type });
 
   try {
     await tasks.run();

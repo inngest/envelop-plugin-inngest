@@ -20,9 +20,6 @@ export const builder = (yargs: Yargs.Argv<BaseOptions>) => {
 };
 
 export const handler = async (options: ForceOptions) => {
-  // setup plugin
-  // eslint-disable-next-line no-console
-  console.debug('setup plugin', options);
   const { handler } = await import('./handler');
   return handler(options);
 };
