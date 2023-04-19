@@ -1,18 +1,27 @@
 # inngest-setup-redwoodjs
 
-Command for setting up Inngest background jobs and events support in a RedwoodJS project and auto-instrument the GraphQL api via the envelop-plugin-inngest plugin.
+Setup up Inngest in a RedwoodJS project and to create new functions via command line.
+
+The `plugin` command configures Inngest and auto-instruments the RedwoodJS GraphQL api using the `envelop-plugin-inngest plugin`.
+
+The `function` command creates stubbed out background, delayed, scheduled and step functions ready for you to implement.
 
 ## Usage
 
 ```
-yarn dlx inngest-setup-redwoodjs
+yarn dlx inngest-setup-redwoodjs plugin
+yarn dlx inngest-setup-redwoodjs function <name> -t <type>
 ```
 
-Run the command above inside your RW project and it'll install and create the Inngest client in your RedwoodJS project.
+Run the above commands inside your RedwoodJS project.
 
-## Command
+### Plugin Command
 
-The setup command will configure a RedwoodJS project to use inngest and auto-instrument the Gra[phQL API.]
+```
+yarn dlx inngest-setup-redwoodjs plugin
+```
+
+The plugin command will configure a RedwoodJS project to use Inngest and auto-instrument the GraphQL API.
 
 - installs required Inngest packages
 - sets up all needed inngest files
@@ -21,9 +30,30 @@ The setup command will configure a RedwoodJS project to use inngest and auto-ins
 
 Tests for codemod and included.
 
+See: [envelop-plugin-inngest README](https://github.com/inngest/envelop-plugin-inngest/tree/main/packages/plugins/inngest) for more information about the plugin.
+
+### Function Command
+
+```
+yarn dlx inngest-setup-redwoodjs function <name> -t <type>
+```
+
+The function command will create a new file for the selected function type ready to implement.
+
+Supported types are:
+
+- background
+- delayed
+- scheduled
+- step
+
+See [Writing Functions](https://www.inngest.com/docs/functions) in the Inngest documentation for more info.
+
+Important: In order to use Inngest functions, the plugin command should be run first to configure and setup your RedwoodJS app to use Inngest.
+
 ## Note
 
-Currently this setup command only works for RedwoodJS projects with TypeScript.
+Currently these commands only work for RedwoodJS projects with TypeScript.
 
 ### Releasing
 
