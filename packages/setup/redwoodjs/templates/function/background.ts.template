@@ -1,0 +1,14 @@
+import { inngest } from 'src/inngest/client'
+
+const ${functionName} = inngest.createFunction(
+  { name: '${name}' },
+  { event: 'event/${eventName}' },
+  
+  // This function will be called every time an event payload is received
+  async ({ event, step }) => {
+    // You can write whatever you want here.
+    return
+  }
+)
+
+export default ${functionName}

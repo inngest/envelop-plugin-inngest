@@ -1,0 +1,16 @@
+import { inngest } from 'src/inngest/client'
+
+const ${functionName} = inngest.createFunction(
+  { name: '${name}' },
+  { event: 'event/${eventName}' },
+  async ({ event, step }) => {
+    await step.sleep('1s')
+
+    return {
+      event,
+      body: '${humanizedName}',
+    }
+  }
+)
+
+export default ${functionName}

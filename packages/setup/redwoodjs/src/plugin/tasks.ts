@@ -36,7 +36,7 @@ export const tasks = (options: SetupPluginTasksOptions) => {
         title: 'Configure inngest ...',
         task: () => {
           const inngestServerFunctionTemplate = fs.readFileSync(
-            path.resolve(__dirname, '..', '..', 'templates', 'inngest.ts.template'),
+            path.resolve(__dirname, '..', '..', 'templates', 'plugin', 'inngest.ts.template'),
             'utf-8'
           );
 
@@ -47,7 +47,7 @@ export const tasks = (options: SetupPluginTasksOptions) => {
           fs.ensureDirSync(SRC_INNGEST_PATH);
 
           const inngestClientTemplate = fs.readFileSync(
-            path.resolve(__dirname, '..', '..', 'templates', 'client.ts.template'),
+            path.resolve(__dirname, '..', '..', 'templates', 'plugin', 'client.ts.template'),
             'utf-8'
           );
 
@@ -58,7 +58,7 @@ export const tasks = (options: SetupPluginTasksOptions) => {
         title: 'Add the Inngest GraphQL plugin ...',
         task: () => {
           const inngestPluginTemplate = fs.readFileSync(
-            path.resolve(__dirname, '..', '..', 'templates', 'plugin.ts.template'),
+            path.resolve(__dirname, '..', '..', 'templates', 'plugin', 'plugin.ts.template'),
             'utf-8'
           );
 
@@ -69,7 +69,7 @@ export const tasks = (options: SetupPluginTasksOptions) => {
         title: 'Add inngest helloWorld example ...',
         task: () => {
           const inngestHelloWorldTemplate = fs.readFileSync(
-            path.resolve(__dirname, '..', '..', 'templates', 'helloWorld.ts.template'),
+            path.resolve(__dirname, '..', '..', 'templates', 'plugin', 'helloWorld.ts.template'),
             'utf-8'
           );
 
