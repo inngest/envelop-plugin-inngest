@@ -3,7 +3,6 @@ const fs = require('fs');
 const jscodeshift = require('jscodeshift');
 const pluginTransform = require('../src/use-inngest-codemod');
 const functionTransform = require('../src/add-function-to-inngest-handler-codemod');
-const packageJsonTransform = require('../src/add-inngest-dev-script-codemod');
 
 describe('codemods', () => {
   const defaultJscodeshiftOpts = {
