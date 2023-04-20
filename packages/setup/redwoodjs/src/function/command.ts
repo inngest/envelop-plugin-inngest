@@ -17,6 +17,12 @@ export const description = 'Set up an Inngest function';
 
 export const builder = (yargs: Yargs.Argv) => {
   return yargs
+    .epilogue(
+      `Note: To launch the Inngest dev server, from the terminal run: 
+    
+  npx inngest-cli@latest dev -u http://localhost:8911/inngest    
+  `
+    )
     .positional('name', { type: 'string', description: 'Name of the function to setup' })
     .option('type', {
       alias: 't',
