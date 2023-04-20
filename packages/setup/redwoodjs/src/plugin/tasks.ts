@@ -11,6 +11,23 @@ import type { ForceOptions } from './command';
 
 export interface SetupPluginTasksOptions extends ForceOptions {}
 
+interface PackageJson {
+  scripts?: Record<string, string>;
+}
+
+async function addScriptToPackageJson(): Promise<void> {
+  const packageJsonPath = './package.json';
+  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8')) as PackageJson;
+
+  if (!packageJson.scripts) {
+    packageJson.scripts = {};
+  }
+
+  packageJson.scripts['inngest:dev'] = 'npx inngest-cli@latest dev -u http://localhost:8911/inngest';
+
+  fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+}
+
 export const tasks = (options: SetupPluginTasksOptions) => {
   const SRC_INNGEST_PATH = path.join(getPaths().api.src, 'inngest');
   const SRC_LIB_PATH = path.join(getPaths().api.lib);
@@ -120,6 +137,12 @@ export const tasks = (options: SetupPluginTasksOptions) => {
             // eslint-disable-next-line no-console
             console.error('Failed to modify the GraphQL handler', e.message);
           }
+        },
+      },
+      {
+        title: 'Add inngest dev script to package.json',
+        task: async () => {
+          await addScriptToPackageJson();
         },
       },
       {

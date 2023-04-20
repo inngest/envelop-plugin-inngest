@@ -5,9 +5,13 @@ const ${functionName} = inngest.createFunction(
   { event: 'event/${eventName}' },
 
   // This function will be called every time an event payload is received
-  async ({ event, step }) => {
-    // You can write whatever you want here.
-    return
+  // When implementing your function, you have access to the { event, step }.
+  async ({ event }) => {
+    return {
+      event,
+      body: 'Background function ${humanizedName} ran.',
+      runAt: Date.now().toString(),
+    }  
   }
 )
 

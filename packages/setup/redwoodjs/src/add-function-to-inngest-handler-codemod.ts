@@ -2,6 +2,7 @@ import { API, FileInfo, ImportDeclaration } from 'jscodeshift';
 
 module.exports = function (file: FileInfo, api: API, { functionName }: { functionName: string }) {
   const j = api.jscodeshift;
+
   const root = j(file.source);
   // Add the new import statement
   const newImport: ImportDeclaration = j.importDeclaration(

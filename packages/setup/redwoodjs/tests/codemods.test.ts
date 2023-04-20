@@ -3,26 +3,27 @@ const fs = require('fs');
 const jscodeshift = require('jscodeshift');
 const pluginTransform = require('../src/use-inngest-codemod');
 const functionTransform = require('../src/add-function-to-inngest-handler-codemod');
+const packageJsonTransform = require('../src/add-inngest-dev-script-codemod');
 
 describe('codemods', () => {
+  const defaultJscodeshiftOpts = {
+    verbose: 1,
+    dry: false,
+    print: true,
+    babel: false,
+    extensions: ['js', 'json'],
+    ignorePattern: '**/node_modules/**',
+    ignoreConfig: [],
+    runInBand: false,
+    silent: false,
+    parser: 'ts',
+    parserConfig: {},
+    failOnError: true,
+    stdin: false,
+  };
+
   describe('plugin', () => {
     describe('When using use-inngest-codemod to transform, the graphQL handler', () => {
-      const defaultJscodeshiftOpts = {
-        verbose: 1,
-        dry: false,
-        print: true,
-        babel: false,
-        extensions: 'js',
-        ignorePattern: '**/node_modules/**',
-        ignoreConfig: [],
-        runInBand: false,
-        silent: false,
-        parser: 'ts',
-        parserConfig: {},
-        failOnError: true,
-        stdin: false,
-      };
-
       describe('transforms code correctly', () => {
         it('when given a standard default GraphQL handler', () => {
           const source = fs.readFileSync(
@@ -78,22 +79,6 @@ describe('codemods', () => {
   });
   describe('function', () => {
     describe('When using add-function-to-inngest-handler-codemod to transform, the Inngest handler', () => {
-      const defaultJscodeshiftOpts = {
-        verbose: 1,
-        dry: false,
-        print: true,
-        babel: false,
-        extensions: 'js',
-        ignorePattern: '**/node_modules/**',
-        ignoreConfig: [],
-        runInBand: false,
-        silent: false,
-        parser: 'ts',
-        parserConfig: {},
-        failOnError: true,
-        stdin: false,
-      };
-
       describe('transforms code correctly', () => {
         describe('when given a standard default Inngest handler', () => {
           describe('it adds the new function to the existing array of inngest functions', () => {

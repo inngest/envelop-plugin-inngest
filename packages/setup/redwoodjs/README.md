@@ -76,7 +76,15 @@ Note: The endpoint needs to match the `servePath` (e.g., '/inngest') defined in 
 
 ### Tip!
 
-You can launch the dev server easier by adding a script to your application's `package.json` like
+The `plugin` command adds a script to your `package.json` to make to easier to launch the Inngest Dev Server.
+
+Simply run:
+
+```
+yarn inngest:dev
+```
+
+Or, you can add manually by adding this script to your application's `package.json` like
 
 ```
   "scripts": {
@@ -84,13 +92,7 @@ You can launch the dev server easier by adding a script to your application's `p
   }
 ```
 
-Thenm, simply:
-
-```
-yarn inngest:dev
-```
-
-## Note
+## Important
 
 Currently these commands only work for RedwoodJS projects with TypeScript.
 
