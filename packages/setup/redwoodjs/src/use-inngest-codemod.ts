@@ -7,7 +7,7 @@ module.exports = function (file: FileInfo, api: API) {
 
   const inngestImport = j.importDeclaration(
     [j.importSpecifier(j.identifier('inngestPlugin'))],
-    j.literal('src/inngest/plugin')
+    j.literal('src/plugins/inngest')
   );
 
   // Check if inngestPlugin is already imported

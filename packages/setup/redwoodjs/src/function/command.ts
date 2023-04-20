@@ -23,7 +23,6 @@ export const builder = (yargs: Yargs.Argv) => {
       type: 'string',
       choices: ['background', 'scheduled', 'delayed', 'step'],
       description: 'Type of Inngest function to setup',
-      default: 'background',
     })
     .option('force', {
       alias: 'f',

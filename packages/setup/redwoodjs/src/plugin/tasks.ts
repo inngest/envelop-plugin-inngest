@@ -13,6 +13,8 @@ export interface SetupPluginTasksOptions extends ForceOptions {}
 
 export const tasks = (options: SetupPluginTasksOptions) => {
   const SRC_INNGEST_PATH = path.join(getPaths().api.src, 'inngest');
+  const SRC_LIB_PATH = path.join(getPaths().api.lib);
+  const SRC_PLUGINS_PATH = path.join(getPaths().api.src, 'plugins');
 
   return new Listr(
     [
@@ -35,6 +37,7 @@ export const tasks = (options: SetupPluginTasksOptions) => {
       {
         title: 'Configure inngest ...',
         task: () => {
+          // save inngest handler function in api functions
           const inngestServerFunctionTemplate = fs.readFileSync(
             path.resolve(__dirname, '..', '..', 'templates', 'plugin', 'inngest.ts.template'),
             'utf-8'
@@ -44,30 +47,37 @@ export const tasks = (options: SetupPluginTasksOptions) => {
             existingFiles: 'OVERWRITE',
           });
 
-          fs.ensureDirSync(SRC_INNGEST_PATH);
+          // save inngest client to a api lib
+          fs.ensureDirSync(SRC_LIB_PATH);
 
           const inngestClientTemplate = fs.readFileSync(
             path.resolve(__dirname, '..', '..', 'templates', 'plugin', 'client.ts.template'),
             'utf-8'
           );
 
-          writeFile(path.join(SRC_INNGEST_PATH, 'client.ts'), inngestClientTemplate, { existingFiles: 'OVERWRITE' });
+          writeFile(path.join(SRC_LIB_PATH, 'inngest.ts'), inngestClientTemplate, { existingFiles: 'OVERWRITE' });
         },
       },
       {
         title: 'Add the Inngest GraphQL plugin ...',
         task: () => {
+          // save inngest plugin to a new plugins folder
+          fs.ensureDirSync(SRC_PLUGINS_PATH);
+
           const inngestPluginTemplate = fs.readFileSync(
             path.resolve(__dirname, '..', '..', 'templates', 'plugin', 'plugin.ts.template'),
             'utf-8'
           );
 
-          writeFile(path.join(SRC_INNGEST_PATH, 'plugin.ts'), inngestPluginTemplate, { existingFiles: 'OVERWRITE' });
+          writeFile(path.join(SRC_PLUGINS_PATH, 'inngest.ts'), inngestPluginTemplate, { existingFiles: 'OVERWRITE' });
         },
       },
       {
         title: 'Add inngest helloWorld example ...',
         task: () => {
+          // save example inngest functions in the inngest folder
+          fs.ensureDirSync(SRC_INNGEST_PATH);
+
           const inngestHelloWorldTemplate = fs.readFileSync(
             path.resolve(__dirname, '..', '..', 'templates', 'plugin', 'helloWorld.ts.template'),
             'utf-8'
@@ -82,7 +92,7 @@ export const tasks = (options: SetupPluginTasksOptions) => {
         title: 'Modify the GraphQL handler to the useInngest plugin ...',
         task: async () => {
           const SRC_GRAPHQL_FUNCTION_FILE = path.join(getPaths().api.functions, 'graphql.ts');
-          const SRC_INNGEST_CODEMOD_FILE = path.join(__dirname, 'use-inngest-codemod.js');
+          const SRC_INNGEST_CODEMOD_FILE = path.join(__dirname, '..', 'use-inngest-codemod.js');
 
           const defaultJscodeshiftOpts = {
             verbose: 0,

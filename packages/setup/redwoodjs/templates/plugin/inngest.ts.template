@@ -4,6 +4,6 @@ import { INNGEST_APP_NAME } from 'src/inngest/client'
 import helloWorld from 'src/inngest/helloWorld'
 
 export const handler = serve(INNGEST_APP_NAME, [helloWorld], {
-  servePath: '/.redwood/functions/inngest',
-  signingKey: 'Redwood',
+  servePath: '/inngest',
+  signingKey: 'YOUR-SIGNING-KEY',
 })

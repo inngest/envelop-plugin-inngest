@@ -65,7 +65,7 @@ try {
 // eslint-disable-next-line dot-notation
 process.env['RWJS_CWD'] = cwd;
 
-export const command = 'setup <command>';
+export const command = 'plugin <command>';
 
 yargs
   .demandCommand()

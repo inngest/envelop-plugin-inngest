@@ -32,6 +32,19 @@ Tests for codemod and included.
 
 See: [envelop-plugin-inngest README](https://github.com/inngest/envelop-plugin-inngest/tree/main/packages/plugins/inngest) for more information about the plugin.
 
+### Next Steps
+
+1. Update `INNGEST_APP_NAME` and `eventKey` custom to your application
+
+```
+// api/src/inngest/client.ts
+
+export const inngest = new Inngest({
+  name: INNGEST_APP_NAME,
+  eventKey: 'Redwood',
+})
+```
+
 ### Function Command
 
 ```
@@ -50,6 +63,32 @@ Supported types are:
 See [Writing Functions](https://www.inngest.com/docs/functions) in the Inngest documentation for more info.
 
 Important: In order to use Inngest functions, the plugin command should be run first to configure and setup your RedwoodJS app to use Inngest.
+
+## Inngest Dev Server
+
+To launch the Inngest dev server, from a new terminal run:
+
+```
+npx inngest-cli@latest dev -u http://localhost:8911/inngest
+```
+
+Note: The endpoint needs to match the `servePath` (e.g., '/inngest') defined in `api/src/functions/inngest.ts`.
+
+### Tip!
+
+You can launch the dev server easier by adding a script to your application's `package.json` like
+
+```
+  "scripts": {
+    "inngest:dev": "npx inngest-cli@latest dev -u http://localhost:8911/inngest"
+  }
+```
+
+Thenm, simply:
+
+```
+yarn inngest:dev
+```
 
 ## Note
 

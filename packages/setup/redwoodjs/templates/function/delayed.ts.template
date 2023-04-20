@@ -1,4 +1,4 @@
-import { inngest } from 'src/inngest/client'
+import { inngest } from 'src/lib/inngest'
 
 const ${functionName} = inngest.createFunction(
   { name: '${name}' },

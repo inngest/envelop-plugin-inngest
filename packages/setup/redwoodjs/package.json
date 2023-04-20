@@ -80,6 +80,7 @@
     "humanize-string": "2.1.0",
     "jscodeshift": "0.14.0",
     "listr2": "5.0.7",
+    "prompts": "2.4.2",
     "lodash.template": "4.5.0",
     "param-case": "3.0.4",
     "pascalcase": "1.0.0",
@@ -95,6 +96,7 @@
     "@types/lodash.template": "4.5.1",
     "@redwoodjs/cli-helpers": "4.5.0",
     "@types/pascalcase": "1.0.1",
+    "@types/prompts": "2.4.1",
     "pkgroll": "1.9.0",
     "tsx": "3.12.3"
   },
