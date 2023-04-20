@@ -6,7 +6,7 @@ import type {
   InngestUserContextOptions,
 } from 'envelop-plugin-inngest'
 
-import { inngest } from 'src/inngest/client'
+import { inngest } from 'src/lib/inngest'
 
 // Includes the user context for each authenticated GraphQL request
 export const userContext: BuildUserContextFunction = (

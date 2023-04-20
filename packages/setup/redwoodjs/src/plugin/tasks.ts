@@ -69,7 +69,9 @@ export const tasks = (options: SetupPluginTasksOptions) => {
             'utf-8'
           );
 
-          writeFile(path.join(SRC_PLUGINS_PATH, 'inngest.ts'), inngestPluginTemplate, { existingFiles: 'OVERWRITE' });
+          writeFile(path.join(SRC_PLUGINS_PATH, 'useInngest.ts'), inngestPluginTemplate, {
+            existingFiles: 'OVERWRITE',
+          });
         },
       },
       {
@@ -118,6 +120,23 @@ export const tasks = (options: SetupPluginTasksOptions) => {
             // eslint-disable-next-line no-console
             console.error('Failed to modify the GraphQL handler', e.message);
           }
+        },
+      },
+      {
+        title: `Lint and Prettify added files ...`,
+        task: async () => {
+          const SRC_GRAPHQL_FUNCTION_FILE = path.join(getPaths().api.functions, 'graphql.ts');
+
+          execa.commandSync(
+            `yarn rw lint --fix ${SRC_GRAPHQL_FUNCTION_FILE}`,
+            // eslint-disable-next-line dot-notation
+            process.env['RWJS_CWD']
+              ? {
+                  // eslint-disable-next-line dot-notation
+                  cwd: process.env['RWJS_CWD'],
+                }
+              : {}
+          );
         },
       },
     ],

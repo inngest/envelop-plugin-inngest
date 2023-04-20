@@ -1,7 +1,6 @@
 import fs from 'fs-extra';
 import path from 'path';
-import * as jscodeshift from 'jscodeshift/src/Runner';
-
+import execa from 'execa';
 import camelcase from 'camelcase';
 import { paramCase } from 'param-case';
 import humanize from 'humanize-string';
@@ -9,6 +8,8 @@ import template from 'lodash.template';
 import { Listr } from 'listr2';
 
 import { getPaths, writeFile } from '@redwoodjs/cli-helpers';
+
+import * as jscodeshift from 'jscodeshift/src/Runner';
 
 import type { SetupInngestFunctionOptions } from './command';
 
@@ -87,6 +88,23 @@ export const tasks = (options: SetupFunctionTasksOptions) => {
             // eslint-disable-next-line no-console
             console.error('Failed to modify the GraphQL handler', e.message);
           }
+        },
+      },
+      {
+        title: `Lint and Prettify added files ...`,
+        task: async () => {
+          const SRC_INNGEST_HANDLER_FILE = path.join(getPaths().api.functions, 'inngest.ts');
+
+          execa.commandSync(
+            `yarn rw lint --fix ${SRC_INNGEST_HANDLER_FILE}`,
+            // eslint-disable-next-line dot-notation
+            process.env['RWJS_CWD']
+              ? {
+                  // eslint-disable-next-line dot-notation
+                  cwd: process.env['RWJS_CWD'],
+                }
+              : {}
+          );
         },
       },
     ],

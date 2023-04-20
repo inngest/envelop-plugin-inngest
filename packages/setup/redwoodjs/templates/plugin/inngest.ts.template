@@ -1,9 +1,11 @@
 import { serve } from 'inngest/redwood'
 
-import { INNGEST_APP_NAME } from 'src/inngest/client'
 import helloWorld from 'src/inngest/helloWorld'
+import { INNGEST_APP_NAME } from 'src/lib/inngest'
 
-export const handler = serve(INNGEST_APP_NAME, [helloWorld], {
+const inngestFunctions = [helloWorld]
+
+export const handler = serve(INNGEST_APP_NAME, inngestFunctions, {
   servePath: '/inngest',
   signingKey: 'YOUR-SIGNING-KEY',
 })
