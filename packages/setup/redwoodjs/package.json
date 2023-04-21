@@ -1,6 +1,6 @@
 {
   "name": "inngest-setup-redwoodjs",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Setup Inngest in RedwoodJS",
   "license": "MIT",
   "sideEffects": false,
