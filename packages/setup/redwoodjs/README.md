@@ -32,7 +32,7 @@ Tests for codemod and included.
 
 See: [envelop-plugin-inngest README](https://github.com/inngest/envelop-plugin-inngest/tree/main/packages/plugins/inngest) for more information about the plugin.
 
-### Files Added by Setup
+### Files Added by Plugin Setup
 
 After running the `plugin` command, the following files are setup in your RedwoodJS project api side:
 
@@ -71,7 +71,7 @@ export const inngest = new Inngest({
 })
 ```
 
-### Function Command
+## Function Command
 
 ```
 yarn dlx inngest-setup-redwoodjs function <name> -t <type>
@@ -100,7 +100,7 @@ npx inngest-cli@latest dev -u http://localhost:8911/inngest
 
 Note: The endpoint needs to match the `servePath` (e.g., '/inngest') defined in `api/src/functions/inngest.ts`.
 
-### Tip!
+## Tip!
 
 The `plugin` command adds a script to your `package.json` to make to easier to launch the Inngest Dev Server.
 
@@ -122,6 +122,6 @@ Or, you can add manually by adding this script to your application's `package.js
 
 Currently these commands only work for RedwoodJS projects with TypeScript.
 
-### Releasing
+## Releasing
 
 It's made to be released by npm (e.g. `npm run release:patch`). That way I don't have to worry about yarn v1 vs v3
