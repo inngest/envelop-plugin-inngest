@@ -10,6 +10,31 @@ It's philosophy is to:
 - provide fine-grained control over what events are sent such as operations (queries, mutations, or subscriptions), introspection events, when GraphQL errors occur, if result data should be included, type and schema coordinate denylists ... and more.
 - be customized with event prefix, name and user context functions
 
+## Packages
+
+This monorepo contains several packages:
+
+- plugin
+- setup
+
+### envelop-plugin-inngest
+
+An envelop plugin that sends GraphQL response data to Inngest to help build event-driven applications.
+
+Please see the [plugin README](packages/plugins/inngest/README.md) to learn about the plugin.
+
+Or, if using [RedwoodJS](https://www.redwoodjs.com), see the [setup command README](packages/setup/redwoodjs/README.md) for instructions to configure and to create functions via command line.
+
+### inngest-setup-redwoodjs
+
+Setup up Inngest in a RedwoodJS project and to create new functions via command line.
+
+The `plugin` command configures Inngest and auto-instruments the RedwoodJS GraphQL api using the envelop-plugin-inngest plugin.
+
+The `function` command creates stubbed out background, delayed, scheduled and step functions ready for you to implement.
+
+Please see the [setup README](https://github.com/inngest/envelop-plugin-inngest/tree/main/packages/setup/redwoodjs) to learn about the setup command for RedwoodJS.
+
 ## About Inngest
 
 Inngest makes it simple for you to write delayed or background jobs by triggering functions from events — decoupling your code from your application.
@@ -39,12 +64,6 @@ Envelop aims to extend the GraphQL execution flow by adding plugins that enriche
 Envelop provides a low-level hook-based plugin API for developers. By combining plugins, you can compose your own GraphQL "framework", and get a modified version of GraphQL with the capabilities you need.
 
 Envelop is created and maintained by [The Guild](https://the-guild.dev/).
-
-## Setup and Usage
-
-Please see the [plugin README](packages/plugins//inngest/README.md) for manual setup instructions.
-
-Or, if using [RedwoodJS](https://www.redwoodjs.com), see the [setup command README](packages/setup/redwoodjs/README.md) for instructions to configure and to create functions via command line.
 
 ## Contributing
 
