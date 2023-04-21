@@ -15,7 +15,7 @@ yarn dlx inngest-setup-redwoodjs function <name> -t <type>
 
 Run the above commands inside your RedwoodJS project.
 
-### Plugin Command
+## Plugin Command
 
 ```
 yarn dlx inngest-setup-redwoodjs plugin
@@ -31,6 +31,32 @@ The plugin command will configure a RedwoodJS project to use Inngest and auto-in
 Tests for codemod and included.
 
 See: [envelop-plugin-inngest README](https://github.com/inngest/envelop-plugin-inngest/tree/main/packages/plugins/inngest) for more information about the plugin.
+
+### Files Added by Setup
+
+After running the `plugin` command, the following files are setup in your RedwoodJS project api side:
+
+```terminal
+- api
+ +-- src
+  +-- functions
+      +- graphql.ts         // Modified GraphQLHandler to use Inngest plugin to instrument GraphQL api
+      +- inngest.ts         // Inngest endpoint to serve functions
+  +-- inngest               // Directory where Inngest functions are stored
+      +- helloWorld.ts      // Example background function
+  +-- lib
+      +- inngest.ts         // Inngest client. Use this if you need to send custom events in services or functions.
+  +-- plugin
+        +- useInngest.ts    // GraphQL Yoga plugin that auto-instruments GraphQL api
+```
+
+Also, your project's `package.json` file is modified to add a scrip that can launch the Inngest dev server quickly:
+
+```json file="package.json"
+  "scripts": {
+    "inngest:dev": "npx inngest-cli@latest dev -u http://localhost:8911/inngest",
+  }
+```
 
 ### Next Steps
 

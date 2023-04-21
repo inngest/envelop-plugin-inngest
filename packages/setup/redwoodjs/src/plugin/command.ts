@@ -13,7 +13,7 @@ export const description = 'Set up Inngest plugin';
 export const builder = (yargs: Yargs.Argv<BaseOptions>) => {
   return yargs.option('force', {
     alias: 'f',
-    default: true,
+    default: false,
     description: 'Overwrite existing files',
     type: 'boolean',
   });

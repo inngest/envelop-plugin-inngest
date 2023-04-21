@@ -32,7 +32,7 @@ export const builder = (yargs: Yargs.Argv) => {
     })
     .option('force', {
       alias: 'f',
-      default: true,
+      default: false,
       description: 'Overwrite existing files',
       type: 'boolean',
     });

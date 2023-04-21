@@ -15,7 +15,7 @@ interface PackageJson {
   scripts?: Record<string, string>;
 }
 
-async function addScriptToPackageJson(): Promise<void> {
+const addScriptToPackageJson = () => {
   const packageJsonPath = './package.json';
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8')) as PackageJson;
 
@@ -25,13 +25,15 @@ async function addScriptToPackageJson(): Promise<void> {
 
   packageJson.scripts['inngest:dev'] = 'npx inngest-cli@latest dev -u http://localhost:8911/inngest';
 
-  fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
-}
+  writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2), { existingFiles: 'OVERWRITE' });
+};
 
 export const tasks = (options: SetupPluginTasksOptions) => {
   const SRC_INNGEST_PATH = path.join(getPaths().api.src, 'inngest');
   const SRC_LIB_PATH = path.join(getPaths().api.lib);
   const SRC_PLUGINS_PATH = path.join(getPaths().api.src, 'plugins');
+
+  const existingFiles = options.force ? 'OVERWRITE' : 'FAIL';
 
   return new Listr(
     [
@@ -61,7 +63,7 @@ export const tasks = (options: SetupPluginTasksOptions) => {
           );
 
           writeFile(path.join(getPaths().api.functions, 'inngest.ts'), inngestServerFunctionTemplate, {
-            existingFiles: 'OVERWRITE',
+            existingFiles,
           });
 
           // save inngest client to a api lib
@@ -87,7 +89,7 @@ export const tasks = (options: SetupPluginTasksOptions) => {
           );
 
           writeFile(path.join(SRC_PLUGINS_PATH, 'useInngest.ts'), inngestPluginTemplate, {
-            existingFiles: 'OVERWRITE',
+            existingFiles,
           });
         },
       },
@@ -103,7 +105,7 @@ export const tasks = (options: SetupPluginTasksOptions) => {
           );
 
           return writeFile(path.join(SRC_INNGEST_PATH, 'helloWorld.ts'), inngestHelloWorldTemplate, {
-            existingFiles: 'OVERWRITE',
+            existingFiles,
           });
         },
       },
@@ -142,7 +144,7 @@ export const tasks = (options: SetupPluginTasksOptions) => {
       {
         title: 'Add inngest dev script to package.json',
         task: async () => {
-          await addScriptToPackageJson();
+          addScriptToPackageJson();
         },
       },
       {

@@ -11,6 +11,7 @@ import { getPaths, writeFile } from '@redwoodjs/cli-helpers';
 
 import * as jscodeshift from 'jscodeshift/src/Runner';
 
+import type { ExistingFiles } from '@redwoodjs/cli-helpers';
 import type { SetupInngestFunctionOptions } from './command';
 
 export interface SetupFunctionTasksOptions extends SetupInngestFunctionOptions {}
@@ -39,20 +40,22 @@ const renderFunctionTemplate = (name: string, type: string) => {
   return { filename: functionName, rendered };
 };
 
-const writeFunctionFile = (filename: string, rendered: string) => {
+const writeFunctionFile = (filename: string, rendered: string, existingFiles: ExistingFiles) => {
   writeFile(path.join(SRC_INNGEST_PATH, `${filename}.ts`), rendered, {
-    existingFiles: 'OVERWRITE',
+    existingFiles,
   });
 };
 
 export const tasks = (options: SetupFunctionTasksOptions) => {
+  const existingFiles = options.force ? 'OVERWRITE' : 'FAIL';
+
   return new Listr(
     [
       {
         title: `Create a ${options.type} Inngest function named ${options.name} ...`,
         task: () => {
           const { filename, rendered } = renderFunctionTemplate(options.name, options.type);
-          writeFunctionFile(filename, rendered);
+          writeFunctionFile(filename, rendered, existingFiles);
         },
       },
       {
