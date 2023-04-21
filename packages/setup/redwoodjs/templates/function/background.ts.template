@@ -1,0 +1,28 @@
+import { inngest } from 'src/lib/inngest'
+
+/**
+ * To test this ${functionName} function, send an event to the Inngest API with the following payload:
+ *
+ * {
+ *   "name": "event/${eventName}",
+ *   "data": {}
+ *   "user": {}
+ * }
+ *
+ */
+const ${functionName} = inngest.createFunction(
+  { name: '${name}' },
+  { event: 'event/${eventName}' },
+
+  // This function will be called every time an event payload is received
+  // When implementing your function, you have access to the { event, step }.
+  async ({ event }) => {
+    return {
+      event,
+      body: 'Background function ${humanizedName} ran.',
+      runAt: Date.now().toString(),
+    }  
+  }
+)
+
+export default ${functionName}

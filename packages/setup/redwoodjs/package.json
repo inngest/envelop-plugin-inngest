@@ -1,0 +1,113 @@
+{
+  "name": "inngest-setup-redwoodjs",
+  "version": "0.0.0",
+  "description": "Setup Inngest in RedwoodJS",
+  "license": "MIT",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inngest/envelop-plugin-inngest/blob/main/package.json",
+    "directory": "packages/setup/redwoodjs"
+  },
+  "contributors": [
+    {
+      "name": "Kris Coulson"
+    },
+    {
+      "name": "Dom Saadi"
+    },
+    {
+      "name": "David Thyresson",
+      "email": "dthyresson@gmail.com"
+    }
+  ],
+  "main": "dist/cjs/index.js",
+  "bin": {
+    "inngest-setup-redwoodjs": "./dist/cjs/index.js"
+  },
+  "module": "dist/esm/index.js",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dist/typings/index.d.cts",
+        "default": "./dist/cjs/index.js"
+      },
+      "import": {
+        "types": "./dist/typings/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "default": {
+        "types": "./dist/typings/index.d.ts",
+        "default": "./dist/esm/index.js"
+      }
+    },
+    "./*": {
+      "require": {
+        "types": "./dist/typings/*.d.cts",
+        "default": "./dist/cjs/*.js"
+      },
+      "import": {
+        "types": "./dist/typings/*.d.ts",
+        "default": "./dist/esm/*.js"
+      },
+      "default": {
+        "types": "./dist/typings/*.d.ts",
+        "default": "./dist/esm/*.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "typings": "dist/typings/index.d.ts",
+  "typescript": {
+    "definition": "dist/typings/index.d.ts"
+  },
+  "keywords": [
+    "inngest",
+    "redwood",
+    "redwoodjs",
+    "realtime"
+  ],
+  "dependencies": {
+    "@redwoodjs/cli-helpers": "4.5.0",
+    "@iarna/toml": "2.2.5",
+    "camelcase": "6.3.0",
+    "chalk": "4.1.2",
+    "deepmerge": "4.3.1",
+    "execa": "5.1.1",
+    "fast-glob": "3.2.12",
+    "findup-sync": "5.0.0",
+    "fs-extra": "11.1.0",
+    "humanize-string": "2.1.0",
+    "jscodeshift": "0.14.0",
+    "listr2": "5.0.7",
+    "prompts": "2.4.2",
+    "lodash.template": "4.5.0",
+    "param-case": "3.0.4",
+    "pascalcase": "1.0.0",
+    "typescript": "5.0.3",
+    "yargs-parser": "21.1.1",
+    "yargs": "17.7.1"
+  },
+  "devDependencies": {
+    "@types/findup-sync": "4.0.2",
+    "@types/fs-extra": "11.0.1",
+    "@types/yargs": "17.0.22",
+    "@types/jscodeshift": "0.11.6",
+    "@types/lodash.template": "4.5.1",
+    "@redwoodjs/cli-helpers": "4.5.0",
+    "@types/pascalcase": "1.0.1",
+    "@types/prompts": "2.4.1",
+    "pkgroll": "1.9.0",
+    "tsx": "3.12.3"
+  },
+  "buildOptions": {
+    "input": "./src/index.ts"
+  },
+  "publishConfig": {
+    "directory": "dist",
+    "access": "public"
+  },
+  "bob": {
+    "check": false
+  }
+}

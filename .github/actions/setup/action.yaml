@@ -1,7 +1,7 @@
-name: "Setup"
-description: "Sets up Node, installs dependencies, and builds the project."
+name: 'Setup'
+description: 'Sets up Node, installs dependencies, and builds the project.'
 inputs:
-  working-directory:  # id of input
+  working-directory: # id of input
     description: 'The directory to run the action in.'
     required: false
     default: '.'

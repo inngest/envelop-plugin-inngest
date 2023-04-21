@@ -1,0 +1,20 @@
+import { inngest } from 'src/lib/inngest'
+
+/**
+ * To test this ${functionName} function make sure your app and dev server is running
+ */
+const ${functionName} = inngest.createFunction(
+  { name: '${humanizedName}' }, // The name of your function, used for observability.
+  { cron: 'TZ=America/New_York * * * * *' }, // The cron syntax for the function. TZ= is optional.
+
+  // This function will be called on the schedule defined in the cron property.
+  // When implementing your function, you have access to the { event, step }.
+  async () => {
+    return {
+      message: `Scheduled ${humanizedName} function ran.`,
+      runAt: Date.now().toString(),
+    }
+  }
+)
+
+export default ${functionName}

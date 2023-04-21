@@ -42,4 +42,10 @@ Envelop is created and maintained by [The Guild](https://the-guild.dev/).
 
 ## Setup and Usage
 
-Please see the [plugin README](packages/plugins//inngest/README.md) for setup instructions and [also how to contribute](/packages/plugins/inngest/CONTRIBUTING.md).
+Please see the [plugin README](packages/plugins//inngest/README.md) for manual setup instructions.
+
+Or, if using [RedwoodJS](https://www.redwoodjs.com), see the [setup command README](packages/setup/redwoodjs/README.md) for instructions to configure and to create functions via command line.
+
+## Contributing
+
+Contributions are welcome! Pleas see [how to contribute](/packages/plugins/inngest/CONTRIBUTING.md).
