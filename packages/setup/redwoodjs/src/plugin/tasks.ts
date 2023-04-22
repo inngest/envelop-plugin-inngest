@@ -165,6 +165,6 @@ export const tasks = (options: SetupPluginTasksOptions) => {
         },
       },
     ],
-    { rendererOptions: { collapse: false } }
+    { rendererOptions: {} }
   );
 };
