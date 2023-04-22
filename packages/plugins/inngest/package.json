@@ -55,7 +55,7 @@
     "fast-redact": "3.1.2",
     "humps": "2.0.1",
     "inngest": "1.7.1",
-    "tslib": "2.4.0"
+    "tslib": "2.5.0"
   },
   "devDependencies": {
     "@envelop/testing": "5.0.6",
