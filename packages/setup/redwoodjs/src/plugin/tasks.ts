@@ -38,7 +38,7 @@ export const tasks = (options: SetupPluginTasksOptions) => {
       {
         title: 'Install inngest packages ...',
         task: () => {
-          execa.execaCommandSync(
+          execa.commandSync(
             'yarn workspace api add envelop-plugin-inngest',
             // eslint-disable-next-line dot-notation
             process.env['RWJS_CWD']
@@ -160,7 +160,7 @@ export const tasks = (options: SetupPluginTasksOptions) => {
         task: async () => {
           const SRC_GRAPHQL_FUNCTION_FILE = path.join(getPaths().api.functions, 'graphql.ts');
 
-          execa.execaCommandSync(
+          execa.commandSync(
             `yarn rw lint --fix ${SRC_GRAPHQL_FUNCTION_FILE}`,
             // eslint-disable-next-line dot-notation
             process.env['RWJS_CWD']

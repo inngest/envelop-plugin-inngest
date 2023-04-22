@@ -102,7 +102,7 @@ export const tasks = (options: SetupFunctionTasksOptions) => {
         task: async () => {
           const SRC_INNGEST_HANDLER_FILE = path.join(getPaths().api.functions, 'inngest.ts');
 
-          execa.execaCommandSync(
+          execa.commandSync(
             `yarn rw lint --fix ${SRC_INNGEST_HANDLER_FILE}`,
             // eslint-disable-next-line dot-notation
             process.env['RWJS_CWD']

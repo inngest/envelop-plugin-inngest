@@ -1,6 +1,7 @@
 {
   "name": "inngest-setup-redwoodjs",
   "version": "0.2.0",
+  "type": "module",
   "description": "Setup Inngest in RedwoodJS",
   "repository": {
     "type": "git",
@@ -66,14 +67,14 @@
   "dependencies": {
     "@iarna/toml": "2.2.5",
     "@redwoodjs/cli-helpers": "4.5.0",
-    "camelcase": "7.0.1",
+    "camelcase": "6.3.0",
     "chalk": "5.2.0",
     "deepmerge": "4.3.1",
-    "execa": "7.1.1",
+    "execa": "5.1.1",
     "fast-glob": "3.2.12",
     "findup-sync": "5.0.0",
     "fs-extra": "11.1.1",
-    "humanize-string": "3.0.0",
+    "humanize-string": "2.1.0",
     "jscodeshift": "0.14.0",
     "listr2": "6.3.1",
     "lodash.template": "4.5.0",
