@@ -1,16 +1,13 @@
-import fs from 'fs-extra';
 import path from 'path';
-import execa from 'execa';
 import camelcase from 'camelcase';
-import { paramCase } from 'param-case';
+import execa from 'execa';
+import fs from 'fs-extra';
 import humanize from 'humanize-string';
-import template from 'lodash.template';
-import { Listr } from 'listr2';
-
-import { getPaths, writeFile } from '@redwoodjs/cli-helpers';
-
 import * as jscodeshift from 'jscodeshift/src/Runner';
-
+import { Listr } from 'listr2';
+import template from 'lodash.template';
+import { paramCase } from 'param-case';
+import { getPaths, writeFile } from '@redwoodjs/cli-helpers';
 import type { ExistingFiles } from '@redwoodjs/cli-helpers';
 import type { SetupInngestFunctionOptions } from './command';
 
@@ -31,8 +28,11 @@ const renderFunctionTemplate = (name: string, type: string) => {
 
   const compiled = template(
     fs
-      .readFileSync(path.resolve(__dirname, '..', '..', 'templates', 'function', `${type}.ts.template`), 'utf-8')
-      .toString()
+      .readFileSync(
+        path.resolve(__dirname, '..', '..', 'templates', 'function', `${type}.ts.template`),
+        'utf-8',
+      )
+      .toString(),
   );
 
   const rendered = compiled({ name, eventName, functionName, humanizedName });
@@ -64,7 +64,11 @@ export const tasks = (options: SetupFunctionTasksOptions) => {
           const { functionName } = getNamesForFile(options.name);
 
           const SRC_INNGEST_HANDLER_FILE = path.join(getPaths().api.functions, 'inngest.ts');
-          const SRC_INNGEST_CODEMOD_FILE = path.join(__dirname, '..', 'add-function-to-inngest-handler-codemod.js');
+          const SRC_INNGEST_CODEMOD_FILE = path.join(
+            __dirname,
+            '..',
+            'add-function-to-inngest-handler-codemod.js',
+          );
 
           const defaultJscodeshiftOpts = {
             verbose: 0,
@@ -98,7 +102,7 @@ export const tasks = (options: SetupFunctionTasksOptions) => {
         task: async () => {
           const SRC_INNGEST_HANDLER_FILE = path.join(getPaths().api.functions, 'inngest.ts');
 
-          execa.commandSync(
+          execa.execaCommandSync(
             `yarn rw lint --fix ${SRC_INNGEST_HANDLER_FILE}`,
             // eslint-disable-next-line dot-notation
             process.env['RWJS_CWD']
@@ -106,11 +110,11 @@ export const tasks = (options: SetupFunctionTasksOptions) => {
                   // eslint-disable-next-line dot-notation
                   cwd: process.env['RWJS_CWD'],
                 }
-              : {}
+              : {},
           );
         },
       },
     ],
-    { rendererOptions: {} }
+    { rendererOptions: {} },
   );
 };

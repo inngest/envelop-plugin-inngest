@@ -1,12 +1,9 @@
-import fs from 'fs-extra';
 import path from 'path';
-
 import execa from 'execa';
-import { Listr } from 'listr2';
-
-import { getPaths, writeFile } from '@redwoodjs/cli-helpers';
-
+import fs from 'fs-extra';
 import * as jscodeshift from 'jscodeshift/src/Runner';
+import { Listr } from 'listr2';
+import { getPaths, writeFile } from '@redwoodjs/cli-helpers';
 import type { ForceOptions } from './command';
 
 export interface SetupPluginTasksOptions extends ForceOptions {}
@@ -23,7 +20,8 @@ const addScriptToPackageJson = () => {
     packageJson.scripts = {};
   }
 
-  packageJson.scripts['inngest:dev'] = 'npx inngest-cli@latest dev -u http://localhost:8911/inngest';
+  packageJson.scripts['inngest:dev'] =
+    'npx inngest-cli@latest dev -u http://localhost:8911/inngest';
 
   writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2), { existingFiles: 'OVERWRITE' });
 };
@@ -40,7 +38,7 @@ export const tasks = (options: SetupPluginTasksOptions) => {
       {
         title: 'Install inngest packages ...',
         task: () => {
-          execa.commandSync(
+          execa.execaCommandSync(
             'yarn workspace api add envelop-plugin-inngest',
             // eslint-disable-next-line dot-notation
             process.env['RWJS_CWD']
@@ -48,7 +46,7 @@ export const tasks = (options: SetupPluginTasksOptions) => {
                   // eslint-disable-next-line dot-notation
                   cwd: process.env['RWJS_CWD'],
                 }
-              : {}
+              : {},
           );
         },
       },
@@ -59,22 +57,28 @@ export const tasks = (options: SetupPluginTasksOptions) => {
           // save inngest handler function in api functions
           const inngestServerFunctionTemplate = fs.readFileSync(
             path.resolve(__dirname, '..', '..', 'templates', 'plugin', 'inngest.ts.template'),
-            'utf-8'
+            'utf-8',
           );
 
-          writeFile(path.join(getPaths().api.functions, 'inngest.ts'), inngestServerFunctionTemplate, {
-            existingFiles,
-          });
+          writeFile(
+            path.join(getPaths().api.functions, 'inngest.ts'),
+            inngestServerFunctionTemplate,
+            {
+              existingFiles,
+            },
+          );
 
           // save inngest client to a api lib
           fs.ensureDirSync(SRC_LIB_PATH);
 
           const inngestClientTemplate = fs.readFileSync(
             path.resolve(__dirname, '..', '..', 'templates', 'plugin', 'client.ts.template'),
-            'utf-8'
+            'utf-8',
           );
 
-          writeFile(path.join(SRC_LIB_PATH, 'inngest.ts'), inngestClientTemplate, { existingFiles: 'OVERWRITE' });
+          writeFile(path.join(SRC_LIB_PATH, 'inngest.ts'), inngestClientTemplate, {
+            existingFiles: 'OVERWRITE',
+          });
         },
       },
       {
@@ -85,7 +89,7 @@ export const tasks = (options: SetupPluginTasksOptions) => {
 
           const inngestPluginTemplate = fs.readFileSync(
             path.resolve(__dirname, '..', '..', 'templates', 'plugin', 'plugin.ts.template'),
-            'utf-8'
+            'utf-8',
           );
 
           writeFile(path.join(SRC_PLUGINS_PATH, 'useInngest.ts'), inngestPluginTemplate, {
@@ -101,12 +105,16 @@ export const tasks = (options: SetupPluginTasksOptions) => {
 
           const inngestHelloWorldTemplate = fs.readFileSync(
             path.resolve(__dirname, '..', '..', 'templates', 'plugin', 'helloWorld.ts.template'),
-            'utf-8'
+            'utf-8',
           );
 
-          return writeFile(path.join(SRC_INNGEST_PATH, 'helloWorld.ts'), inngestHelloWorldTemplate, {
-            existingFiles,
-          });
+          return writeFile(
+            path.join(SRC_INNGEST_PATH, 'helloWorld.ts'),
+            inngestHelloWorldTemplate,
+            {
+              existingFiles,
+            },
+          );
         },
       },
       {
@@ -152,7 +160,7 @@ export const tasks = (options: SetupPluginTasksOptions) => {
         task: async () => {
           const SRC_GRAPHQL_FUNCTION_FILE = path.join(getPaths().api.functions, 'graphql.ts');
 
-          execa.commandSync(
+          execa.execaCommandSync(
             `yarn rw lint --fix ${SRC_GRAPHQL_FUNCTION_FILE}`,
             // eslint-disable-next-line dot-notation
             process.env['RWJS_CWD']
@@ -160,11 +168,11 @@ export const tasks = (options: SetupPluginTasksOptions) => {
                   // eslint-disable-next-line dot-notation
                   cwd: process.env['RWJS_CWD'],
                 }
-              : {}
+              : {},
           );
         },
       },
     ],
-    { rendererOptions: {} }
+    { rendererOptions: {} },
   );
 };
