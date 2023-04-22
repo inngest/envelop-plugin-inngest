@@ -39,7 +39,7 @@
     "@types/node": "16.18.24",
     "@typescript-eslint/eslint-plugin": "5.36.2",
     "@typescript-eslint/parser": "5.36.2",
-    "bob-the-bundler": "4.1.1",
+    "bob-the-bundler": "6.0.0",
     "chalk": "5.2.0",
     "eslint": "8.39.0",
     "eslint-config-prettier": "8.8.0",
