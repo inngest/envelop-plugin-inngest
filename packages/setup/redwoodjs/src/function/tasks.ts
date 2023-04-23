@@ -68,7 +68,7 @@ export const tasks = (options: SetupFunctionTasksOptions) => {
         },
       },
       {
-        title: `Modify the Inngest handler to register the new ${options.type} Inngest function function  named ${options.name}...`,
+        title: `Modify the Inngest handler to register the new ${options.type} Inngest function named ${options.name}...`,
         task: async () => {
           const { functionName } = getNamesForFile(options);
 
