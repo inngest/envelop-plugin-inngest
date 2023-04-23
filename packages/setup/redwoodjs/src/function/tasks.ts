@@ -24,7 +24,7 @@ const getNamesForFile = (options: SetupFunctionTasksOptions) => {
 
   if (options.graphql && options.type !== 'scheduled' && options.eventName) {
     eventPrefix = 'graphql';
-    eventName = `${eventPrefix}/${paramCase(options.eventName)}.${options.operationType}}`;
+    eventName = `${eventPrefix}/${paramCase(options.eventName)}.${options.operationType}`;
   }
 
   return { functionName, humanizedName, eventName };
