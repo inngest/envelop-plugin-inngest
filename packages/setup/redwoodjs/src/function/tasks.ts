@@ -1,59 +1,10 @@
 import path from 'path';
-import camelcase from 'camelcase';
 import execa from 'execa';
-import fs from 'fs-extra';
-import humanize from 'humanize-string';
 import * as jscodeshift from 'jscodeshift/src/Runner';
 import { Listr } from 'listr2';
-import template from 'lodash.template';
-import { paramCase } from 'param-case';
-import { getPaths, writeFile } from '@redwoodjs/cli-helpers';
-import type { ExistingFiles } from '@redwoodjs/cli-helpers';
-import type { SetupInngestFunctionOptions } from './command';
-
-export interface SetupFunctionTasksOptions extends SetupInngestFunctionOptions {}
-
-const getNamesForFile = (options: SetupFunctionTasksOptions) => {
-  const name = options.name;
-  const functionName = camelcase(name);
-  const humanizedName = humanize(name);
-  const eventFromName = paramCase(name);
-
-  let eventPrefix = 'event';
-  let eventName = `${eventPrefix}/${eventFromName}`;
-
-  if (options.graphql && options.type !== 'scheduled' && options.eventName) {
-    eventPrefix = 'graphql';
-    eventName = `${eventPrefix}/${paramCase(options.eventName)}.${options.operationType}`;
-  }
-
-  return { functionName, humanizedName, eventName };
-};
-
-const SRC_INNGEST_PATH = path.join(getPaths().api.src, 'inngest');
-
-const renderFunctionTemplate = (options: SetupFunctionTasksOptions) => {
-  const { eventName, functionName, humanizedName } = getNamesForFile(options);
-
-  const compiled = template(
-    fs
-      .readFileSync(
-        path.resolve(__dirname, '..', '..', 'templates', 'function', `${options.type}.ts.template`),
-        'utf-8',
-      )
-      .toString(),
-  );
-
-  const rendered = compiled({ name: options.name, eventName, functionName, humanizedName });
-
-  return { filename: functionName, rendered };
-};
-
-const writeFunctionFile = (filename: string, rendered: string, existingFiles: ExistingFiles) => {
-  writeFile(path.join(SRC_INNGEST_PATH, `${filename}.ts`), rendered, {
-    existingFiles,
-  });
-};
+import { getPaths } from '@redwoodjs/cli-helpers';
+import { getNamesForFile, renderFunctionTemplate, writeFunctionFile } from './helpers';
+import type { SetupFunctionTasksOptions } from './types';
 
 export const tasks = (options: SetupFunctionTasksOptions) => {
   const existingFiles = options.force ? 'OVERWRITE' : 'FAIL';

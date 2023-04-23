@@ -1,52 +1,17 @@
-import fs from 'fs';
 import path from 'path';
 import prompts from 'prompts';
 import { colors, getPaths } from '@redwoodjs/cli-helpers';
+import { getExportedQueryAndMutationTypes } from './helpers';
 import { tasks as setupFunctionTasks } from './tasks';
-import type { SetupFunctionTasksOptions } from './tasks';
+import type { SetupFunctionTasksOptions } from './types';
 
 interface ErrorWithExitCode extends Error {
   exitCode?: number;
 }
 
-type ExportedType = {
-  name: string;
-  type: string;
-  operationType: 'query' | 'mutation';
-};
-
-function isErrorWithExitCode(e: unknown): e is ErrorWithExitCode {
+const isErrorWithExitCode = (e: unknown): e is ErrorWithExitCode => {
   return typeof (e as ErrorWithExitCode)?.exitCode !== 'undefined';
-}
-
-function getExportedQueryAndMutationTypes(filePath: string): ExportedType[] {
-  const fileContents = fs.readFileSync(filePath, 'utf-8');
-
-  const exportedTypes: ExportedType[] = [];
-
-  // Extract exported types
-  const typeRegex =
-    /export\s+type\s+(\w+)\s+=\s+{[^}]*__typename\?:\s+['"](?:Query|Mutation)['"][^}]*}/g;
-
-  let match;
-  while ((match = typeRegex.exec(fileContents)) !== null) {
-    if (!['Mutation', 'Query'].includes(match[1])) {
-      const name = match[1];
-      const type = match[0];
-      const operationType = type.includes("__typename?: 'Query'") ? 'query' : 'mutation';
-      exportedTypes.push({ name, type, operationType });
-    }
-  }
-
-  // Filter exported types with __typename of Query or Mutation
-  const filteredTypes = exportedTypes.filter(type => type.operationType === 'query' || 'mutation');
-
-  return filteredTypes.sort((a, b) => {
-    if (a.name < b.name) return -1;
-    if (a.name > b.name) return 1;
-    return 0;
-  });
-}
+};
 
 export const handler = async ({
   cwd,
