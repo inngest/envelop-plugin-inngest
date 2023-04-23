@@ -132,7 +132,7 @@ export const tasks = (options: SetupPluginTasksOptions) => {
             ignorePattern: '**/node_modules/**',
             ignoreConfig: [],
             runInBand: false,
-            silent: false,
+            silent: true,
             parser: 'ts',
             parserConfig: {},
             failOnError: true,

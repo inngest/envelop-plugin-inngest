@@ -21,7 +21,7 @@ const ${functionName} = inngest.createFunction(
       event,
       body: 'Background function ${humanizedName} ran.',
       runAt: Date.now().toString(),
-    }  
+    }
   }
 )
 

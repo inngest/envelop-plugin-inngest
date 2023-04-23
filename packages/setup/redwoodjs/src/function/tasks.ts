@@ -16,7 +16,7 @@ export interface SetupFunctionTasksOptions extends SetupInngestFunctionOptions {
 const getNamesForFile = (name: string) => {
   const functionName = camelcase(name);
   const humanizedName = humanize(name);
-  const eventName = paramCase(name).replace(/-/g, '.');
+  const eventName = paramCase(name);
 
   return { functionName, humanizedName, eventName };
 };
@@ -79,7 +79,7 @@ export const tasks = (options: SetupFunctionTasksOptions) => {
             ignorePattern: '**/node_modules/**',
             ignoreConfig: [],
             runInBand: false,
-            silent: false,
+            silent: true,
             parser: 'ts',
             parserConfig: {},
             failOnError: true,
