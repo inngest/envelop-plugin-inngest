@@ -55,34 +55,10 @@ export const handler = async ({
   type,
   graphql,
   eventName,
+  operationType,
 }: SetupFunctionTasksOptions) => {
   let functionType = type;
   eventName = name;
-
-  // If graphql is specified
-  if (graphql) {
-    const GRAPHQL_TYPES_PATH = path.join(getPaths().web.types, 'graphql.d.ts');
-
-    const operationTypesForEvent = getExportedQueryAndMutationTypes(GRAPHQL_TYPES_PATH);
-
-    const graphqlOperationChoices = operationTypesForEvent.map(op => ({
-      value: op,
-      title: op.name,
-      description: `Create a function for the ${op.operationType} ${op.name}`,
-    }));
-
-    const response = await prompts({
-      type: 'select',
-      name: 'eventName',
-      choices: graphqlOperationChoices,
-      message: 'What GraphQL operation event should your function handle?',
-    });
-
-    // eslint-disable-next-line no-console
-    console.debug(response.eventName.name, 'Make function for this event');
-    eventName = `${response.eventName.name}.${response.eventName.operationType}`;
-    name = eventName || name;
-  }
 
   // Prompt to select what type if not specified
   if (!functionType) {
@@ -118,7 +94,41 @@ export const handler = async ({
     functionType = response.functionType;
   }
 
-  const tasks = setupFunctionTasks({ cwd, force, name, type: functionType, graphql, eventName });
+  // If GraphQL is specified, the scheduled function does not have an event name.
+  if (graphql && functionType !== 'scheduled') {
+    const GRAPHQL_TYPES_PATH = path.join(getPaths().web.types, 'graphql.d.ts');
+
+    const operationTypesForEvent = getExportedQueryAndMutationTypes(GRAPHQL_TYPES_PATH);
+
+    const graphqlOperationChoices = operationTypesForEvent.map(op => ({
+      value: op,
+      title: op.name,
+      description: `Create a function for the ${op.operationType} ${op.name}`,
+    }));
+
+    const response = await prompts({
+      type: 'select',
+      name: 'graphQLOperation',
+      choices: graphqlOperationChoices,
+      message: 'What GraphQL operation event should your function handle?',
+    });
+
+    // eslint-disable-next-line no-console
+    console.debug(response.graphQLOperation.name, 'Make function for this event');
+
+    operationType = response.graphQLOperation.operationType;
+    eventName = response.graphQLOperation.name;
+  }
+
+  const tasks = setupFunctionTasks({
+    cwd,
+    force,
+    name,
+    type: functionType,
+    graphql,
+    eventName,
+    operationType,
+  });
 
   try {
     await tasks.run();

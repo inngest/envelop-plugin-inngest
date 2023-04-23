@@ -12,7 +12,7 @@ import { inngest } from 'src/lib/inngest'
  */
 const ${functionName} = inngest.createFunction(
   { name: '${name}' },
-  { event: 'event/${eventName}' },
+  { event: '${eventName}' },
 
   // This function will be called every time an event payload is received
   // When implementing your function, you have access to the { event, step }.

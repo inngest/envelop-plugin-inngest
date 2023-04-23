@@ -25,7 +25,7 @@ import { inngest } from 'src/lib/inngest'
  */
 const ${functionName} = inngest.createFunction(
   { name: '${humanizedName}' },
-  { event: 'app/${eventName}' },
+  { event: '${eventName}' },
   async ({ event, step }) => {
     // Send the user a welcome email
     await step.run('Send welcome email', () => {

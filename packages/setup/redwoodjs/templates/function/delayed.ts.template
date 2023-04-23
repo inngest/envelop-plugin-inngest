@@ -12,7 +12,7 @@ import { inngest } from 'src/lib/inngest'
  */
 const ${functionName} = inngest.createFunction(
   { name: '${name}' },
-  { event: 'event/${eventName}' },
+  { event: '${eventName}' },
   async ({ event, step }) => {
     await step.sleep('5s')
 

@@ -13,6 +13,7 @@ export interface SetupInngestFunctionOptions extends ForceOptions {
   eventName?: string;
   type: 'background' | 'scheduled' | 'delayed' | 'step';
   graphql: boolean;
+  operationType?: 'query' | 'mutation';
 }
 
 export const description = 'Set up an Inngest function';
@@ -27,7 +28,7 @@ export const builder = (yargs: Yargs.Argv) => {
     )
     .positional('name', { type: 'string', description: 'Name of the function to setup' })
     .option('eventName', {
-      aliases: ['e', 'event'],
+      aliases: ['e', 'event', 'eventName'],
       default: undefined,
       description: 'Name of the event to trigger the function. Defaults to the function name.',
       type: 'string',
@@ -54,5 +55,5 @@ export const builder = (yargs: Yargs.Argv) => {
 
 export const handler = async (options: any) => {
   const { handler } = await import('./handler');
-  return handler(options);
+  return handler({ ...options, operationType: undefined });
 };

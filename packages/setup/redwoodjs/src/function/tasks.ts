@@ -13,29 +13,38 @@ import type { SetupInngestFunctionOptions } from './command';
 
 export interface SetupFunctionTasksOptions extends SetupInngestFunctionOptions {}
 
-const getNamesForFile = (name: string) => {
+const getNamesForFile = (options: SetupFunctionTasksOptions) => {
+  const name = options.name;
   const functionName = camelcase(name);
   const humanizedName = humanize(name);
-  const eventName = paramCase(name);
+  const eventFromName = paramCase(name);
+
+  let eventPrefix = 'event';
+  let eventName = `${eventPrefix}/${eventFromName}`;
+
+  if (options.graphql && options.type !== 'scheduled' && options.eventName) {
+    eventPrefix = 'graphql';
+    eventName = `${eventPrefix}/${paramCase(options.eventName)}.${options.operationType}}`;
+  }
 
   return { functionName, humanizedName, eventName };
 };
 
 const SRC_INNGEST_PATH = path.join(getPaths().api.src, 'inngest');
 
-const renderFunctionTemplate = (name: string, type: string) => {
-  const { eventName, functionName, humanizedName } = getNamesForFile(name);
+const renderFunctionTemplate = (options: SetupFunctionTasksOptions) => {
+  const { eventName, functionName, humanizedName } = getNamesForFile(options);
 
   const compiled = template(
     fs
       .readFileSync(
-        path.resolve(__dirname, '..', '..', 'templates', 'function', `${type}.ts.template`),
+        path.resolve(__dirname, '..', '..', 'templates', 'function', `${options.type}.ts.template`),
         'utf-8',
       )
       .toString(),
   );
 
-  const rendered = compiled({ name, eventName, functionName, humanizedName });
+  const rendered = compiled({ name: options.name, eventName, functionName, humanizedName });
 
   return { filename: functionName, rendered };
 };
@@ -54,14 +63,14 @@ export const tasks = (options: SetupFunctionTasksOptions) => {
       {
         title: `Create a ${options.type} Inngest function named ${options.name} ...`,
         task: () => {
-          const { filename, rendered } = renderFunctionTemplate(options.name, options.type);
+          const { filename, rendered } = renderFunctionTemplate(options);
           writeFunctionFile(filename, rendered, existingFiles);
         },
       },
       {
         title: `Modify the Inngest handler to register the new ${options.type} Inngest function function  named ${options.name}...`,
         task: async () => {
-          const { functionName } = getNamesForFile(options.name);
+          const { functionName } = getNamesForFile(options);
 
           const SRC_INNGEST_HANDLER_FILE = path.join(getPaths().api.functions, 'inngest.ts');
           const SRC_INNGEST_CODEMOD_FILE = path.join(
