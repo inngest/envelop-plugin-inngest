@@ -170,7 +170,7 @@ more info.
 Important: In order to use Inngest functions, the plugin command should be run first to configure
 and setup your RedwoodJS app to use Inngest.
 
-## Inngest SDk Dashboard
+## Inngest SDK Dashboard
 
 To launch the SDK Dashboard, visit:
 
@@ -188,13 +188,29 @@ To launch the Inngest dev server, from a new terminal run:
 npx inngest-cli@latest dev -u http://localhost:8911/inngest
 ```
 
-Please be sure to start your RedwoodJS Dev Server as well; preferably before launching the Inngest
-Dev server. If not, you may see some connection warnings until both servers are up.
+There will be instructions for the url to visit to view the dev server UI.
+
+For example:
+
+```
+Inngest dev server online at 0.0.0.0:8288, visible at the following URLs:
+
+  - http://127.0.0.1:8288 (http://localhost:8288)
+  - http://192.168.7.158:8288
+```
+
+Important: Please be sure to start your RedwoodJS Dev Server as well; preferably before launching
+the Inngest Dev server. If not, you may see some connection warnings until both servers are up, such
+as:
+
+```
+12:29PM ERR devserver > unable to connect to the SDK error="Put \"http://localhost:8911/inngest\": dial tcp [::1]:8911: connect: connection refused" url=http://localhost:8911/inngest
+```
 
 Note: The endpoint needs to match the `servePath` (e.g., '/inngest') defined in
 `api/src/functions/inngest.ts`.
 
-### Inngest Signing Key
+## Inngest Signing Key
 
 In Production, an `INNGEST_SIGNING_KEY` is required to securely communicate with the Inngest
 platform, either via environment variable (recommend) or it can be passed explicitly through the
