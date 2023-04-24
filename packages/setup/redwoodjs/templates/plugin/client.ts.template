@@ -14,5 +14,5 @@ export const inngest = new Inngest({
    * can be found, however, a warning will be shown and any attempts to send
    * events will throw an error.
    */
-  eventKey: 'Redwood',
+  eventKey: 'YOUR_INNGEST_EVENT_KEY',
 })

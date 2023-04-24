@@ -89,13 +89,25 @@ server quickly:
 1. Update `INNGEST_APP_NAME` and `eventKey` custom to your application
 
 ```
-// api/src/inngest/client.ts
+// api/src/inngest/lib/inngest.ts
 
 export const inngest = new Inngest({
   name: INNGEST_APP_NAME,
-  eventKey: 'Redwood',
+  eventKey: 'YOUR_INNGEST_EVENT_KEY',
 })
 ```
+
+“Event Keys” are unique keys that allow applications to send (aka publish) events to Inngest.
+
+If the `eventKey` is not provided, Inngest will look for and use the `INNGEST_EVENT_KEY` environment
+variable.
+
+During local development, you can use a dummy value for your `INNGEST_EVENT_KEY` environment
+variable. The dev server does not validate keys locally.
+
+For more information, see
+[Creating an event key](https://www.inngest.com/docs/events/creating-an-event-key) in teh Inngest
+documentation.
 
 ## Function Command
 
@@ -129,8 +141,37 @@ To launch the Inngest dev server, from a new terminal run:
 npx inngest-cli@latest dev -u http://localhost:8911/inngest
 ```
 
+Please be sure to start your RedwoodJS Dev Server as well; preferably before launching the Inngest
+Dev server. If not, you may see some connection warnings until both servers are up.
+
 Note: The endpoint needs to match the `servePath` (e.g., '/inngest') defined in
 `api/src/functions/inngest.ts`.
+
+### Inngest Signing Key
+
+In Production, an `INNGEST_SIGNING_KEY` is required to securely communicate with the Inngest
+platform, either via environment variable (recommend) or it can be passed explicitly through the
+options argument.
+
+It signs requests to and from Inngest in order to prove that the source is legitimate.
+
+In local development, a `INNGEST_SIGNING_KEY` isn't needed; however, when the Inngest Dev Server
+starts, you may see an warning message:
+
+```
+You're missing the INNGEST_SIGNING_KEY parameter when serving your functions.
+```
+
+You must provide a signing key to communicate securely with Inngest when sending non-development
+events. If your key is not provided here, we'll try to retrieve it from the `INNGEST_SIGNING_KEY`
+environment variable.
+
+You can retrieve your signing key from the Inngest UI inside the "Secrets" section at {@link
+https://app.inngest.com/secrets}. We highly recommend that you add this to your platform's available
+environment variables as `INNGEST_SIGNING_KEY`.
+
+When in Production, if no key can be found, you will not be able to register your functions or
+receive events from Inngest.
 
 ## Tip!
 
