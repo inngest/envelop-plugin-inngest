@@ -8,8 +8,13 @@ import { getPaths, writeFile } from '@redwoodjs/cli-helpers';
 import type { ExistingFiles } from '@redwoodjs/cli-helpers';
 import type { ExportedType, SetupFunctionTasksOptions } from './types';
 
-export const getExportedQueryAndMutationTypes = (filePath: string): ExportedType[] => {
-  const fileContents = fs.readFileSync(filePath, 'utf-8');
+export const getWebGraphQLTypeDefsFile = () => {
+  const GRAPHQL_TYPES_PATH = path.join(getPaths().web.types, 'graphql.d.ts');
+  return fs.readFileSync(GRAPHQL_TYPES_PATH, 'utf-8');
+};
+
+export const getExportedQueryAndMutationTypes = (graphQLTypeDefs?: string): ExportedType[] => {
+  const fileContents = graphQLTypeDefs || getWebGraphQLTypeDefsFile();
 
   const exportedTypes: ExportedType[] = [];
 
@@ -54,8 +59,6 @@ export const getNamesForFile = (options: SetupFunctionTasksOptions) => {
   return { functionName, humanizedName, eventName };
 };
 
-const SRC_INNGEST_PATH = path.join(getPaths().api.src, 'inngest');
-
 export const renderFunctionTemplate = (options: SetupFunctionTasksOptions) => {
   const { eventName, functionName, humanizedName } = getNamesForFile(options);
 
@@ -78,6 +81,8 @@ export const writeFunctionFile = (
   rendered: string,
   existingFiles: ExistingFiles,
 ) => {
+  const SRC_INNGEST_PATH = path.join(getPaths().api.src, 'inngest');
+
   writeFile(path.join(SRC_INNGEST_PATH, `${filename}.ts`), rendered, {
     existingFiles,
   });

@@ -1,4 +1,4 @@
-import type { FileInfo, API, ArrayExpression, Property, Identifier } from 'jscodeshift';
+import type { API, ArrayExpression, FileInfo, Identifier, Property } from 'jscodeshift';
 
 module.exports = function (file: FileInfo, api: API) {
   const j = api.jscodeshift;
@@ -7,7 +7,7 @@ module.exports = function (file: FileInfo, api: API) {
 
   const inngestImport = j.importDeclaration(
     [j.importSpecifier(j.identifier('inngestPlugin'))],
-    j.literal('src/plugins/useInngest')
+    j.literal('src/plugins/useInngest'),
   );
 
   // Check if inngestPlugin is already imported
@@ -42,7 +42,8 @@ module.exports = function (file: FileInfo, api: API) {
       }
 
       const extraPluginsProp = optionsProps.properties?.find(
-        (p): p is Property => j.Property.check(p) && j.Identifier.check(p.key) && p.key.name === 'extraPlugins'
+        (p): p is Property =>
+          j.Property.check(p) && j.Identifier.check(p.key) && p.key.name === 'extraPlugins',
       );
 
       if (extraPluginsProp) {
@@ -51,7 +52,7 @@ module.exports = function (file: FileInfo, api: API) {
           extraPluginsProp &&
           j.ArrayExpression.check(extraPluginsProp.value) &&
           extraPluginsProp.value.elements.some(
-            (el): el is Identifier => j.Identifier.check(el) && el.name === 'inngestPlugin'
+            (el): el is Identifier => j.Identifier.check(el) && el.name === 'inngestPlugin',
           );
 
         if (!existingInngestPlugin) {
@@ -60,7 +61,11 @@ module.exports = function (file: FileInfo, api: API) {
       } else {
         // `extraPlugins` property does not exist
         optionsProps.properties?.push(
-          j.property('init', j.identifier('extraPlugins'), j.arrayExpression([j.identifier('inngestPlugin')]))
+          j.property(
+            'init',
+            j.identifier('extraPlugins'),
+            j.arrayExpression([j.identifier('inngestPlugin')]),
+          ),
         );
       }
 

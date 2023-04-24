@@ -1,6 +1,5 @@
-import path from 'path';
 import prompts from 'prompts';
-import { colors, getPaths } from '@redwoodjs/cli-helpers';
+import { colors } from '@redwoodjs/cli-helpers';
 import { getExportedQueryAndMutationTypes } from './helpers';
 import { tasks as setupFunctionTasks } from './tasks';
 import type { SetupFunctionTasksOptions } from './types';
@@ -61,9 +60,7 @@ export const handler = async ({
 
   // If GraphQL is specified, the scheduled function does not have an event name.
   if (graphql && functionType !== 'scheduled') {
-    const GRAPHQL_TYPES_PATH = path.join(getPaths().web.types, 'graphql.d.ts');
-
-    const operationTypesForEvent = getExportedQueryAndMutationTypes(GRAPHQL_TYPES_PATH);
+    const operationTypesForEvent = getExportedQueryAndMutationTypes();
 
     const graphqlOperationChoices = operationTypesForEvent.map(op => ({
       value: op,
