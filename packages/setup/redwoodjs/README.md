@@ -31,15 +31,32 @@ For example:
 
 ```
 yarn inngest-setup-redwoodjs plugin
-yarn inngest-setup-redwoodjs function <name> -t <type>
+yarn inngest-setup-redwoodjs function <name> -t <type> [--graphql]
 ```
 
 Run the above commands inside your RedwoodJS project.
+
+Note: only `name` is required. This will become the name of your function.
+
+If `type` is not provided, you will be prompted to pick from the support function types.
+
+If set `--graphql` then you will be prompted to pick from available queries and mutations in your
+web app. You then will be prompted to pick a function type. Note that you cannon created scheduled
+(aka cron) functions for graphql events,
 
 ## Plugin Command
 
 ```
 yarn inngest-setup-redwoodjs plugin
+
+Set up Inngest plugin
+
+Options:
+      --help     Show help                                             [boolean]
+      --version  Show version number                                   [boolean]
+      --cwd      Working directory to use (where `redwood.toml` is located)
+                                                                        [string]
+  -f, --force    Overwrite existing files             [boolean] [default: false]
 ```
 
 The plugin command will configure a RedwoodJS project to use Inngest and auto-instrument the GraphQL
@@ -112,7 +129,26 @@ documentation.
 ## Function Command
 
 ```
-yarn inngest-setup-redwoodjs function <name> -t <type>
+yarn inngest-setup-redwoodjs function <name> -t <type> [--graphql]
+
+Set up an Inngest function
+
+Positionals:
+  name  Name of the function to setup                        [string] [required]
+
+Options:
+      --help       Show help                                           [boolean]
+      --version    Show version number                                 [boolean]
+      --cwd        Working directory to use (where `redwood.toml` is located)
+                                                                        [string]
+      --eventName  Name of the event to trigger the function. Defaults to the
+                   function name.                                       [string]
+      --graphql    Build event name from your web side GraphQL operations
+                                                      [boolean] [default: false]
+  -t, --type       Type of Inngest function to setup
+                [string] [choices: "background", "scheduled", "delayed", "step"]
+  -f, --force      Overwrite existing files           [boolean] [default: false]
+
 ```
 
 The function command will create a new ready tom implement function file for the provided function
@@ -133,6 +169,16 @@ more info.
 
 Important: In order to use Inngest functions, the plugin command should be run first to configure
 and setup your RedwoodJS app to use Inngest.
+
+## Inngest SDk Dashboard
+
+To launch the SDK Dashboard, visit:
+
+```
+http://localhost:8911/inngest
+```
+
+Here, you can see which functions have be been found and registered.
 
 ## Inngest Dev Server
 
