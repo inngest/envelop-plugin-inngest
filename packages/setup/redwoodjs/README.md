@@ -84,11 +84,12 @@ side:
   +-- functions
       +- graphql.ts         // Modified GraphQLHandler to use Inngest plugin to instrument GraphQL api
       +- inngest.ts         // Inngest endpoint to serve functions
-  +-- inngest               // Directory where Inngest functions are stored
-      +- helloWorld.ts      // Example background function
+  +-- jobs                   // Jobs
+    +-- inngest              // Directory where Inngest functions are stored
+        +- helloWorld.ts     // Example background function
   +-- lib
       +- inngest.ts         // Inngest client. Use this if you need to send custom events in services or functions.
-  +-- plugin
+  +-- plugins
         +- useInngest.ts    // GraphQL Yoga plugin that auto-instruments GraphQL api
 ```
 
@@ -106,7 +107,7 @@ server quickly:
 1. Update `INNGEST_APP_NAME` and `eventKey` custom to your application
 
 ```
-// api/src/inngest/lib/inngest.ts
+// api/src/lib/inngest.ts
 
 export const inngest = new Inngest({
   name: INNGEST_APP_NAME,
@@ -230,8 +231,8 @@ events. If your key is not provided here, we'll try to retrieve it from the `INN
 environment variable.
 
 You can retrieve your signing key from the Inngest UI inside the "Secrets" section at {@link
-https://app.inngest.com/secrets}. We highly recommend that you add this to your platform's available
-environment variables as `INNGEST_SIGNING_KEY`.
+https://app.inngest.com/env/production/manage/signing-key}. We highly recommend that you add this to
+your platform's available environment variables as `INNGEST_SIGNING_KEY`.
 
 When in Production, if no key can be found, you will not be able to register your functions or
 receive events from Inngest.

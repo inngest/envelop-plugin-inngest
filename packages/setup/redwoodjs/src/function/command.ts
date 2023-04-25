@@ -1,4 +1,5 @@
 import type Yargs from 'yargs';
+import { telemetryMiddleware } from '@redwoodjs/telemetry';
 
 interface BaseOptions {
   cwd: string | undefined;
@@ -16,15 +17,22 @@ export interface SetupInngestFunctionOptions extends ForceOptions {
   operationType?: 'query' | 'mutation';
 }
 
+export const command = 'inngest-setup-redwoodjs function';
 export const description = 'Set up an Inngest function';
 
 export const builder = (yargs: Yargs.Argv) => {
   return yargs
-    .epilogue(
-      `Note: To launch the Inngest dev server, from the terminal run: 
-    
-  npx inngest-cli@latest dev -u http://localhost:8911/inngest    
-  `,
+    .scriptName('inngest-setup-redwoodjs')
+    .middleware(
+      [
+        // We've already handled `cwd` above, but it may still be in `argv`.
+        // We don't need it anymore so let's get rid of it.
+        // yargs => {
+        //   delete yargs.cwd;
+        // },
+        telemetryMiddleware,
+      ],
+      true,
     )
     .positional('name', { type: 'string', description: 'Name of the function to setup' })
     .option('eventName', {

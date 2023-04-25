@@ -4,7 +4,7 @@ import { inngest } from 'src/lib/inngest'
  * To test this ${functionName} function, send an event to the Inngest API with the following payload:
  *
  * {
- *   "name": "event/${eventName}",
+ *   "name": "${eventName}",
  *   "data": {}
  *   "user": {}
  * }

@@ -7,7 +7,7 @@ module.exports = function (file: FileInfo, api: API, { functionName }: { functio
   // Add the new import statement
   const newImport: ImportDeclaration = j.importDeclaration(
     [j.importDefaultSpecifier(j.identifier(functionName))],
-    j.literal(`src/inngest/${functionName}`),
+    j.literal(`src/jobs/inngest/${functionName}`),
   );
   const existingImports = root.find(j.ImportDeclaration);
   existingImports.at(1).insertAfter(newImport);

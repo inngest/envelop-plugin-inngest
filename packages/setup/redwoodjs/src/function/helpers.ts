@@ -81,7 +81,7 @@ export const writeFunctionFile = (
   rendered: string,
   existingFiles: ExistingFiles,
 ) => {
-  const SRC_INNGEST_PATH = path.join(getPaths().api.src, 'inngest');
+  const SRC_INNGEST_PATH = path.join(getPaths().api.src, 'jobs', 'inngest');
 
   writeFile(path.join(SRC_INNGEST_PATH, `${filename}.ts`), rendered, {
     existingFiles,

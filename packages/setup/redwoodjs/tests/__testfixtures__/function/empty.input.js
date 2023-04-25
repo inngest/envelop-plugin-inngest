@@ -1,6 +1,5 @@
 import { serve } from 'inngest/redwood';
-
-import { INNGEST_APP_NAME } from 'src/inngest/client';
+import { INNGEST_APP_NAME } from 'src/lib/inngest';
 
 const inngestFunctions = [];
 
