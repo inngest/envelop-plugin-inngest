@@ -53,7 +53,6 @@
     "@whatwg-node/fetch": "0.8.8",
     "fast-json-stable-stringify": "2.1.0",
     "fast-redact": "3.1.2",
-    "humps": "2.0.1",
     "inngest": "1.8.0",
     "tslib": "2.5.0"
   },
@@ -61,7 +60,6 @@
     "@envelop/testing": "5.0.6",
     "@graphql-tools/utils": "9.2.1",
     "@types/fast-redact": "3.0.2",
-    "@types/humps": "2.0.2",
     "graphql": "16.6.0",
     "typescript": "5.0.4"
   },

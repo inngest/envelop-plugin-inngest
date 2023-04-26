@@ -1,14 +1,12 @@
-import { makeExecutableSchema } from '@graphql-tools/schema';
 import { parse } from 'graphql';
-
-import { buildLogger } from '../src/logger';
-
+import { makeExecutableSchema } from '@graphql-tools/schema';
 import {
+  buildEventName,
+  buildEventPayload,
   buildOperationId,
   buildOperationNameForEventName,
-  buildEventPayload,
-  buildEventName,
 } from '../src/event-helpers';
+import { buildLogger } from '../src/logger';
 
 describe('event-helpers', () => {
   const schema = makeExecutableSchema({
@@ -96,6 +94,44 @@ describe('event-helpers', () => {
       expect(result).toEqual('test-query');
     });
 
+    it('builds operation name when a capitalized query operation name', async () => {
+      const result = await buildOperationNameForEventName({
+        params: {
+          executeFn: () => {},
+          setExecuteFn: () => {},
+          setResultAndStopExecution: () => {},
+          extendContext: () => {},
+          args: {
+            schema,
+            document: parse(`query FIND_MULTI_VIEW_EVENT_BY_CODE { test }`),
+            contextValue: {},
+          },
+        },
+        logger: buildLogger({ logging: false }),
+      });
+
+      expect(result).toEqual('find-multi-view-event-by-code');
+    });
+
+    it('builds operation name commonly used with RedwoodJS CurrentUser auth queries', async () => {
+      const result = await buildOperationNameForEventName({
+        params: {
+          executeFn: () => {},
+          setExecuteFn: () => {},
+          setResultAndStopExecution: () => {},
+          extendContext: () => {},
+          args: {
+            schema,
+            document: parse(`query __REDWOOD__AUTH_GET_CURRENT_USER { test }`),
+            contextValue: {},
+          },
+        },
+        logger: buildLogger({ logging: false }),
+      });
+
+      expect(result).toEqual('redwood-auth-get-current-user');
+    });
+
     it('builds operation name using a hash when the operation is anonymous', async () => {
       const result = await buildOperationNameForEventName({
         params: {
@@ -112,7 +148,9 @@ describe('event-helpers', () => {
         logger: buildLogger({ logging: false }),
       });
 
-      expect(result).toEqual('anonymous-d32327f2ad0fef67462baf2b8410a2b4b2cc8db57e67bb5b3c95efa595b39f30');
+      expect(result).toEqual(
+        'anonymous-d32327f2ad0fef67462baf2b8410a2b4b2cc8db57e67bb5b3c95efa595b39f30',
+      );
     });
   });
 
@@ -176,7 +214,7 @@ describe('event-helpers', () => {
       });
 
       expect(result).toEqual(
-        'graphql-test/anonymous-d32327f2ad0fef67462baf2b8410a2b4b2cc8db57e67bb5b3c95efa595b39f30.query'
+        'graphql-test/anonymous-d32327f2ad0fef67462baf2b8410a2b4b2cc8db57e67bb5b3c95efa595b39f30.query',
       );
     });
   });
@@ -309,14 +347,17 @@ describe('event-helpers', () => {
           args: {
             schema,
             document: parse(
-              `mutation UpdatePost($id: Int!, $title: String!) { updatePost(id: $id, title: $title) { id title } }`
+              `mutation UpdatePost($id: Int!, $title: String!) { updatePost(id: $id, title: $title) { id title } }`,
             ),
             variableValues: { id: 1, title: 'updated title' },
             contextValue: {},
           },
         },
         eventName: 'graphql-test/update-post.mutation',
-        result: { errors: [], data: { updatePost: { id: 1, title: 'updated title', __typename: 'Post' } } },
+        result: {
+          errors: [],
+          data: { updatePost: { id: 1, title: 'updated title', __typename: 'Post' } },
+        },
         logger: buildLogger({ logging: false }),
       });
 
@@ -417,7 +458,7 @@ describe('event-helpers', () => {
           args: {
             schema,
             document: parse(
-              `mutation UpdatePost($id: Int!, $title: String!) { updatePost(id: $id, title: $title) { id title } }`
+              `mutation UpdatePost($id: Int!, $title: String!) { updatePost(id: $id, title: $title) { id title } }`,
             ),
             variableValues: { id: 1, title: 'updated title' },
             contextValue: {},
@@ -425,7 +466,10 @@ describe('event-helpers', () => {
         },
         redactRawResultOptions: { paths: ['title'], censor: '***' },
         eventName: 'graphql-test/update-post.mutation',
-        result: { errors: [], data: { updatePost: { id: 1, title: 'updated title', __typename: 'Post' } } },
+        result: {
+          errors: [],
+          data: { updatePost: { id: 1, title: 'updated title', __typename: 'Post' } },
+        },
         logger: buildLogger({ logging: false }),
       });
 

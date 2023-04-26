@@ -84,9 +84,9 @@ side:
   +-- functions
       +- graphql.ts         // Modified GraphQLHandler to use Inngest plugin to instrument GraphQL api
       +- inngest.ts         // Inngest endpoint to serve functions
-  +-- jobs                   // Jobs
-    +-- inngest              // Directory where Inngest functions are stored
-        +- helloWorld.ts     // Example background function
+  +-- jobs                  // Jobs
+    +-- inngest             // Directory where Inngest functions are stored
+        +- helloWorld.ts    // Example background function
   +-- lib
       +- inngest.ts         // Inngest client. Use this if you need to send custom events in services or functions.
   +-- plugins
@@ -152,7 +152,7 @@ Options:
 
 ```
 
-The function command will create a new ready tom implement function file for the provided function
+The function command will create a new ready to implement function file for the provided function
 type.
 
 Supported types are:
