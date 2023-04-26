@@ -1,5 +1,4 @@
 import type Yargs from 'yargs';
-import { telemetryMiddleware } from '@redwoodjs/telemetry';
 
 interface BaseOptions {
   cwd: string | undefined;
@@ -23,17 +22,6 @@ export const description = 'Set up an Inngest function';
 export const builder = (yargs: Yargs.Argv) => {
   return yargs
     .scriptName('inngest-setup-redwoodjs')
-    .middleware(
-      [
-        // We've already handled `cwd` above, but it may still be in `argv`.
-        // We don't need it anymore so let's get rid of it.
-        // yargs => {
-        //   delete yargs.cwd;
-        // },
-        telemetryMiddleware,
-      ],
-      true,
-    )
     .positional('name', { type: 'string', description: 'Name of the function to setup' })
     .option('eventName', {
       aliases: ['e', 'event', 'eventName'],
