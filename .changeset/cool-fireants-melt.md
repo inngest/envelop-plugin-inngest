@@ -2,4 +2,4 @@
 'envelop-plugin-inngest': minor
 ---
 
-Updates whatwg-node/fetch
+Reorganizes jobs directory. Updates to latest inngest sdk.
