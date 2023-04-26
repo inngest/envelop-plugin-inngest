@@ -1,5 +1,15 @@
 # envelop-plugin-inngest
 
+## 0.5.0
+
+### Minor Changes
+
+- [#82](https://github.com/inngest/envelop-plugin-inngest/pull/82)
+  [`9a0859c`](https://github.com/inngest/envelop-plugin-inngest/commit/9a0859c2b142fbeace9d7c3532fb83551986f42d)
+  Thanks [@dthyresson](https://github.com/dthyresson)! - Fixed
+  https://github.com/inngest/envelop-plugin-inngest/issues/66 where event names for capitalized
+  operation names are built incorrectly
+
 ## 0.4.0
 
 ### Minor Changes
