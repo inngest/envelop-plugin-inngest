@@ -86,7 +86,6 @@
     "yargs-parser": "21.1.1"
   },
   "devDependencies": {
-    "@redwoodjs/cli-helpers": "4.5.0",
     "@types/findup-sync": "4.0.2",
     "@types/fs-extra": "11.0.1",
     "@types/jscodeshift": "0.11.6",

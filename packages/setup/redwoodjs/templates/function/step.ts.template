@@ -4,7 +4,7 @@ import { inngest } from 'src/lib/inngest'
  * To test this ${functionName} function, send an event to the Inngest API with the following payload:
  *
  * {
- *   "name": "app/${eventName}",
+ *   "name": "${eventName}",
  *   "data": { "user": { id: 123 } }
  *   "user": {}
  * }
@@ -25,7 +25,7 @@ import { inngest } from 'src/lib/inngest'
  */
 const ${functionName} = inngest.createFunction(
   { name: '${humanizedName}' },
-  { event: 'app/${eventName}' },
+  { event: '${eventName}' },
   async ({ event, step }) => {
     // Send the user a welcome email
     await step.run('Send welcome email', () => {

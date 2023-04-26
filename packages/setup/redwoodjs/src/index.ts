@@ -1,24 +1,20 @@
 import fs from 'fs';
 import path from 'path';
-
 import findup from 'findup-sync';
-import { hideBin } from 'yargs/helpers';
 import yargs from 'yargs';
 import Parser from 'yargs-parser';
-
+import { hideBin } from 'yargs/helpers';
 import { isTypeScriptProject } from '@redwoodjs/cli-helpers';
-
 import {
-  description as pluginDescription,
-  builder as pluginBuilder,
-  handler as pluginHandler,
-} from './plugin/command.js';
-
-import {
-  description as functionDescription,
   builder as functionBuilder,
+  description as functionDescription,
   handler as functionHandler,
 } from './function/command.js';
+import {
+  builder as pluginBuilder,
+  description as pluginDescription,
+  handler as pluginHandler,
+} from './plugin/command.js';
 
 export const scriptName = 'inngest-setup-redwoodjs';
 
@@ -49,7 +45,7 @@ try {
 
     if (!isTypeScriptProject()) {
       throw new Error(
-        `Inngest works best with TypeScript. Please run \`yarn rw setup typescript\` to convert your project to TypeScript first.`
+        `Inngest works best with TypeScript. Please run \`yarn rw setup typescript\` to convert your project to TypeScript first.`,
       );
     }
   }
@@ -65,7 +61,7 @@ try {
 // eslint-disable-next-line dot-notation
 process.env['RWJS_CWD'] = cwd;
 
-export const command = 'plugin <command>';
+// export const command = 'plugin <command>';
 
 yargs
   .demandCommand()

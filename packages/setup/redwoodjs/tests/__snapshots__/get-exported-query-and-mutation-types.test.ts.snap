@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Extracts queries and mutations from graphql type defs When type defs have queries and mutations should return the if a query or mutation 1`] = `
+[
+  "mutation",
+  "mutation",
+  "query",
+  "query",
+  "query",
+  "mutation",
+]
+`;
+
+exports[`Extracts queries and mutations from graphql type defs When type defs have queries and mutations should return the names of the queries and mutations sorted 1`] = `
+[
+  "CreateCarMutation",
+  "DeleteCarMutation",
+  "EditCarById",
+  "FindAllTheCars",
+  "FindCarById",
+  "UpdateCarMutation",
+]
+`;

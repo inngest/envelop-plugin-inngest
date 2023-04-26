@@ -1,7 +1,6 @@
 import { serve } from 'inngest/redwood';
-
-import { INNGEST_APP_NAME } from 'src/inngest/client';
-import helloWorld from 'src/inngest/helloWorld';
+import helloWorld from 'src/jobs/inngest/helloWorld';
+import { INNGEST_APP_NAME } from 'src/lib/inngest';
 
 const inngestFunctions = [helloWorld];
 

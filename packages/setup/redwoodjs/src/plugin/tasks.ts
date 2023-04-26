@@ -27,7 +27,7 @@ const addScriptToPackageJson = () => {
 };
 
 export const tasks = (options: SetupPluginTasksOptions) => {
-  const SRC_INNGEST_PATH = path.join(getPaths().api.src, 'inngest');
+  const SRC_INNGEST_PATH = path.join(getPaths().api.src, 'jobs', 'inngest');
   const SRC_LIB_PATH = path.join(getPaths().api.lib);
   const SRC_PLUGINS_PATH = path.join(getPaths().api.src, 'plugins');
 
@@ -132,7 +132,7 @@ export const tasks = (options: SetupPluginTasksOptions) => {
             ignorePattern: '**/node_modules/**',
             ignoreConfig: [],
             runInBand: false,
-            silent: false,
+            silent: true,
             parser: 'ts',
             parserConfig: {},
             failOnError: true,
