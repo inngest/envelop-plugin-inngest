@@ -1,21 +1,32 @@
 import jsonStableStringify from 'fast-json-stable-stringify';
 import fastRedact from 'fast-redact';
-import pkg from 'humps';
 import { hashSHA256 } from './hash-sha256.js';
-import { USE_INNGEST_DEFAULT_EVENT_PREFIX, USE_INNGEST_ANONYMOUS_EVENT_PREFIX } from './plugin.js';
-import { getOperationInfo, buildTypeIdentifiers } from './schema-helpers.js';
+import { USE_INNGEST_ANONYMOUS_EVENT_PREFIX, USE_INNGEST_DEFAULT_EVENT_PREFIX } from './plugin.js';
+import { buildTypeIdentifiers, getOperationInfo } from './schema-helpers.js';
 import type {
-  UseInngestDataOptions,
-  UseInngestEventOptions,
-  UseInngestUserContextOptions,
   BuildEventNameFunction,
-  UseInngestEventNameFunctionOptions,
   BuildEventNamePrefixFunction,
   BuildUserContextFunction,
+  UseInngestDataOptions,
+  UseInngestEventNameFunctionOptions,
   UseInngestEventNamePrefixFunctionOptions,
+  UseInngestEventOptions,
+  UseInngestUserContextOptions,
 } from './types.js';
 
-const { decamelize } = pkg;
+/**
+ * Decamelize and convert to lowercase with dashes
+ *
+ * @param string
+ * @returns string
+ */
+const eventify = (text: string): string => {
+  return text
+    .replace(/^_+/, '')
+    .replace(/([a-z])([A-Z])/g, '$1-$2')
+    .replace(/[_\s]+/g, '-')
+    .toLowerCase();
+};
 
 /**
  * buildOperationId
@@ -61,9 +72,7 @@ export const buildOperationNameForEventName = async (options: UseInngestEventOpt
     operationName = `${USE_INNGEST_ANONYMOUS_EVENT_PREFIX}-${operationId}`;
   }
 
-  return decamelize(operationName, {
-    separator: '-',
-  });
+  return eventify(operationName);
 };
 
 /**
@@ -117,7 +126,7 @@ export const buildEventPayload = async (options: UseInngestDataOptions) => {
  * @returns string Prefix for event name
  */
 export const buildEventNamePrefix: BuildEventNamePrefixFunction = async (
-  options: UseInngestEventNamePrefixFunctionOptions
+  options: UseInngestEventNamePrefixFunctionOptions,
 ) => {
   return USE_INNGEST_DEFAULT_EVENT_PREFIX;
 };
@@ -130,7 +139,9 @@ export const buildEventNamePrefix: BuildEventNamePrefixFunction = async (
  * @param options UseInngestEventNameFunctionOptions
  * @returns string Event name
  */
-export const buildEventName: BuildEventNameFunction = async (options: UseInngestEventNameFunctionOptions) => {
+export const buildEventName: BuildEventNameFunction = async (
+  options: UseInngestEventNameFunctionOptions,
+) => {
   const operationName = await buildOperationNameForEventName(options);
   const { operationType } = getOperationInfo(options);
 
@@ -147,6 +158,8 @@ export const buildEventName: BuildEventNameFunction = async (options: UseInngest
  * @param options UseInngestUserContextOptions
  * @returns Object User info
  */
-export const buildUserContext: BuildUserContextFunction = (options: UseInngestUserContextOptions) => {
+export const buildUserContext: BuildUserContextFunction = (
+  options: UseInngestUserContextOptions,
+) => {
   return {};
 };
