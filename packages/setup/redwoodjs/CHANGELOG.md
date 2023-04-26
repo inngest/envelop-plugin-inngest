@@ -1,5 +1,18 @@
 # inngest-setup-redwoodjs
 
+## 0.3.0
+
+### Minor Changes
+
+- [#72](https://github.com/inngest/envelop-plugin-inngest/pull/72)
+  [`5795929`](https://github.com/inngest/envelop-plugin-inngest/commit/5795929a58176c5fa8022f7549de9477daeac12a)
+  Thanks [@dthyresson](https://github.com/dthyresson)! - Generate functions for your GraphQL queries
+  and mutations.
+
+- [#72](https://github.com/inngest/envelop-plugin-inngest/pull/72)
+  [`dc1a886`](https://github.com/inngest/envelop-plugin-inngest/commit/dc1a886e5d9ba1bd885f3480a925d3273e7c62dd)
+  Thanks [@dthyresson](https://github.com/dthyresson)! - Package updates
+
 ## 0.2.1
 
 ### Patch Changes

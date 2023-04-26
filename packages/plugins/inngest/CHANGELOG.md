@@ -1,5 +1,18 @@
 # envelop-plugin-inngest
 
+## 0.4.0
+
+### Minor Changes
+
+- [#72](https://github.com/inngest/envelop-plugin-inngest/pull/72)
+  [`974abc6`](https://github.com/inngest/envelop-plugin-inngest/commit/974abc6c46cba7111cff5d0ee0996dd60a78ea71)
+  Thanks [@dthyresson](https://github.com/dthyresson)! - Reorganizes jobs directory. Updates to
+  latest inngest sdk.
+
+- [#72](https://github.com/inngest/envelop-plugin-inngest/pull/72)
+  [`dc1a886`](https://github.com/inngest/envelop-plugin-inngest/commit/dc1a886e5d9ba1bd885f3480a925d3273e7c62dd)
+  Thanks [@dthyresson](https://github.com/dthyresson)! - Package updates
+
 ## 0.3.0
 
 ### Minor Changes
