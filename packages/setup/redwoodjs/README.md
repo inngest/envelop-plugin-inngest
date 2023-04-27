@@ -124,8 +124,36 @@ During local development, you can use a dummy value for your `INNGEST_EVENT_KEY`
 variable. The dev server does not validate keys locally.
 
 For more information, see
-[Creating an event key](https://www.inngest.com/docs/events/creating-an-event-key) in teh Inngest
+[Creating an event key](https://www.inngest.com/docs/events/creating-an-event-key) in the Inngest
 documentation.
+
+###What if I don't want to auto-instrument my GraphQL API
+
+While we highly agree with the philosophy to "instrument everything" by sending events for each
+GraphQL execution result to Inngest (aka auto-instrument) to effortlessly build event-driven
+applications, you may not want to.
+
+You have a few options:
+
+- Filter the operations sent. See Control What Events Sent by denying particular operation, or
+  entire types.
+- Remove the plugin from the GraphQLHandler's extraPlugin.
+
+```ts
+export const handler = createGraphQLHandler({
+  getCurrentUser,
+  loggerConfig: { logger, options: {} },
+  directives,
+  sdls,
+  services,
+  extraPlugins: [inngestPlugin], // <-- remove
+
+  onException: () => {
+    // Disconnect from your database with an unhandled exception.
+    db.$disconnect()
+  }
+})
+```
 
 ## Function Command
 
