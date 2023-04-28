@@ -64,7 +64,7 @@ exports[`Render function templates graphql triggered events by mutations renders
 /**
  * To test this whenNewPost function make sure your app and dev server is running
  */
-const whenNewPost = inngest.createFunction(
+export const whenNewPost = inngest.createFunction(
   { name: 'When new post' }, // The name of your function, used for observability.
   { cron: 'TZ=America/New_York * * * * *' }, // The cron syntax for the function. TZ= is optional.
 
@@ -430,7 +430,7 @@ exports[`Render function templates standard inngest events renders a fan-out fun
 /**
  * To test this sendNewsletter function make sure your app and dev server is running
  */
-const sendNewsletter = inngest.createFunction(
+export const sendNewsletter = inngest.createFunction(
   { name: 'Send newsletter' }, // The name of your function, used for observability.
   { cron: 'TZ=America/New_York * * * * *' }, // The cron syntax for the function. TZ= is optional.
 
