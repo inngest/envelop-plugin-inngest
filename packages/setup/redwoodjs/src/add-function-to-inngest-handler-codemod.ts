@@ -1,19 +1,20 @@
 import { API, FileInfo, ImportDeclaration } from 'jscodeshift';
+import type { FunctionImportConfig } from './function/types';
 
 module.exports = function (
   file: FileInfo,
   api: API,
-  { functionNames }: { functionNames: string[] },
+  { functionImportConfig }: { functionImportConfig: FunctionImportConfig[] },
 ) {
   const j = api.jscodeshift;
 
   const root = j(file.source);
 
-  functionNames.forEach(functionName => {
+  functionImportConfig.forEach(config => {
     // Add the new import statement
     const newImport: ImportDeclaration = j.importDeclaration(
-      [j.importDefaultSpecifier(j.identifier(functionName))],
-      j.literal(`src/jobs/inngest/${functionName}`),
+      [j.importDefaultSpecifier(j.identifier(`{ ${config.import} }`))],
+      j.literal(`src/jobs/inngest/${config.from}`),
     );
     const existingImports = root.find(j.ImportDeclaration);
     existingImports.at(1).insertAfter(newImport);
@@ -22,7 +23,7 @@ module.exports = function (
     const inngestFunctions = root.find(j.VariableDeclaration, {
       declarations: [{ id: { name: 'inngestFunctions' } }],
     });
-    const newFunction = j.identifier(functionName);
+    const newFunction = j.identifier(config.import);
     inngestFunctions.find(j.ArrayExpression).get('elements').push(newFunction);
   });
 

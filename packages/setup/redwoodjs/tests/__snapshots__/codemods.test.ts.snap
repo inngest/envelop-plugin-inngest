@@ -3,7 +3,7 @@
 exports[` 1`] = `
 "import { serve } from 'inngest/redwood';
 import helloWorld from 'src/jobs/inngest/helloWorld';
-import testFunction from "src/jobs/inngest/testFunction";
+import { testFunction } from "src/jobs/inngest/testFunction";
 import { INNGEST_APP_NAME } from 'src/lib/inngest';
 
 const inngestFunctions = [helloWorld, testFunction];
@@ -17,9 +17,26 @@ export const handler = serve(INNGEST_APP_NAME, inngestFunctions, {
 
 exports[` 2`] = `
 "import { serve } from 'inngest/redwood';
+import helloWorld from 'src/jobs/inngest/helloWorld';
+import { sendMail } from "src/jobs/inngest/testFunction";
+import { testFunctionFanOut } from "src/jobs/inngest/testFunction";
+import { testFunction } from "src/jobs/inngest/testFunction";
 import { INNGEST_APP_NAME } from 'src/lib/inngest';
 
-import addedFunctionToEmpty from "src/jobs/inngest/addedFunctionToEmpty";
+const inngestFunctions = [helloWorld, testFunction, testFunctionFanOut, sendMail];
+
+export const handler = serve(INNGEST_APP_NAME, inngestFunctions, {
+  servePath: '/inngest',
+  // signingKey: 'Redwood',
+});
+"
+`;
+
+exports[` 3`] = `
+"import { serve } from 'inngest/redwood';
+import { INNGEST_APP_NAME } from 'src/lib/inngest';
+
+import { addedFunctionToEmpty } from "src/jobs/inngest/addedFunctionToEmpty";
 
 const inngestFunctions = [addedFunctionToEmpty];
 

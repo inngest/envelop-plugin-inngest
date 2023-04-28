@@ -13,8 +13,8 @@ exports[`Render function templates graphql triggered events by mutations renders
  * }
  *
  */
-const onPostUpdate = inngest.createFunction(
-  { name: 'OnPostUpdate' },
+export const onPostUpdate = inngest.createFunction(
+  { name: 'On post update' },
   { event: 'graphql/update-post-by-id.mutation' },
 
   // This function will be called every time an event payload is received
@@ -27,8 +27,6 @@ const onPostUpdate = inngest.createFunction(
     }
   }
 )
-
-export default onPostUpdate
 "
 `;
 
@@ -45,7 +43,7 @@ exports[`Render function templates graphql triggered events by mutations renders
  * }
  *
  */
-const onPostDelete = inngest.createFunction(
+export const onPostDelete = inngest.createFunction(
   { name: 'On post delete' },
   { event: 'graphql/delete-post-by-id.mutation' },
   async ({ event, step }) => {
@@ -57,8 +55,6 @@ const onPostDelete = inngest.createFunction(
     }
   }
 )
-
-export default onPostDelete
 "
 `;
 
@@ -162,7 +158,7 @@ exports[`Render function templates graphql triggered events by mutations renders
  * }
  * 
  */
-const onPostEdit = inngest.createFunction(
+export const onPostEdit = inngest.createFunction(
   { name: 'On post edit' },
   { event: 'graphql/edit-post-by-id.mutation' },
   async ({ event, step }) => {
@@ -195,8 +191,6 @@ const onPostEdit = inngest.createFunction(
     }
   }
 )
-
-export default onPostEdit
 "
 `;
 
@@ -213,8 +207,8 @@ exports[`Render function templates graphql triggered events by queries renders a
  * }
  *
  */
-const getPosts = inngest.createFunction(
-  { name: 'GetPosts' },
+export const getPosts = inngest.createFunction(
+  { name: 'Get posts' },
   { event: 'graphql/find-posts.query' },
 
   // This function will be called every time an event payload is received
@@ -227,8 +221,6 @@ const getPosts = inngest.createFunction(
     }
   }
 )
-
-export default getPosts
 "
 `;
 
@@ -245,8 +237,8 @@ exports[`Render function templates graphql triggered events by queries renders a
  * }
  *
  */
-const getPosts = inngest.createFunction(
-  { name: 'GetPosts' },
+export const getPosts = inngest.createFunction(
+  { name: 'Get posts' },
   { event: 'graphql/find-posts.query' },
 
   // This function will be called every time an event payload is received
@@ -259,8 +251,6 @@ const getPosts = inngest.createFunction(
     }
   }
 )
-
-export default getPosts
 "
 `;
 
@@ -277,7 +267,7 @@ exports[`Render function templates graphql triggered events by queries renders a
  * }
  *
  */
-const getPostBySlug = inngest.createFunction(
+export const getPostBySlug = inngest.createFunction(
   { name: 'Get post by slug' },
   { event: 'graphql/get-post-by-slug.query' },
   async ({ event, step }) => {
@@ -289,8 +279,6 @@ const getPostBySlug = inngest.createFunction(
     }
   }
 )
-
-export default getPostBySlug
 "
 `;
 
@@ -300,7 +288,7 @@ exports[`Render function templates graphql triggered events by queries renders a
 /**
  * To test this getAllPosts function make sure your app and dev server is running
  */
-const getAllPosts = inngest.createFunction(
+export const getAllPosts = inngest.createFunction(
   { name: 'Get all posts' }, // The name of your function, used for observability.
   { cron: 'TZ=America/New_York * * * * *' }, // The cron syntax for the function. TZ= is optional.
 
@@ -313,8 +301,6 @@ const getAllPosts = inngest.createFunction(
     }
   }
 )
-
-export default getAllPosts
 "
 `;
 
@@ -344,7 +330,7 @@ exports[`Render function templates graphql triggered events by queries renders a
  * }
  * 
  */
-const getPost = inngest.createFunction(
+export const getPost = inngest.createFunction(
   { name: 'Get post' },
   { event: 'graphql/find-post-by-id.query' },
   async ({ event, step }) => {
@@ -377,8 +363,6 @@ const getPost = inngest.createFunction(
     }
   }
 )
-
-export default getPost
 "
 `;
 
@@ -395,8 +379,8 @@ exports[`Render function templates standard inngest events renders a background 
  * }
  *
  */
-const orderCreated = inngest.createFunction(
-  { name: 'OrderCreated' },
+export const orderCreated = inngest.createFunction(
+  { name: 'Order created' },
   { event: 'event/order-created' },
 
   // This function will be called every time an event payload is received
@@ -409,8 +393,6 @@ const orderCreated = inngest.createFunction(
     }
   }
 )
-
-export default orderCreated
 "
 `;
 
@@ -427,7 +409,7 @@ exports[`Render function templates standard inngest events renders a delayed fun
  * }
  *
  */
-const afterCheckout = inngest.createFunction(
+export const afterCheckout = inngest.createFunction(
   { name: 'After checkout' },
   { event: 'event/after-checkout' },
   async ({ event, step }) => {
@@ -439,8 +421,6 @@ const afterCheckout = inngest.createFunction(
     }
   }
 )
-
-export default afterCheckout
 "
 `;
 
@@ -524,7 +504,7 @@ exports[`Render function templates standard inngest events renders a scheduled f
 /**
  * To test this test function make sure your app and dev server is running
  */
-const test = inngest.createFunction(
+export const test = inngest.createFunction(
   { name: 'Test' }, // The name of your function, used for observability.
   { cron: 'TZ=America/New_York * * * * *' }, // The cron syntax for the function. TZ= is optional.
 
@@ -537,8 +517,6 @@ const test = inngest.createFunction(
     }
   }
 )
-
-export default test
 "
 `;
 
@@ -568,7 +546,7 @@ exports[`Render function templates standard inngest events renders a step functi
  * }
  * 
  */
-const onboardUser = inngest.createFunction(
+export const onboardUser = inngest.createFunction(
   { name: 'Onboard user' },
   { event: 'event/onboard-user' },
   async ({ event, step }) => {
@@ -601,7 +579,5 @@ const onboardUser = inngest.createFunction(
     }
   }
 )
-
-export default onboardUser
 "
 `;

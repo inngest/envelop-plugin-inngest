@@ -92,10 +92,35 @@ describe('codemods', () => {
             const output = functionTransform(
               { path: '../__testfixtures__/default.input.js', source },
               { jscodeshift },
-              { ...defaultJscodeshiftOpts, functionNames: ['testFunction'] },
+              {
+                ...defaultJscodeshiftOpts,
+                functionImportConfig: [{ import: 'testFunction', from: 'testFunction' }],
+              },
             );
             expect(output).toMatchSnapshot();
           });
+        });
+      });
+
+      describe('when given a standard default Inngest handler', () => {
+        describe('it adds several functions to an array of inngest functions', () => {
+          const source = fs.readFileSync(
+            path.join(__dirname, '__testfixtures__', 'function', 'default.input.js'),
+            'utf8',
+          );
+          const output = functionTransform(
+            { path: '../__testfixtures__/default.input.js', source },
+            { jscodeshift },
+            {
+              ...defaultJscodeshiftOpts,
+              functionImportConfig: [
+                { import: 'testFunction', from: 'testFunction' },
+                { import: 'testFunctionFanOut', from: 'testFunction' },
+                { import: 'sendMail', from: 'testFunction' },
+              ],
+            },
+          );
+          expect(output).toMatchSnapshot();
         });
       });
 
@@ -108,7 +133,12 @@ describe('codemods', () => {
           const output = functionTransform(
             { path: '../__testfixtures__/empty.input.js', source },
             { jscodeshift },
-            { ...defaultJscodeshiftOpts, functionNames: ['addedFunctionToEmpty'] },
+            {
+              ...defaultJscodeshiftOpts,
+              functionImportConfig: [
+                { import: 'addedFunctionToEmpty', from: 'addedFunctionToEmpty' },
+              ],
+            },
           );
           expect(output).toMatchSnapshot();
         });
