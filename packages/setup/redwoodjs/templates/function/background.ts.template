@@ -10,8 +10,8 @@ import { inngest } from 'src/lib/inngest'
  * }
  *
  */
-const ${functionName} = inngest.createFunction(
-  { name: '${name}' },
+export const ${functionName} = inngest.createFunction(
+  { name: '${humanizedName}' },
   { event: '${eventName}' },
 
   // This function will be called every time an event payload is received
@@ -24,5 +24,3 @@ const ${functionName} = inngest.createFunction(
     }
   }
 )
-
-export default ${functionName}

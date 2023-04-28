@@ -23,7 +23,7 @@ import { inngest } from 'src/lib/inngest'
  * }
  * 
  */
-const ${functionName} = inngest.createFunction(
+export const ${functionName} = inngest.createFunction(
   { name: '${humanizedName}' },
   { event: '${eventName}' },
   async ({ event, step }) => {
@@ -56,5 +56,3 @@ const ${functionName} = inngest.createFunction(
     }
   }
 )
-
-export default ${functionName}

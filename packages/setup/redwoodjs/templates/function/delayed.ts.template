@@ -10,8 +10,8 @@ import { inngest } from 'src/lib/inngest'
  * }
  *
  */
-const ${functionName} = inngest.createFunction(
-  { name: '${name}' },
+export const ${functionName} = inngest.createFunction(
+  { name: '${humanizedName}' },
   { event: '${eventName}' },
   async ({ event, step }) => {
     await step.sleep('5s')
@@ -22,5 +22,3 @@ const ${functionName} = inngest.createFunction(
     }
   }
 )
-
-export default ${functionName}

@@ -1,0 +1,70 @@
+import { inngest } from 'src/lib/inngest'
+
+/**
+ * To test this ${functionName} function make sure your app and dev server is running
+ */
+export const ${functionName} = inngest.createFunction(
+  { name: '${humanizedName}' }, // The name of your function, used for observability.
+  { cron: 'TZ=America/New_York * * * * *' }, // The cron syntax for the function. TZ= is optional.
+
+  // This function will be called on the schedule defined in the cron property.
+  // When implementing your function, you have access to the { event, step }.
+  async ({ step }) => {
+    // Fetch all users
+    const users = await step.run('Fetch users', async () => {
+      return fetchUsers()
+    })
+
+    // For each user, send us an event.  Inngest supports batches of events
+    // as long as the entire payload is less than 512KB.
+    const events = users.map((user) => {
+      return {
+        name: 'app/weekly-email-activity.send',
+        data: {
+          ...user,
+        },
+        user,
+      }
+    })
+
+    // Send all events to Inngest, which triggers any functions listening to
+    // the given event names.
+    await step.sendEvent(events)
+
+    // Return the number of users triggered.
+    return { count: users.length }
+  }
+)
+
+export const ${functionName}FanOut = inngest.createFunction(
+  { name: 'Weekly activity: send email' },
+  { event: 'app/weekly-email-activity.send' },
+  async ({ event, step }) => {
+    const data = await step.run('Load user data', async () => {
+      return loadUserData(event.data.id)
+    })
+
+    await step.run('Email user', async () => {
+      return await sendEmail(event.data.user, data)
+    })
+  }
+)
+
+const fetchUsers = () => {
+  return [
+    { user: { id: 1, name: 'Alice', email: 'alice@example.com' } },
+    { user: { id: 2, name: 'Bob', email: 'bob@example.com' } },
+    { user: { id: 3, name: 'Carol', email: 'carol@example.com' } },
+    { user: { id: 4, name: 'David', email: 'david@example.com' } },
+    { user: { id: 5, name: 'Eve', email: 'eve@example.com' } },
+  ]
+}
+
+const loadUserData = async (id) => {
+  return fetchUsers().find((user) => user.user.id === id)
+}
+
+const sendEmail = async (user, data) => {
+  const message = `Sending email to <%= "\${user.name\}" %> at <%= "\${user.email\}" %> ...`
+  return { message, user, data }
+}

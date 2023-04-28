@@ -46,10 +46,16 @@ export const tasks = (options: SetupFunctionTasksOptions) => {
             stdin: false,
           };
 
+          const functionImportConfig = [{ import: functionName, from: functionName }];
+
+          if (options.type === 'fan-out') {
+            functionImportConfig.push({ import: `${functionName}FanOut`, from: functionName });
+          }
+
           try {
             await jscodeshift.run(SRC_INNGEST_CODEMOD_FILE, [SRC_INNGEST_HANDLER_FILE], {
               ...defaultJscodeshiftOpts,
-              functionName,
+              functionImportConfig,
             });
           } catch (e: any) {
             // eslint-disable-next-line no-console
