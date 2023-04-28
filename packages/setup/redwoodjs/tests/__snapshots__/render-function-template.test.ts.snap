@@ -1,12 +1,510 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render function templates standard events render a scheduled function 1`] = `
+exports[`Render function templates graphql triggered events by mutations renders a background function 1`] = `
+"import { inngest } from 'src/lib/inngest'
+
+/**
+ * To test this onPostUpdate function, send an event to the Inngest API with the following payload:
+ *
+ * {
+ *   "name": "graphql/update-post-by-id.mutation",
+ *   "data": {}
+ *   "user": {}
+ * }
+ *
+ */
+export const onPostUpdate = inngest.createFunction(
+  { name: 'On post update' },
+  { event: 'graphql/update-post-by-id.mutation' },
+
+  // This function will be called every time an event payload is received
+  // When implementing your function, you have access to the { event, step }.
+  async ({ event }) => {
+    return {
+      event,
+      body: 'Background function On post update ran.',
+      runAt: Date.now().toString(),
+    }
+  }
+)
+"
+`;
+
+exports[`Render function templates graphql triggered events by mutations renders a delayed function 1`] = `
+"import { inngest } from 'src/lib/inngest'
+
+/**
+ * To test this onPostDelete function, send an event to the Inngest API with the following payload:
+ *
+ * {
+ *   "name": "graphql/delete-post-by-id.mutation",
+ *   "data": {}
+ *   "user": {}
+ * }
+ *
+ */
+export const onPostDelete = inngest.createFunction(
+  { name: 'On post delete' },
+  { event: 'graphql/delete-post-by-id.mutation' },
+  async ({ event, step }) => {
+    await step.sleep('5s')
+
+    return {
+      event,
+      body: 'Delayed function On post delete waited for 5 seconds',
+    }
+  }
+)
+"
+`;
+
+exports[`Render function templates graphql triggered events by mutations renders a fan-out function 1`] = `
+"import { inngest } from 'src/lib/inngest'
+
+/**
+ * To test this whenNewPost function make sure your app and dev server is running
+ */
+export const whenNewPost = inngest.createFunction(
+  { name: 'When new post' }, // The name of your function, used for observability.
+  { cron: 'TZ=America/New_York * * * * *' }, // The cron syntax for the function. TZ= is optional.
+
+  // This function will be called on the schedule defined in the cron property.
+  // When implementing your function, you have access to the { event, step }.
+  async ({ step }) => {
+    // Fetch all users
+    const users = await step.run('Fetch users', async () => {
+      return fetchUsers()
+    })
+
+    // For each user, send us an event.  Inngest supports batches of events
+    // as long as the entire payload is less than 512KB.
+    const events = users.map((user) => {
+      return {
+        name: 'app/weekly-email-activity.send',
+        data: {
+          ...user,
+        },
+        user,
+      }
+    })
+
+    // Send all events to Inngest, which triggers any functions listening to
+    // the given event names.
+    await step.sendEvent(events)
+
+    // Return the number of users triggered.
+    return { count: users.length }
+  }
+)
+
+export const whenNewPostFanOut = inngest.createFunction(
+  { name: 'Weekly activity: send email' },
+  { event: 'app/weekly-email-activity.send' },
+  async ({ event, step }) => {
+    const data = await step.run('Load user data', async () => {
+      return loadUserData(event.data.id)
+    })
+
+    await step.run('Email user', async () => {
+      return await sendEmail(event.data.user, data)
+    })
+  }
+)
+
+const fetchUsers = () => {
+  return [
+    { user: { id: 1, name: 'Alice', email: 'alice@example.com' } },
+    { user: { id: 2, name: 'Bob', email: 'bob@example.com' } },
+    { user: { id: 3, name: 'Carol', email: 'carol@example.com' } },
+    { user: { id: 4, name: 'David', email: 'david@example.com' } },
+    { user: { id: 5, name: 'Eve', email: 'eve@example.com' } },
+  ]
+}
+
+const loadUserData = async (id) => {
+  return fetchUsers().find((user) => user.user.id === id)
+}
+
+const sendEmail = async (user, data) => {
+  const message = \`Sending email to \${user.name} at \${user.email} ...\`
+  return { message, user, data }
+}
+"
+`;
+
+exports[`Render function templates graphql triggered events by mutations renders a step function 1`] = `
+"import { inngest } from 'src/lib/inngest'
+
+/**
+ * To test this onPostEdit function, send an event to the Inngest API with the following payload:
+ *
+ * {
+ *   "name": "graphql/edit-post-by-id.mutation",
+ *   "data": { "user": { id: 123 } }
+ *   "user": {}
+ * }
+ *
+ *
+ * If you do not send another event named "app/order.created", then next step will not run.
+ *
+ *
+ * If you do send a "app/order.created" event, make sure the data.user.id matches the id 
+ * used in the \`app/graphql/edit-post-by-id.mutation\` event sent to complete the event handling.
+ *
+ * {
+ *   "name": "app/order.created",
+ *   "data": { "user": { "id": 123 } }
+ *   "user": {}
+ * }
+ * 
+ */
+export const onPostEdit = inngest.createFunction(
+  { name: 'On post edit' },
+  { event: 'graphql/edit-post-by-id.mutation' },
+  async ({ event, step }) => {
+    // Send the user a welcome email
+    await step.run('Send welcome email', () => {
+      return {
+        event,
+        body: 'Hello World!',
+        userId: event.data?.user?.id,
+      }
+    })
+
+    // Wait for the user to create an order, by waiting and
+    // matching on another event
+    const order = await step.waitForEvent('app/order.created', {
+      match: 'data.user.id',
+      timeout: '20s',
+    })
+
+    if (!order) {
+      // User didn't create an order within 20 seconds;
+      // send them an activation email
+      await step.run('Send activation email', async () => {
+        return {
+          event,
+          body: 'Mail sent!',
+          userId: event.data?.user?.id,
+        }
+      })
+    }
+  }
+)
+"
+`;
+
+exports[`Render function templates graphql triggered events by queries renders a background function 1`] = `
+"import { inngest } from 'src/lib/inngest'
+
+/**
+ * To test this getPosts function, send an event to the Inngest API with the following payload:
+ *
+ * {
+ *   "name": "graphql/find-posts.query",
+ *   "data": {}
+ *   "user": {}
+ * }
+ *
+ */
+export const getPosts = inngest.createFunction(
+  { name: 'Get posts' },
+  { event: 'graphql/find-posts.query' },
+
+  // This function will be called every time an event payload is received
+  // When implementing your function, you have access to the { event, step }.
+  async ({ event }) => {
+    return {
+      event,
+      body: 'Background function Get posts ran.',
+      runAt: Date.now().toString(),
+    }
+  }
+)
+"
+`;
+
+exports[`Render function templates graphql triggered events by queries renders a background function 2`] = `
+"import { inngest } from 'src/lib/inngest'
+
+/**
+ * To test this getPosts function, send an event to the Inngest API with the following payload:
+ *
+ * {
+ *   "name": "graphql/find-posts.query",
+ *   "data": {}
+ *   "user": {}
+ * }
+ *
+ */
+export const getPosts = inngest.createFunction(
+  { name: 'Get posts' },
+  { event: 'graphql/find-posts.query' },
+
+  // This function will be called every time an event payload is received
+  // When implementing your function, you have access to the { event, step }.
+  async ({ event }) => {
+    return {
+      event,
+      body: 'Background function Get posts ran.',
+      runAt: Date.now().toString(),
+    }
+  }
+)
+"
+`;
+
+exports[`Render function templates graphql triggered events by queries renders a delayed function 1`] = `
+"import { inngest } from 'src/lib/inngest'
+
+/**
+ * To test this getPostBySlug function, send an event to the Inngest API with the following payload:
+ *
+ * {
+ *   "name": "graphql/get-post-by-slug.query",
+ *   "data": {}
+ *   "user": {}
+ * }
+ *
+ */
+export const getPostBySlug = inngest.createFunction(
+  { name: 'Get post by slug' },
+  { event: 'graphql/get-post-by-slug.query' },
+  async ({ event, step }) => {
+    await step.sleep('5s')
+
+    return {
+      event,
+      body: 'Delayed function Get post by slug waited for 5 seconds',
+    }
+  }
+)
+"
+`;
+
+exports[`Render function templates graphql triggered events by queries renders a scheduled function 1`] = `
+"import { inngest } from 'src/lib/inngest'
+
+/**
+ * To test this getAllPosts function make sure your app and dev server is running
+ */
+export const getAllPosts = inngest.createFunction(
+  { name: 'Get all posts' }, // The name of your function, used for observability.
+  { cron: 'TZ=America/New_York * * * * *' }, // The cron syntax for the function. TZ= is optional.
+
+  // This function will be called on the schedule defined in the cron property.
+  // When implementing your function, you have access to the { event, step }.
+  async () => {
+    return {
+      message: \`Scheduled Get all posts function ran.\`,
+      runAt: Date.now().toString(),
+    }
+  }
+)
+"
+`;
+
+exports[`Render function templates graphql triggered events by queries renders a step function 1`] = `
+"import { inngest } from 'src/lib/inngest'
+
+/**
+ * To test this getPost function, send an event to the Inngest API with the following payload:
+ *
+ * {
+ *   "name": "graphql/find-post-by-id.query",
+ *   "data": { "user": { id: 123 } }
+ *   "user": {}
+ * }
+ *
+ *
+ * If you do not send another event named "app/order.created", then next step will not run.
+ *
+ *
+ * If you do send a "app/order.created" event, make sure the data.user.id matches the id 
+ * used in the \`app/graphql/find-post-by-id.query\` event sent to complete the event handling.
+ *
+ * {
+ *   "name": "app/order.created",
+ *   "data": { "user": { "id": 123 } }
+ *   "user": {}
+ * }
+ * 
+ */
+export const getPost = inngest.createFunction(
+  { name: 'Get post' },
+  { event: 'graphql/find-post-by-id.query' },
+  async ({ event, step }) => {
+    // Send the user a welcome email
+    await step.run('Send welcome email', () => {
+      return {
+        event,
+        body: 'Hello World!',
+        userId: event.data?.user?.id,
+      }
+    })
+
+    // Wait for the user to create an order, by waiting and
+    // matching on another event
+    const order = await step.waitForEvent('app/order.created', {
+      match: 'data.user.id',
+      timeout: '20s',
+    })
+
+    if (!order) {
+      // User didn't create an order within 20 seconds;
+      // send them an activation email
+      await step.run('Send activation email', async () => {
+        return {
+          event,
+          body: 'Mail sent!',
+          userId: event.data?.user?.id,
+        }
+      })
+    }
+  }
+)
+"
+`;
+
+exports[`Render function templates standard inngest events renders a background function 1`] = `
+"import { inngest } from 'src/lib/inngest'
+
+/**
+ * To test this orderCreated function, send an event to the Inngest API with the following payload:
+ *
+ * {
+ *   "name": "event/order-created",
+ *   "data": {}
+ *   "user": {}
+ * }
+ *
+ */
+export const orderCreated = inngest.createFunction(
+  { name: 'Order created' },
+  { event: 'event/order-created' },
+
+  // This function will be called every time an event payload is received
+  // When implementing your function, you have access to the { event, step }.
+  async ({ event }) => {
+    return {
+      event,
+      body: 'Background function Order created ran.',
+      runAt: Date.now().toString(),
+    }
+  }
+)
+"
+`;
+
+exports[`Render function templates standard inngest events renders a delayed function 1`] = `
+"import { inngest } from 'src/lib/inngest'
+
+/**
+ * To test this afterCheckout function, send an event to the Inngest API with the following payload:
+ *
+ * {
+ *   "name": "event/after-checkout",
+ *   "data": {}
+ *   "user": {}
+ * }
+ *
+ */
+export const afterCheckout = inngest.createFunction(
+  { name: 'After checkout' },
+  { event: 'event/after-checkout' },
+  async ({ event, step }) => {
+    await step.sleep('5s')
+
+    return {
+      event,
+      body: 'Delayed function After checkout waited for 5 seconds',
+    }
+  }
+)
+"
+`;
+
+exports[`Render function templates standard inngest events renders a fan-out function 1`] = `
+"import { inngest } from 'src/lib/inngest'
+
+/**
+ * To test this sendNewsletter function make sure your app and dev server is running
+ */
+export const sendNewsletter = inngest.createFunction(
+  { name: 'Send newsletter' }, // The name of your function, used for observability.
+  { cron: 'TZ=America/New_York * * * * *' }, // The cron syntax for the function. TZ= is optional.
+
+  // This function will be called on the schedule defined in the cron property.
+  // When implementing your function, you have access to the { event, step }.
+  async ({ step }) => {
+    // Fetch all users
+    const users = await step.run('Fetch users', async () => {
+      return fetchUsers()
+    })
+
+    // For each user, send us an event.  Inngest supports batches of events
+    // as long as the entire payload is less than 512KB.
+    const events = users.map((user) => {
+      return {
+        name: 'app/weekly-email-activity.send',
+        data: {
+          ...user,
+        },
+        user,
+      }
+    })
+
+    // Send all events to Inngest, which triggers any functions listening to
+    // the given event names.
+    await step.sendEvent(events)
+
+    // Return the number of users triggered.
+    return { count: users.length }
+  }
+)
+
+export const sendNewsletterFanOut = inngest.createFunction(
+  { name: 'Weekly activity: send email' },
+  { event: 'app/weekly-email-activity.send' },
+  async ({ event, step }) => {
+    const data = await step.run('Load user data', async () => {
+      return loadUserData(event.data.id)
+    })
+
+    await step.run('Email user', async () => {
+      return await sendEmail(event.data.user, data)
+    })
+  }
+)
+
+const fetchUsers = () => {
+  return [
+    { user: { id: 1, name: 'Alice', email: 'alice@example.com' } },
+    { user: { id: 2, name: 'Bob', email: 'bob@example.com' } },
+    { user: { id: 3, name: 'Carol', email: 'carol@example.com' } },
+    { user: { id: 4, name: 'David', email: 'david@example.com' } },
+    { user: { id: 5, name: 'Eve', email: 'eve@example.com' } },
+  ]
+}
+
+const loadUserData = async (id) => {
+  return fetchUsers().find((user) => user.user.id === id)
+}
+
+const sendEmail = async (user, data) => {
+  const message = \`Sending email to \${user.name} at \${user.email} ...\`
+  return { message, user, data }
+}
+"
+`;
+
+exports[`Render function templates standard inngest events renders a scheduled function 1`] = `
 "import { inngest } from 'src/lib/inngest'
 
 /**
  * To test this test function make sure your app and dev server is running
  */
-const test = inngest.createFunction(
+export const test = inngest.createFunction(
   { name: 'Test' }, // The name of your function, used for observability.
   { cron: 'TZ=America/New_York * * * * *' }, // The cron syntax for the function. TZ= is optional.
 
@@ -19,7 +517,67 @@ const test = inngest.createFunction(
     }
   }
 )
+"
+`;
 
-export default test
+exports[`Render function templates standard inngest events renders a step function 1`] = `
+"import { inngest } from 'src/lib/inngest'
+
+/**
+ * To test this onboardUser function, send an event to the Inngest API with the following payload:
+ *
+ * {
+ *   "name": "event/onboard-user",
+ *   "data": { "user": { id: 123 } }
+ *   "user": {}
+ * }
+ *
+ *
+ * If you do not send another event named "app/order.created", then next step will not run.
+ *
+ *
+ * If you do send a "app/order.created" event, make sure the data.user.id matches the id 
+ * used in the \`app/event/onboard-user\` event sent to complete the event handling.
+ *
+ * {
+ *   "name": "app/order.created",
+ *   "data": { "user": { "id": 123 } }
+ *   "user": {}
+ * }
+ * 
+ */
+export const onboardUser = inngest.createFunction(
+  { name: 'Onboard user' },
+  { event: 'event/onboard-user' },
+  async ({ event, step }) => {
+    // Send the user a welcome email
+    await step.run('Send welcome email', () => {
+      return {
+        event,
+        body: 'Hello World!',
+        userId: event.data?.user?.id,
+      }
+    })
+
+    // Wait for the user to create an order, by waiting and
+    // matching on another event
+    const order = await step.waitForEvent('app/order.created', {
+      match: 'data.user.id',
+      timeout: '20s',
+    })
+
+    if (!order) {
+      // User didn't create an order within 20 seconds;
+      // send them an activation email
+      await step.run('Send activation email', async () => {
+        return {
+          event,
+          body: 'Mail sent!',
+          userId: event.data?.user?.id,
+        }
+      })
+    }
+  }
+)
 "
 `;

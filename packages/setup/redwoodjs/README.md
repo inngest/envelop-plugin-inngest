@@ -189,7 +189,7 @@ Supported types are:
 - [delayed](https://www.inngest.com/docs/guides/enqueueing-future-jobs)
 - [scheduled](https://www.inngest.com/docs/guides/scheduled-functions)
 - [step](https://www.inngest.com/docs/functions/multi-step)
-- (coming soon - fan out)
+- [fan-out](https://www.inngest.com/docs/guides/fan-out-jobs)
 
 Note: if you omit the type argument, you will be prompted to pick a supported function type.
 

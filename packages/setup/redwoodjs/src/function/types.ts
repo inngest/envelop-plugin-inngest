@@ -7,3 +7,5 @@ export type ExportedType = {
 };
 
 export interface SetupFunctionTasksOptions extends SetupInngestFunctionOptions {}
+
+export type FunctionImportConfig = { import: string; from: string };

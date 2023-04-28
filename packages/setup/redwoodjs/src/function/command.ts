@@ -11,7 +11,7 @@ export interface ForceOptions extends BaseOptions {
 export interface SetupInngestFunctionOptions extends ForceOptions {
   name: string;
   eventName?: string;
-  type: 'background' | 'scheduled' | 'delayed' | 'step';
+  type: 'background' | 'scheduled' | 'delayed' | 'step' | 'fan-out';
   graphql: boolean;
   operationType?: 'query' | 'mutation';
 }
