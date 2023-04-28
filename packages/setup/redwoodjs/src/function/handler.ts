@@ -51,6 +51,11 @@ export const handler = async ({
           description:
             'Create a multi-step function to safely coordinate between events, delay execution for hours or days, and consider previous steps and incoming events',
         },
+        {
+          value: 'fan-out',
+          title: 'Fan Out',
+          description: 'Create a fan out function to call other functions, which run in parallel',
+        },
       ],
       message: 'What type of Inngest function would you like to create?',
     });
