@@ -46,7 +46,7 @@ exports[`Render function templates graphql triggered events by mutations renders
  *
  */
 const onPostDelete = inngest.createFunction(
-  { name: 'OnPostDelete' },
+  { name: 'On post delete' },
   { event: 'graphql/delete-post-by-id.mutation' },
   async ({ event, step }) => {
     await step.sleep('5s')
@@ -278,7 +278,7 @@ exports[`Render function templates graphql triggered events by queries renders a
  *
  */
 const getPostBySlug = inngest.createFunction(
-  { name: 'GetPostBySlug' },
+  { name: 'Get post by slug' },
   { event: 'graphql/get-post-by-slug.query' },
   async ({ event, step }) => {
     await step.sleep('5s')
@@ -428,7 +428,7 @@ exports[`Render function templates standard inngest events renders a delayed fun
  *
  */
 const afterCheckout = inngest.createFunction(
-  { name: 'AfterCheckout' },
+  { name: 'After checkout' },
   { event: 'event/after-checkout' },
   async ({ event, step }) => {
     await step.sleep('5s')
