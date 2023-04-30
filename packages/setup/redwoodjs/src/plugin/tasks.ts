@@ -28,6 +28,7 @@ export const tasks = (options: SetupPluginTasksOptions) => {
     SRC_LIB_PATH,
     SRC_PLUGINS_PATH,
   };
+
   const existingFiles = options.force ? 'OVERWRITE' : 'FAIL';
 
   return new Listr(
@@ -151,7 +152,7 @@ export const configureInngestTask = ({
   });
 };
 
-const addInngestGraphQLPluginTask = ({
+export const addInngestGraphQLPluginTask = ({
   commandPaths,
   existingFiles,
 }: {
@@ -171,7 +172,7 @@ const addInngestGraphQLPluginTask = ({
   });
 };
 
-const addInngestHelloWorldExampleTask = ({
+export const addInngestHelloWorldExampleTask = ({
   commandPaths,
   existingFiles,
 }: {
@@ -197,12 +198,14 @@ const addInngestHelloWorldExampleTask = ({
 
 export const modifyGraphQLHandlerTask = async ({
   commandPaths,
+  dry = 0,
 }: {
   commandPaths: Record<string, string>;
+  dry?: number;
 }) => {
   const defaultJscodeshiftOpts = {
     verbose: 0,
-    dry: false,
+    dry,
     print: false,
     babel: false,
     extensions: 'js',
