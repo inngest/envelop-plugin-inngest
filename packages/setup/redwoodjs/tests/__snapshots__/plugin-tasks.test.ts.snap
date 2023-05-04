@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Plugin tasks has addInngestGraphQLPluginTask 1`] = `
+"// Setup the envelop plugin used in RedwoodJS GraphQLHandler
+
+import { useInngest } from 'envelop-plugin-inngest'
+import type {
+  BuildUserContextFunction,
+  InngestUserContextOptions,
+} from 'envelop-plugin-inngest'
+
+import { inngest } from 'src/lib/inngest'
+
+// Includes the user context for each authenticated GraphQL request
+export const userContext: BuildUserContextFunction = (
+  options: InngestUserContextOptions
+) => {
+  const currentUser = options?.params?.args?.contextValue?.currentUser
+
+  if (currentUser) {
+    return { id: currentUser.id }
+  }
+
+  return {}
+}
+
+// For a complete list of inngest plugin configuration options, see: https://github.com/inngest/envelop-plugin-inngest/blob/main/packages/plugins/inngest/README.md
+export const inngestPlugin = useInngest({
+  inngestClient: inngest,
+  buildUserContextFunction: userContext,
+})
+"
+`;
+
+exports[`Plugin tasks has addInngestHelloWorldExampleTask 1`] = `
+"import { inngest } from 'src/lib/inngest'
+
+const helloWorld = inngest.createFunction(
+  { name: 'Hello World' },
+  { event: 'test/hello-world' },
+  async ({ event, step }) => {
+    await step.sleep('1s')
+
+    return {
+      event,
+      body: \`Hello, \${event.data?.name ? event.data.name : 'World'}!\`,
+    }
+  }
+)
+
+export default helloWorld
+"
+`;
+
+exports[`Plugin tasks has addScriptToPackageJsonTask 1`] = `
+"{
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "api",
+      "web"
+    ]
+  },
+  "engines": {
+    "node": ">=16.19 <=18.x",
+    "yarn": ">=1.15"
+  },
+  "devDependencies": {
+    "@redwoodjs/core": "4.4.2",
+    "inngest-setup-redwoodjs": "0.3.0",
+    "prettier-plugin-tailwindcss": "^0.2.7"
+  },
+  "eslintConfig": {
+    "extends": "@redwoodjs/eslint-config",
+    "root": true
+  },
+  "prisma": {
+    "seed": "yarn rw exec seed"
+  },
+  "scripts": {
+    "inngest:dev": "npx inngest-cli@latest dev -u http://localhost:8911/inngest"
+  }
+}"
+`;
+
+exports[`Plugin tasks has configureInngestTask 1`] = `
+"import { Inngest } from 'inngest'
+
+export const INNGEST_APP_NAME = 'Redwood_Inngest'
+
+export const inngest = new Inngest({
+  /**
+   * The name of this instance, most commonly the name of the application it
+   * resides in.
+   */
+  name: INNGEST_APP_NAME,
+  /**
+   * Inngest event key, used to send events to Inngest Cloud. If not provided,
+   * will search for the \`INNGEST_EVENT_KEY\` environment variable. If neither
+   * can be found, however, a warning will be shown and any attempts to send
+   * events will throw an error.
+   */
+  eventKey: 'YOUR_INNGEST_EVENT_KEY',
+})
+"
+`;
+
+exports[`Plugin tasks has updateTomlConfig 1`] = `
+"
+[experimental.jobs.inngest.plugin]"
+`;
