@@ -1,8 +1,10 @@
+import fs from 'fs';
 import path from 'path';
 import execa from 'execa';
 import * as jscodeshift from 'jscodeshift/src/Runner';
 import { Listr } from 'listr2';
-import { getPaths } from '@redwoodjs/cli-helpers';
+import { getPaths, writeFile } from '@redwoodjs/cli-helpers';
+import { getConfigPath } from '@redwoodjs/project-config';
 import { getNamesForFile, renderFunctionTemplate, writeFunctionFile } from './helpers';
 import type { SetupFunctionTasksOptions } from './types';
 
@@ -11,6 +13,20 @@ export const tasks = (options: SetupFunctionTasksOptions) => {
 
   return new Listr(
     [
+      {
+        title: 'Adding config to redwood.toml...',
+        task: () => {
+          const redwoodTomlPath = getConfigPath();
+          const configContent = fs.readFileSync(redwoodTomlPath, 'utf-8');
+          const tomlKey = `[experimental.jobs.inngest.function.${options.type}]`;
+          if (!configContent.includes(tomlKey)) {
+            // Use string replace to preserve comments and formatting
+            writeFile(redwoodTomlPath, configContent.concat(`\n${tomlKey}`), {
+              existingFiles: 'OVERWRITE', // redwood.toml always exists
+            });
+          }
+        },
+      },
       {
         title: `Create a ${options.type} Inngest function named ${options.name} ...`,
         task: () => {

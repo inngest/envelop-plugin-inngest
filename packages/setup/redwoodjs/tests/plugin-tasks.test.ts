@@ -6,6 +6,7 @@ import {
   configureInngestTask,
   modifyGraphQLHandlerTask,
   tasks,
+  updateTomlConfig,
 } from '../src/plugin/tasks';
 
 let outputFileContents = '';
@@ -20,6 +21,26 @@ afterEach(() => {
 
 afterAll(() => {
   jest.clearAllMocks();
+});
+
+jest.mock('@redwoodjs/project-config', () => {
+  const path = require('path');
+  const __dirname = path.resolve();
+
+  return {
+    getConfigPath: () =>
+      path.join(
+        __dirname,
+        'packages',
+        'setup',
+        'redwoodjs',
+        'tests',
+        '__testfixtures__',
+        'plugin',
+        'test-project',
+        'redwood.toml',
+      ),
+  };
 });
 
 jest.mock('@redwoodjs/cli-helpers', () => {
@@ -73,7 +94,7 @@ describe('Plugin tasks', () => {
     expect(tasks).toBeDefined();
     expect(
       tasks({ force: false, cwd: path.join(__dirname, '__testfixtures__', 'plugin') }).tasks.length,
-    ).toBe(7);
+    ).toBe(8);
   });
 
   it('has addScriptToPackageJsonTask', () => {
@@ -111,5 +132,13 @@ describe('Plugin tasks', () => {
     expect(modifyGraphQLHandlerTask).toBeDefined();
 
     modifyGraphQLHandlerTask({ commandPaths, dry: 1 });
+  });
+
+  it('has updateTomlConfig', () => {
+    expect(updateTomlConfig).toBeDefined();
+
+    updateTomlConfig();
+
+    expect(outputFileContents).toMatchSnapshot();
   });
 });

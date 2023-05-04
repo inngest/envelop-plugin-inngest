@@ -104,3 +104,8 @@ export const inngest = new Inngest({
 })
 "
 `;
+
+exports[`Plugin tasks has updateTomlConfig 1`] = `
+"
+[experimental.jobs.inngest.plugin]"
+`;

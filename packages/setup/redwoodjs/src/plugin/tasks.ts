@@ -4,6 +4,7 @@ import fs from 'fs-extra';
 import * as jscodeshift from 'jscodeshift/src/Runner';
 import { Listr } from 'listr2';
 import { getPaths, writeFile } from '@redwoodjs/cli-helpers';
+import { getConfigPath } from '@redwoodjs/project-config';
 import type { ForceOptions } from './command';
 
 export interface SetupPluginTasksOptions extends ForceOptions {}
@@ -77,6 +78,12 @@ export const tasks = (options: SetupPluginTasksOptions) => {
         title: 'Add inngest dev script to package.json',
         task: async () => {
           addScriptToPackageJsonTask({ commandPaths });
+        },
+      },
+      {
+        title: 'Adding config to redwood.toml...',
+        task: () => {
+          updateTomlConfig();
         },
       },
       {
@@ -230,5 +237,18 @@ export const modifyGraphQLHandlerTask = async ({
   } catch (e: any) {
     // eslint-disable-next-line no-console
     console.error('Failed to modify the GraphQL handler', e.message);
+  }
+};
+
+export const updateTomlConfig = () => {
+  const redwoodTomlPath = getConfigPath();
+  const configContent = fs.readFileSync(redwoodTomlPath, 'utf-8');
+  const tomlKey = '[experimental.jobs.inngest.plugin]';
+
+  if (!configContent.includes(tomlKey)) {
+    // Use string replace to preserve comments and formatting
+    writeFile(redwoodTomlPath, configContent.concat(`\n${tomlKey}`), {
+      existingFiles: 'OVERWRITE', // redwood.toml always exists
+    });
   }
 };
