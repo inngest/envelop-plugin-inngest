@@ -18,7 +18,7 @@ export const tasks = (options: SetupFunctionTasksOptions) => {
         task: () => {
           const redwoodTomlPath = getConfigPath();
           const configContent = fs.readFileSync(redwoodTomlPath, 'utf-8');
-          const tomlKey = `[experimental.jobs.inngest.function.${options.type}]`;
+          const tomlKey = `[experimental.inngest]`;
           if (!configContent.includes(tomlKey)) {
             // Use string replace to preserve comments and formatting
             writeFile(redwoodTomlPath, configContent.concat(`\n${tomlKey}`), {
