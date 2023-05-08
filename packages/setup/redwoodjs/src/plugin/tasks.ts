@@ -51,7 +51,7 @@ export const tasks = (options: SetupPluginTasksOptions) => {
       },
 
       {
-        title: 'Configure inngest ...',
+        title: 'Configure Inngest ...',
         task: () => {
           configureInngestTask({ commandPaths, existingFiles });
         },
@@ -63,7 +63,7 @@ export const tasks = (options: SetupPluginTasksOptions) => {
         },
       },
       {
-        title: 'Add inngest helloWorld example ...',
+        title: 'Add Inngest helloWorld example ...',
         task: () => {
           addInngestHelloWorldExampleTask({ commandPaths, existingFiles });
         },
@@ -243,7 +243,7 @@ export const modifyGraphQLHandlerTask = async ({
 export const updateTomlConfig = () => {
   const redwoodTomlPath = getConfigPath();
   const configContent = fs.readFileSync(redwoodTomlPath, 'utf-8');
-  const tomlKey = '[experimental.jobs.inngest.plugin]';
+  const tomlKey = '[experimental.inngest]';
 
   if (!configContent.includes(tomlKey)) {
     // Use string replace to preserve comments and formatting
