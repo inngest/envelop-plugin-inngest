@@ -22,7 +22,7 @@ yarn add envelop-plugin-inngest
 ```
 
 > **Note:** If you use RedwoodJS v5.0.6-canary or later, you can setup Inngest via
-> `yarn rw experimental setup inngest`.
+> `yarn rw experimental setup-inngest`.
 
 ## Usage Example
 
