@@ -1,5 +1,14 @@
 # inngest-setup-redwoodjs
 
+## 0.4.1
+
+### Patch Changes
+
+- [#100](https://github.com/inngest/envelop-plugin-inngest/pull/100)
+  [`a3cceee`](https://github.com/inngest/envelop-plugin-inngest/commit/a3cceeebb4b20bff0cc8229856ba8ba459e49b04)
+  Thanks [@dthyresson](https://github.com/dthyresson)! - Supports RedwoodJS experimental packages
+  config
+
 ## 0.4.0
 
 ### Minor Changes
