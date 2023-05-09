@@ -1,5 +1,13 @@
 # inngest-setup-redwoodjs
 
+## 0.4.4
+
+### Patch Changes
+
+- [#115](https://github.com/inngest/envelop-plugin-inngest/pull/115)
+  [`e80db3a`](https://github.com/inngest/envelop-plugin-inngest/commit/e80db3a089be3b03f36b871c7d66d1baa6c8bc81)
+  Thanks [@dthyresson](https://github.com/dthyresson)! - Upgrade to inngest sdk v1.8.1
+
 ## 0.4.3
 
 ### Patch Changes
