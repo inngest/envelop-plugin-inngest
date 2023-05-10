@@ -2596,10 +2596,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.13.tgz#f64277c341150c979e42b00e4ac289290c9df469"
   integrity sha512-N+0kuo9KgrUQ1Sn/ifDXsvg0TTleP7rIy4zOBGECxAljqvqfqpTfzx0Q1NUedOixRMBfe2Whhb056a42cWs26Q==
 
-"@types/node@18.16.6":
-  version "18.16.6"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.16.6.tgz#d0ffffe201b253989b17ea157ddabec677a4f4fe"
-  integrity sha512-N7KINmeB8IN3vRR8dhgHEp+YpWvGFcpDoh5XZ8jB5a00AdFKCKEyyGTOPTddUf4JqU1ZKTVxkOxakDvchNVI2Q==
+"@types/node@18.16.7":
+  version "18.16.7"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.16.7.tgz#86d0ba2541f808cb78d4dc5d3e40242a349d6db8"
+  integrity sha512-MFg7ua/bRtnA1hYE3pVyWxGd/r7aMqjNOdHvlSsXV3n8iaeGKkOaPzpJh6/ovf4bEXWcojkeMJpTsq3mzXW4IQ==
 
 "@types/node@^12.7.1":
   version "12.20.55"
@@ -5127,10 +5127,10 @@ ini@^1.3.4:
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.8.tgz#a29da425b48806f34767a4efce397269af28432c"
   integrity sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==
 
-inngest@1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/inngest/-/inngest-1.8.1.tgz#a5f1a0bcf5be95331580155ddc78c37f1866ccd3"
-  integrity sha512-/JHct1x4XR6waznycKPrAWp7P2O3dpeC2CJrGYBdwr/kAnh+zJ3NVZWBwe55pwfNvIOH55MSbuA/5KumVckLIQ==
+inngest@1.8.2:
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/inngest/-/inngest-1.8.2.tgz#f131c0143040efc409c9fe5714d729324d14fbb4"
+  integrity sha512-cxBIna0AFKn9OL0uQkhZy3jcD4JqHXKLNUTvQ/XsBNOzjrynajY5sLesK6xpuskMFcr26QG1OSpZVW6Ah4c+Sw==
   dependencies:
     buffer "^6.0.3"
     canonicalize "^1.0.8"
