@@ -2153,15 +2153,15 @@
   resolved "https://registry.yarnpkg.com/@prisma/prisma-fmt-wasm/-/prisma-fmt-wasm-4.14.0-67.d9a4c5988f480fa576d43970d5a23641aa77bc9c.tgz#94a406b30c07c6b9acbf57db5c4f9276a91baa7d"
   integrity sha512-qvxi6xbUb4wcawvLju0t2soGBPGs13L6HVmJrZG+RGaDDuJn9qzDAdZl97YdyFgn4jN6VMJeSqXt3yTWKkaaUw==
 
-"@redwoodjs/cli-helpers@5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@redwoodjs/cli-helpers/-/cli-helpers-5.1.0.tgz#801861daf88019e3b3f71ca0e6015e2e20c7d23c"
-  integrity sha512-N7CQ+Ulhjxx8qRqddxEjCv/GAjLBdqrMSxiKJmVGzB0K+Lojt6MJ6Xq6etN5MGCLlQV9dlMbk3H/IHtwjDmL1w==
+"@redwoodjs/cli-helpers@5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@redwoodjs/cli-helpers/-/cli-helpers-5.1.2.tgz#688f29f7bcb5fab9bc286e4a6c5a7842f0cd54e7"
+  integrity sha512-8ZmQLjxzhlVp585odv96HufiQugnseGowT011A09Fetq7jQBqRzSF+S4N4dg2sl+21C+MCAeuijtMVSWGs24ww==
   dependencies:
     "@babel/core" "7.21.8"
     "@babel/runtime-corejs3" "7.21.5"
-    "@redwoodjs/project-config" "5.1.0"
-    "@redwoodjs/telemetry" "5.1.0"
+    "@redwoodjs/project-config" "5.1.2"
+    "@redwoodjs/telemetry" "5.1.2"
     chalk "4.1.2"
     core-js "3.30.2"
     execa "5.1.1"
@@ -2172,10 +2172,10 @@
     prompts "2.4.2"
     terminal-link "2.1.1"
 
-"@redwoodjs/project-config@5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@redwoodjs/project-config/-/project-config-5.1.0.tgz#5d85cde774ab935b7423085fb3b3a3fdf6b77505"
-  integrity sha512-9drnTr01+10BMB+Btj/CmmpFMrP+XURf8qBFwhNoHvgfSksycqAQA/JraITLLHL9P9BCabfaWoqKGt393zl8uA==
+"@redwoodjs/project-config@5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@redwoodjs/project-config/-/project-config-5.1.2.tgz#46bac01ea22c94a48aca71fc470fbcf7f090cc8c"
+  integrity sha512-bglcJx1uChvht5BHIVzCnDNVyd8139u/gloTtR6AJdasvmUqqjd/F2ftLZnH0ZzPMExtBbxmjf13O4n9s+Hwkg==
   dependencies:
     "@iarna/toml" "2.2.5"
     deepmerge "4.3.1"
@@ -2183,15 +2183,15 @@
     findup-sync "5.0.0"
     string-env-interpolation "1.0.1"
 
-"@redwoodjs/structure@5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@redwoodjs/structure/-/structure-5.1.0.tgz#2d1b6bc39dca1859c59b69777788401249847b64"
-  integrity sha512-l5lscVbZNRe7bo+UmtSjasYGJrBN8cZC1nuMh6FFfpzJ/i2F187JgjRbt2weZ8u1LS/tH7Aa7PK+EdbFS2itmQ==
+"@redwoodjs/structure@5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@redwoodjs/structure/-/structure-5.1.2.tgz#5643ecf5378fe043b2251591b41ca1e9265883a7"
+  integrity sha512-PafK5LcF35W9HkXJ9jhoW+2KnZYEvqBHkEjm6sZQO3AYG1+ZQ281M5bpyHcfLXPODSDILzxyNUhc+NppD70x1w==
   dependencies:
     "@babel/runtime-corejs3" "7.21.5"
     "@iarna/toml" "2.2.5"
     "@prisma/internals" "4.14.0"
-    "@redwoodjs/project-config" "5.1.0"
+    "@redwoodjs/project-config" "5.1.2"
     "@types/line-column" "1.0.0"
     camelcase "6.3.0"
     core-js "3.30.2"
@@ -2213,14 +2213,14 @@
     vscode-languageserver-types "3.17.3"
     yargs-parser "21.1.1"
 
-"@redwoodjs/telemetry@5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@redwoodjs/telemetry/-/telemetry-5.1.0.tgz#8e5bdf0372512d8d47f18e3c71fc107aef706adc"
-  integrity sha512-aHnOBD17fl58uGLTEXMoaHbhKiPWNsJbFYW67BjYuD33LLsKuAio8eG79ldmH/Dxc77UDq4UHpHZO/eShtknXw==
+"@redwoodjs/telemetry@5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@redwoodjs/telemetry/-/telemetry-5.1.2.tgz#d3a1b37f5350711da201242a9abae456dc1a271b"
+  integrity sha512-8NvN83SQDfHdJuLBcZpXbq/+Ta4KUOgTIz2eg5cXaXO52Ca4MDz9Z1sPPzHODLaCF3DyS39qf09x9BWz3U50Xg==
   dependencies:
     "@babel/runtime-corejs3" "7.21.5"
-    "@redwoodjs/project-config" "5.1.0"
-    "@redwoodjs/structure" "5.1.0"
+    "@redwoodjs/project-config" "5.1.2"
+    "@redwoodjs/structure" "5.1.2"
     "@whatwg-node/fetch" "0.8.8"
     ci-info "3.8.0"
     core-js "3.30.2"
