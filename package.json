@@ -61,7 +61,7 @@
     "typescript": "5.0.4"
   },
   "resolutions": {
-    "esbuild": "0.17.18",
+    "esbuild": "0.17.19",
     "graphql": "16.6.0",
     "prettier": "2.8.8"
   },
