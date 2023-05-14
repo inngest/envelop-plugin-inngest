@@ -1,5 +1,13 @@
 # envelop-plugin-inngest
 
+## 0.5.4
+
+### Patch Changes
+
+- [#113](https://github.com/inngest/envelop-plugin-inngest/pull/113)
+  [`66c30a1`](https://github.com/inngest/envelop-plugin-inngest/commit/66c30a12ea705fc3aea4bdc28b710566e1cb8481)
+  Thanks [@renovate](https://github.com/apps/renovate)! - Update dependency inngest to v1.8.4
+
 ## 0.5.3
 
 ### Patch Changes
