@@ -53,7 +53,7 @@
     "@whatwg-node/fetch": "0.8.8",
     "fast-json-stable-stringify": "2.1.0",
     "fast-redact": "3.1.2",
-    "inngest": "1.8.4",
+    "inngest": "1.8.5",
     "tslib": "2.5.0"
   },
   "devDependencies": {
