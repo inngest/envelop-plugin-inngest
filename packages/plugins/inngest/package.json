@@ -50,7 +50,7 @@
   "dependencies": {
     "@envelop/core": "3.0.6",
     "@graphql-tools/utils": "9.2.1",
-    "@whatwg-node/fetch": "0.8.8",
+    "@whatwg-node/fetch": "0.9.0",
     "fast-json-stable-stringify": "2.1.0",
     "fast-redact": "3.1.2",
     "inngest": "1.8.4",
