@@ -76,7 +76,7 @@
     "fs-extra": "11.1.1",
     "humanize-string": "2.1.0",
     "jscodeshift": "0.15.0",
-    "listr2": "6.5.0",
+    "listr2": "6.6.0",
     "lodash.template": "4.5.0",
     "param-case": "3.0.4",
     "pascalcase": "2.0.0",
