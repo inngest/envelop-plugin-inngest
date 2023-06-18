@@ -57,7 +57,7 @@
     "tslib": "2.5.3"
   },
   "devDependencies": {
-    "@envelop/testing": "5.0.6",
+    "@envelop/testing": "6.0.0",
     "@graphql-tools/utils": "9.2.1",
     "@types/fast-redact": "3.0.2",
     "graphql": "16.6.0",
