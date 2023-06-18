@@ -1,5 +1,13 @@
 # envelop-plugin-inngest
 
+## 0.5.5
+
+### Patch Changes
+
+- [#150](https://github.com/inngest/envelop-plugin-inngest/pull/150)
+  [`7b31865`](https://github.com/inngest/envelop-plugin-inngest/commit/7b318654bc84646d46387085bd1aa8b42ffb1540)
+  Thanks [@dthyresson](https://github.com/dthyresson)! - Upgrade to Inngest SDK 1.9.7
+
 ## 0.5.4
 
 ### Patch Changes
