@@ -1,23 +1,23 @@
 import {
-  visit,
-  getNamedType,
-  getOperationAST,
-  isIntrospectionType,
-  TypeInfo,
-  visitWithTypeInfo,
   BREAK,
   ExecutionResult,
+  getNamedType,
+  getOperationAST,
   GraphQLType,
+  isIntrospectionType,
+  TypeInfo,
+  visit,
+  visitWithTypeInfo,
 } from 'graphql';
-import { visitResult } from '@graphql-tools/utils';
 import type { OnExecuteEventPayload } from '@envelop/core';
+import { visitResult } from '@graphql-tools/utils';
 import type {
   ContextType,
-  UseInngestExecuteOptions,
-  UseInngestEventOptions,
+  OperationInfo,
   UseInngestDataOptions,
   UseInngestEntityRecord,
-  OperationInfo,
+  UseInngestEventOptions,
+  UseInngestExecuteOptions,
 } from './types.js';
 
 /**
@@ -28,9 +28,14 @@ import type {
  * @param options Pick<UseInngestExecuteOptions, 'params'>
  * @returns string | undefined
  */
-export const getOperationInfo = (options: Pick<UseInngestExecuteOptions, 'params'>): OperationInfo => {
+export const getOperationInfo = (
+  options: Pick<UseInngestExecuteOptions, 'params'>,
+): OperationInfo => {
   const operationAST = getOperationAST(options.params.args.document);
-  return { operationName: operationAST?.name?.value || undefined, operationType: operationAST?.operation ?? 'unknown' };
+  return {
+    operationName: operationAST?.name?.value || undefined,
+    operationType: operationAST?.operation ?? 'unknown',
+  };
 };
 
 /**
@@ -96,8 +101,10 @@ export const isIntrospectionQuery = (params: OnExecuteEventPayload<ContextType>)
           isIntrospection = true;
           return BREAK;
         }
+
+        return undefined;
       },
-    })
+    }),
   );
 
   return isIntrospection;
@@ -180,8 +187,8 @@ export const buildTypeIdentifiers = async (options: UseInngestDataOptions) => {
             },
           });
         },
-      }
-    )
+      },
+    ),
   );
 
   const identifiers = Array.from(identifierSet.values());
@@ -212,8 +219,10 @@ export const denyType = (options: UseInngestDataOptions) => {
           hasType = true;
           return BREAK;
         }
+
+        return undefined;
       },
-    })
+    }),
   );
 
   return hasType;
@@ -246,8 +255,9 @@ export const denySchemaCoordinate = (options: UseInngestDataOptions) => {
             return BREAK;
           }
         }
+        return undefined;
       },
-    })
+    }),
   );
 
   return hasSchemaCoordinate;

@@ -1,18 +1,15 @@
-import { makeExecutableSchema } from '@graphql-tools/schema';
 import { parse } from 'graphql';
-
+import { makeExecutableSchema } from '@graphql-tools/schema';
 import { buildLogger } from '../src/logger';
-
 import {
-  isAnonymousOperation,
-  isIntrospectionQuery,
-  sendOperation,
-  getOperationInfo,
   buildTypeIdentifiers,
   denySchemaCoordinate,
   denyType,
+  getOperationInfo,
+  isAnonymousOperation,
+  isIntrospectionQuery,
+  sendOperation,
 } from '../src/schema-helpers';
-
 import type { UseInngestExecuteOptions } from '../src/types';
 
 describe('schema-helpers', () => {
@@ -372,7 +369,11 @@ describe('schema-helpers', () => {
           params: executeOptions,
           eventName: '',
           logger,
-          result: { data: { post: { id: 4, title: 'hello', __typename: 'Post' } }, errors: [], extensions: {} },
+          result: {
+            data: { post: { id: 4, title: 'hello', __typename: 'Post' } },
+            errors: [],
+            extensions: {},
+          },
         });
 
         expect(types).toEqual(['Post']);
@@ -429,7 +430,9 @@ describe('schema-helpers', () => {
           extendContext: () => {},
           args: {
             schema,
-            document: parse(`mutation UpdatePost { updatePost(id: 1, title: "updated title") {  id title } }`),
+            document: parse(
+              `mutation UpdatePost { updatePost(id: 1, title: "updated title") {  id title } }`,
+            ),
             contextValue: {},
           },
         };
@@ -437,7 +440,10 @@ describe('schema-helpers', () => {
         const { types, identifiers } = await buildTypeIdentifiers({
           params: executeOptions,
           eventName: 'graphql-test/update-post.mutation',
-          result: { errors: [], data: { updatePost: { id: 19, title: 'updated title', __typename: 'Post' } } },
+          result: {
+            errors: [],
+            data: { updatePost: { id: 19, title: 'updated title', __typename: 'Post' } },
+          },
           logger,
         });
 
