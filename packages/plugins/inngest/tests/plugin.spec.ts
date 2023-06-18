@@ -1,10 +1,9 @@
-import { assertSingleExecutionValue, createTestkit, createSpiedPlugin } from '@envelop/testing';
+import { parse } from 'graphql';
+import type { EventPayload, Inngest } from 'inngest';
+import { assertSingleExecutionValue, createSpiedPlugin, createTestkit } from '@envelop/testing';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { createGraphQLError } from '@graphql-tools/utils';
-import { parse } from 'graphql';
 import { useInngest } from '../src/plugin';
-
-import type { EventPayload, Inngest } from 'inngest';
 
 describe('useInngest', () => {
   const testEventKey = 'foo-bar-baz-test';
@@ -64,7 +63,7 @@ describe('useInngest', () => {
     eventKey: testEventKey,
     send: jest.fn(),
     setEventKey: jest.fn(),
-  } as unknown as Inngest<Record<string, EventPayload>>;
+  } as unknown as Inngest;
 
   afterEach(() => {
     jest.resetAllMocks();
@@ -76,7 +75,7 @@ describe('useInngest', () => {
 
       const testInstance = createTestkit(
         [useInngest({ inngestClient: mockedInngestClient }), spiedPlugin.plugin],
-        schema
+        schema,
       );
 
       const result = await testInstance.execute(`query TestQuery2 { test }`);
@@ -105,7 +104,7 @@ describe('useInngest', () => {
 
       const testInstance = createTestkit(
         [useInngest({ inngestClient: mockedInngestClient }), spiedPlugin.plugin],
-        schema
+        schema,
       );
 
       const result = await testInstance.execute(`query FindPost { post { id title } }`);
@@ -139,13 +138,17 @@ describe('useInngest', () => {
 
       const testInstance = createTestkit(
         [useInngest({ inngestClient: mockedInngestClient }), spiedPlugin.plugin],
-        schema
+        schema,
       );
 
-      const result = await testInstance.execute(`query FindPost { post { id title comments { id body } } }`);
+      const result = await testInstance.execute(
+        `query FindPost { post { id title comments { id body } } }`,
+      );
       assertSingleExecutionValue(result);
 
-      expect(result.data).toEqual({ post: { id: '1', title: 'hello', comments: [{ id: '3', body: 'message' }] } });
+      expect(result.data).toEqual({
+        post: { id: '1', title: 'hello', comments: [{ id: '3', body: 'message' }] },
+      });
       expect(result.errors).toBeUndefined();
 
       expect(spiedPlugin.spies.afterExecute).toHaveBeenCalled();
@@ -179,12 +182,14 @@ describe('useInngest', () => {
 
       const testInstance = createTestkit(
         [useInngest({ inngestClient: mockedInngestClient, logging: true }), spiedPlugin.plugin],
-        schema
+        schema,
       );
 
       const result = await testInstance.execute(
-        parse(`mutation UpdateMyPost($id: ID!, $title: String!) { updatePost(id: $id, title: $title) { id title } }`),
-        { id: 99, title: 'Title TK' }
+        parse(
+          `mutation UpdateMyPost($id: ID!, $title: String!) { updatePost(id: $id, title: $title) { id title } }`,
+        ),
+        { id: 99, title: 'Title TK' },
       );
       assertSingleExecutionValue(result);
 
@@ -213,7 +218,7 @@ describe('useInngest', () => {
 
       const testInstance = createTestkit(
         [useInngest({ inngestClient: mockedInngestClient }), spiedPlugin.plugin],
-        schema
+        schema,
       );
 
       const result = await testInstance.execute(`query { test }`);
@@ -231,8 +236,11 @@ describe('useInngest', () => {
       const spiedPlugin = createSpiedPlugin();
 
       const testInstance = createTestkit(
-        [useInngest({ inngestClient: mockedInngestClient, sendAnonymousOperations: true }), spiedPlugin.plugin],
-        schema
+        [
+          useInngest({ inngestClient: mockedInngestClient, sendAnonymousOperations: true }),
+          spiedPlugin.plugin,
+        ],
+        schema,
       );
 
       const result = await testInstance.execute(`query { test }`);
@@ -266,8 +274,11 @@ describe('useInngest', () => {
       const spiedPlugin = createSpiedPlugin();
 
       const testInstance = createTestkit(
-        [useInngest({ inngestClient: mockedInngestClient, sendIntrospection: true }), spiedPlugin.plugin],
-        schema
+        [
+          useInngest({ inngestClient: mockedInngestClient, sendIntrospection: true }),
+          spiedPlugin.plugin,
+        ],
+        schema,
       );
 
       const result = await testInstance.execute(`{
@@ -358,8 +369,11 @@ describe('useInngest', () => {
       const spiedPlugin = createSpiedPlugin();
 
       const testInstance = createTestkit(
-        [useInngest({ inngestClient: mockedInngestClient, sendIntrospection: false }), spiedPlugin.plugin],
-        schema
+        [
+          useInngest({ inngestClient: mockedInngestClient, sendIntrospection: false }),
+          spiedPlugin.plugin,
+        ],
+        schema,
       );
 
       const result = await testInstance.execute(`{
@@ -439,7 +453,7 @@ describe('useInngest', () => {
 
       const testInstance = createTestkit(
         [useInngest({ inngestClient: mockedInngestClient, sendErrors: true }), spiedPlugin.plugin],
-        schema
+        schema,
       );
 
       const result = await testInstance.execute(`query FailQuery { fails }`);
@@ -458,7 +472,7 @@ describe('useInngest', () => {
 
       const testInstance = createTestkit(
         [useInngest({ inngestClient: mockedInngestClient }), spiedPlugin.plugin],
-        schema
+        schema,
       );
 
       const result = await testInstance.execute(`query FailQuery { fails }`);
@@ -478,8 +492,11 @@ describe('useInngest', () => {
       const spiedPlugin = createSpiedPlugin();
 
       const testInstance = createTestkit(
-        [useInngest({ inngestClient: mockedInngestClient, denylist: { types: ['Post'] } }), spiedPlugin.plugin],
-        schema
+        [
+          useInngest({ inngestClient: mockedInngestClient, denylist: { types: ['Post'] } }),
+          spiedPlugin.plugin,
+        ],
+        schema,
       );
 
       const result = await testInstance.execute(`query FindPost { post { id title } }`);
@@ -498,10 +515,13 @@ describe('useInngest', () => {
 
       const testInstance = createTestkit(
         [
-          useInngest({ inngestClient: mockedInngestClient, denylist: { schemaCoordinates: ['Query.post'] } }),
+          useInngest({
+            inngestClient: mockedInngestClient,
+            denylist: { schemaCoordinates: ['Query.post'] },
+          }),
           spiedPlugin.plugin,
         ],
-        schema
+        schema,
       );
 
       const result = await testInstance.execute(`query FindPost { post { id title } }`);
@@ -521,8 +541,11 @@ describe('useInngest', () => {
       const spiedPlugin = createSpiedPlugin();
 
       const testInstance = createTestkit(
-        [useInngest({ inngestClient: mockedInngestClient, includeRawResult: true }), spiedPlugin.plugin],
-        schema
+        [
+          useInngest({ inngestClient: mockedInngestClient, includeRawResult: true }),
+          spiedPlugin.plugin,
+        ],
+        schema,
       );
 
       const result = await testInstance.execute(`query TestQuery2 { test }`);
@@ -560,7 +583,7 @@ describe('useInngest', () => {
           }),
           spiedPlugin.plugin,
         ],
-        schema
+        schema,
       );
 
       const result = await testInstance.execute(`query TestQuery2 { test }`);
@@ -596,12 +619,14 @@ describe('useInngest', () => {
           }),
           spiedPlugin.plugin,
         ],
-        schema
+        schema,
       );
 
       const result = await testInstance.execute(
-        parse(`mutation UpdateMyPost($id: ID!, $title: String!) { updatePost(id: $id, title: $title) { id title } }`),
-        { id: 99, title: 'Title TK' }
+        parse(
+          `mutation UpdateMyPost($id: ID!, $title: String!) { updatePost(id: $id, title: $title) { id title } }`,
+        ),
+        { id: 99, title: 'Title TK' },
       );
       assertSingleExecutionValue(result);
 
@@ -636,7 +661,7 @@ describe('useInngest', () => {
           }),
           spiedPlugin.plugin,
         ],
-        schema
+        schema,
       );
 
       const result = await testInstance.execute(`query TestQuery5 { test }`);
@@ -673,7 +698,7 @@ describe('useInngest', () => {
           }),
           spiedPlugin.plugin,
         ],
-        schema
+        schema,
       );
 
       const result = await testInstance.execute(`query TestQuery6 { test }`);
@@ -712,7 +737,7 @@ describe('useInngest', () => {
           }),
           spiedPlugin.plugin,
         ],
-        schema
+        schema,
       );
 
       const result = await testInstance.execute(`query TestQuery6 { test }`);
