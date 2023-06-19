@@ -5292,10 +5292,10 @@ ini@^1.3.4:
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.8.tgz#a29da425b48806f34767a4efce397269af28432c"
   integrity sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==
 
-inngest@1.9.7:
-  version "1.9.7"
-  resolved "https://registry.yarnpkg.com/inngest/-/inngest-1.9.7.tgz#39220effae7a2c8ea5deef4f78ef11a2f089f876"
-  integrity sha512-OxDfn2MAQgEW7jHElTD2LIvR+5BEBAFa6A4p4MAi+kc95qahkSIA7ZmeP9pQvVnGQu6ivFaIsFAbKorW0ZlYGw==
+inngest@1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/inngest/-/inngest-1.10.0.tgz#807a72cd934e0ccb0563fce0911cd6ea11cd8418"
+  integrity sha512-7jSg84F5hBxA6gRAlZ6/VzIbUaJNO0aqENwImhTFaXVkW/c03Ri3AHdZUVqlPlvggOSK/nGgsOK/Rf+Ugb6ixA==
   dependencies:
     buffer "^6.0.3"
     canonicalize "^1.0.8"
