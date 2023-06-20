@@ -20,7 +20,7 @@ yarn add -D inngest-setup-redwoodjs
 For example:
 
 ```
-  // package.json]
+  // package.json
   "devDependencies": {
     ...
     "inngest-setup-redwoodjs": "latest"
@@ -207,7 +207,7 @@ and setup your RedwoodJS app to use Inngest.
 To launch the SDK Dashboard, visit:
 
 ```
-http://localhost:8911/inngest
+http://localhost:8910/.redwood/functions/inngest
 ```
 
 Here, you can see which functions have be been found and registered.
@@ -217,7 +217,7 @@ Here, you can see which functions have be been found and registered.
 To launch the Inngest dev server, from a new terminal run:
 
 ```
-npx inngest-cli@latest dev -u http://localhost:8911/inngest
+npx inngest-cli@latest dev -u http://localhost:8910/.redwood/functions/inngest
 ```
 
 There will be instructions for the url to visit to view the dev server UI.

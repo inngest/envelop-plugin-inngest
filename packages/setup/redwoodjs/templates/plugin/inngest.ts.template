@@ -1,20 +1,48 @@
 import { serve } from 'inngest/redwood'
 
 import helloWorld from 'src/jobs/inngest/helloWorld'
-import { INNGEST_APP_NAME } from 'src/lib/inngest'
+import { inngest } from 'src/lib/inngest'
+import { logger } from 'src/lib/logger'
 
 // Add your Inngest functions here
 const inngestFunctions = [helloWorld]
 
 // Serve your Inngest functions
-export const handler = serve(INNGEST_APP_NAME, inngestFunctions, {
-  servePath: '/inngest',
+export const handler = serve(inngest, inngestFunctions, {
+  servePath: '/.redwood/functions/inngest',
+  /**
+   * The Inngest environment to send events to. Defaults to whichever
+   * environment this client's event key is associated with.
+   *
+   * It's likely you never need to change this unless you're trying to sync
+   * multiple systems together using branch names.
+   *
+   * See: https://www.inngest.com/docs/platform/environments
+   */
+  // env: 'process.env.YOUR_ENVIRONMENT',
+
+  /**
+   * The logger provided by the user.
+   * The user can passed in their winston, pino, and other loggers for
+   * handling log delivery to external services.
+   *
+   * The provider logger is expected to implement the following API interfaces
+   * - .info()
+   * - .warn()
+   * - .debug()
+   * - .error()
+   * which most loggers already do.
+   *
+   */
+  logger: logger,
+
   /**
    * The minimum level to log from the Inngest serve endpoint.
    *
    * Default level: "info"
    */
   logLevel: 'info',
+  
   /**
    * A key used to sign requests to and from Inngest in order to prove that the
    * source is legitimate in Production.

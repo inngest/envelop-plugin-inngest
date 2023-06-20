@@ -1,6 +1,11 @@
 import { ExecutionResult, Plugin } from '@envelop/core';
 import { defaultGetDocumentString, useCacheDocumentString } from './cache-document-str.js';
-import { buildEventPayload, buildEventName, buildEventNamePrefix, buildUserContext } from './event-helpers.js';
+import {
+  buildEventName,
+  buildEventNamePrefix,
+  buildEventPayload,
+  buildUserContext,
+} from './event-helpers.js';
 import { buildLogger } from './logger.js';
 import { shouldSendEvent } from './should-send-event.js';
 import type { UseInngestPluginOptions } from './types.js';
@@ -29,7 +34,8 @@ export const useInngest = ({
   redactRawResultOptions = undefined,
   logging = false,
 }: UseInngestPluginOptions): Plugin => {
-  const logger = buildLogger({ logging });
+  // eslint-disable-next-line dot-notation
+  const logger = inngestClient['logger'] || buildLogger({ logging });
   const getDocumentString = defaultGetDocumentString;
 
   return {
@@ -40,7 +46,10 @@ export const useInngest = ({
       return {
         async onExecuteDone({ result }) {
           try {
-            const eventNamePrefix = await buildEventNamePrefixFunction({ params: onExecuteParams, logger });
+            const eventNamePrefix = await buildEventNamePrefixFunction({
+              params: onExecuteParams,
+              logger,
+            });
             const eventName = await buildEventNameFunction({
               params: onExecuteParams,
               documentString: getDocumentString(onExecuteParams.args),
