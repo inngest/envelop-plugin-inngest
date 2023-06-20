@@ -3,4 +3,6 @@
 'inngest-setup-redwoodjs': minor
 ---
 
-Updates to Inngest SDV v2
+Updates to Inngest SDK v2
+
+## Breaking Changes
