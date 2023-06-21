@@ -67,8 +67,6 @@ Logging has changed in v2. See: https://www.inngest.com/docs/guides/logging. It 
 client and used as part of Inngest's middleware. The plugin will try to use the Inngest client's
 logger first and then this logger setting.
 
-TODO: Is logging doubled up?
-
 You may set any
 [Yoga-compatible logger](https://the-guild.dev/graphql/yoga-server/docs/features/logging-and-debugging)
 
