@@ -1,6 +1,6 @@
 {
   "name": "envelop-plugin-inngest",
-  "version": "0.5.5",
+  "version": "1.0.0",
   "type": "module",
   "repository": {
     "type": "git",
