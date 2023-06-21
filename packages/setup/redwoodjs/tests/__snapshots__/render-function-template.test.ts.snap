@@ -49,6 +49,13 @@ export const onPostDelete = inngest.createFunction(
   async ({ event, step }) => {
     await step.sleep('5s')
 
+    // You can run jobs at a specific time using the step.sleepUntil() utility:
+    // await step.sleepUntil("2023-04-01T12:30:00");
+
+    // You can also sleep until a timestamp within the event data.  This lets you
+    // pass in a time for you to run the job:
+    // await step.sleepUntil(event.data.run_at) // Assuming event.data.run_at is a timestamp.    
+
     return {
       event,
       body: 'Delayed function On post delete waited for 5 seconds',
@@ -273,6 +280,13 @@ export const getPostBySlug = inngest.createFunction(
   async ({ event, step }) => {
     await step.sleep('5s')
 
+    // You can run jobs at a specific time using the step.sleepUntil() utility:
+    // await step.sleepUntil("2023-04-01T12:30:00");
+
+    // You can also sleep until a timestamp within the event data.  This lets you
+    // pass in a time for you to run the job:
+    // await step.sleepUntil(event.data.run_at) // Assuming event.data.run_at is a timestamp.    
+
     return {
       event,
       body: 'Delayed function Get post by slug waited for 5 seconds',
@@ -294,13 +308,16 @@ export const getAllPosts = inngest.createFunction(
 
   // This function will be called on the schedule defined in the cron property.
   // When implementing your function, you have access to the { event, step }.
-  async () => {
-    return {
+  async (event) => {
+    const payload = {
       message: \`Scheduled Get all posts function ran.\`,
       runAt: Date.now().toString(),
     }
+    event.logger.debug(payload, \`Get all posts function ran.\`)
   }
 )
+
+
 "
 `;
 
@@ -415,6 +432,13 @@ export const afterCheckout = inngest.createFunction(
   async ({ event, step }) => {
     await step.sleep('5s')
 
+    // You can run jobs at a specific time using the step.sleepUntil() utility:
+    // await step.sleepUntil("2023-04-01T12:30:00");
+
+    // You can also sleep until a timestamp within the event data.  This lets you
+    // pass in a time for you to run the job:
+    // await step.sleepUntil(event.data.run_at) // Assuming event.data.run_at is a timestamp.    
+
     return {
       event,
       body: 'Delayed function After checkout waited for 5 seconds',
@@ -510,13 +534,16 @@ export const test = inngest.createFunction(
 
   // This function will be called on the schedule defined in the cron property.
   // When implementing your function, you have access to the { event, step }.
-  async () => {
-    return {
+  async (event) => {
+    const payload = {
       message: \`Scheduled Test function ran.\`,
       runAt: Date.now().toString(),
     }
+    event.logger.debug(payload, \`Test function ran.\`)
   }
 )
+
+
 "
 `;
 

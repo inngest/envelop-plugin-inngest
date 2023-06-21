@@ -1,5 +1,7 @@
 import { Inngest } from 'inngest'
 
+import { logger } from './logger'
+
 export const INNGEST_APP_NAME = 'Redwood_Inngest'
 
 export const inngest = new Inngest({
@@ -15,4 +17,9 @@ export const inngest = new Inngest({
    * events will throw an error.
    */
   eventKey: 'YOUR_INNGEST_EVENT_KEY',
+  /**
+   * Use the api logger for Inngest function logging, useful in scheduled functions
+   */
+  logger: logger,
+  logLevel: 'info',
 })

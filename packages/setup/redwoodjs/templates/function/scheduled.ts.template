@@ -9,10 +9,13 @@ export const ${functionName} = inngest.createFunction(
 
   // This function will be called on the schedule defined in the cron property.
   // When implementing your function, you have access to the { event, step }.
-  async () => {
-    return {
+  async (event) => {
+    const payload = {
       message: `Scheduled ${humanizedName} function ran.`,
       runAt: Date.now().toString(),
     }
+    event.logger.debug(payload, `${humanizedName} function ran.`)
   }
 )
+
+

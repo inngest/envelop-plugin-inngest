@@ -1,7 +1,7 @@
-import { OperationTypeNode } from 'graphql';
-import type { ExecutionResult, OnExecuteEventPayload } from '@envelop/core';
 import type { RedactOptions } from 'fast-redact';
-import type { Inngest, EventPayload } from 'inngest';
+import { OperationTypeNode } from 'graphql';
+import type { Inngest } from 'inngest';
+import type { ExecutionResult, OnExecuteEventPayload } from '@envelop/core';
 
 /**
  * UseInngestPluginOptions
@@ -21,7 +21,7 @@ import type { Inngest, EventPayload } from 'inngest';
  * @param redactRawResultOptions Redaction
  */
 export interface UseInngestPluginOptions {
-  inngestClient: Inngest<Record<string, EventPayload>>;
+  inngestClient: Inngest;
   buildEventNameFunction?: BuildEventNameFunction;
   buildEventNamePrefixFunction?: BuildEventNamePrefixFunction;
   buildUserContextFunction?: BuildUserContextFunction;
@@ -91,7 +91,10 @@ export type UseInngestDataOptions = {
   UseInngestLoggerOptions &
   Omit<
     UseInngestPluginOptions,
-    'inngestClient' | 'buildEventNameFunction' | 'buildEventNamePrefixFunction' | 'buildUserContextFunction'
+    | 'inngestClient'
+    | 'buildEventNameFunction'
+    | 'buildEventNamePrefixFunction'
+    | 'buildUserContextFunction'
   >;
 
 /**
@@ -142,7 +145,7 @@ export type UseInngestUserContextOptions = UseInngestExecuteOptions & UseInngest
  * @param options UseInngestUserContextOptions
  */
 export type BuildUserContextFunction = (
-  options: UseInngestUserContextOptions
+  options: UseInngestUserContextOptions,
 ) => InngestUserContext | Promise<InngestUserContext>;
 
 /**
@@ -151,7 +154,9 @@ export type BuildUserContextFunction = (
  * @param options UseInngestEventNamePrefixFunctionOptions
  * @returns Event name prefix
  */
-export type BuildEventNamePrefixFunction = (options: UseInngestEventNamePrefixFunctionOptions) => Promise<string>;
+export type BuildEventNamePrefixFunction = (
+  options: UseInngestEventNamePrefixFunctionOptions,
+) => Promise<string>;
 
 /**
  * BuildEventNameFunction
@@ -160,7 +165,9 @@ export type BuildEventNamePrefixFunction = (options: UseInngestEventNamePrefixFu
  * @returns Event name
  */
 
-export type BuildEventNameFunction = (options: UseInngestEventNameFunctionOptions) => Promise<string>;
+export type BuildEventNameFunction = (
+  options: UseInngestEventNameFunctionOptions,
+) => Promise<string>;
 
 /**
  * UseInngestLoggerOptions
@@ -181,4 +188,7 @@ export type ContextType = Record<string, any>;
  *
  * @returns operationName and operationType
  */
-export type OperationInfo = { operationName: string | undefined; operationType: OperationTypeNode | 'unknown' };
+export type OperationInfo = {
+  operationName: string | undefined;
+  operationType: OperationTypeNode | 'unknown';
+};
