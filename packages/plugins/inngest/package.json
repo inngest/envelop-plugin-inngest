@@ -54,7 +54,7 @@
     "fast-json-stable-stringify": "2.1.0",
     "fast-redact": "3.1.2",
     "inngest": "2.1.0",
-    "tslib": "2.5.3"
+    "tslib": "2.6.1"
   },
   "devDependencies": {
     "@envelop/testing": "6.0.0",
