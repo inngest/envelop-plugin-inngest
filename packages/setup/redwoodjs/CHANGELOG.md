@@ -22,10 +22,10 @@
 
   ```ts
   // api/src/lib/inngest.ts
-  import { Inngest } from 'inngest';
-  import { logger } from './logger';
+  import { Inngest } from 'inngest'
+  import { logger } from './logger'
 
-  export const INNGEST_APP_NAME = 'Redwood_Inngest';
+  export const INNGEST_APP_NAME = 'Redwood_Inngest'
 
   export const inngest = new Inngest({
     /**
@@ -44,8 +44,8 @@
      * Use the api logger for Inngest function logging, useful in scheduled functions
      */
     logger: logger,
-    logLevel: 'info',
-  });
+    logLevel: 'info'
+  })
   ```
 
   ### Delayed Functions
@@ -205,15 +205,15 @@
   For example:
 
   ```ts
-  import { serve } from 'inngest/redwood';
-  import helloWorld from 'src/jobs/inngest/helloWorld';
-  import { loadCronJob, loadCronJobFanOut } from 'src/jobs/inngest/loadCronJob';
-  import { onCar } from 'src/jobs/inngest/onCar';
-  import { onCarDelete } from 'src/jobs/inngest/onCarDelete';
-  import { INNGEST_APP_NAME } from 'src/lib/inngest';
+  import { serve } from 'inngest/redwood'
+  import helloWorld from 'src/jobs/inngest/helloWorld'
+  import { loadCronJob, loadCronJobFanOut } from 'src/jobs/inngest/loadCronJob'
+  import { onCar } from 'src/jobs/inngest/onCar'
+  import { onCarDelete } from 'src/jobs/inngest/onCarDelete'
+  import { INNGEST_APP_NAME } from 'src/lib/inngest'
 
   // Add your Inngest functions here
-  const inngestFunctions = [helloWorld, loadCronJob, loadCronJobFanOut, onCar, onCarDelete];
+  const inngestFunctions = [helloWorld, loadCronJob, loadCronJobFanOut, onCar, onCarDelete]
 
   // Serve your Inngest functions
   export const handler = serve(INNGEST_APP_NAME, inngestFunctions, {
@@ -223,7 +223,7 @@
      *
      * Default level: "info"
      */
-    logLevel: 'info',
+    logLevel: 'info'
     /**
      * A key used to sign requests to and from Inngest in order to prove that the
      * source is legitimate in Production.
@@ -243,7 +243,7 @@
      * Note: This is not required for local development.
      */
     // signingKey: 'YOUR-SIGNING-KEY',
-  });
+  })
   ```
 
 ## 0.3.0

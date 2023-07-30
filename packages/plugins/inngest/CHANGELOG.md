@@ -22,10 +22,10 @@
 
   ```ts
   // api/src/lib/inngest.ts
-  import { Inngest } from 'inngest';
-  import { logger } from './logger';
+  import { Inngest } from 'inngest'
+  import { logger } from './logger'
 
-  export const INNGEST_APP_NAME = 'Redwood_Inngest';
+  export const INNGEST_APP_NAME = 'Redwood_Inngest'
 
   export const inngest = new Inngest({
     /**
@@ -44,8 +44,8 @@
      * Use the api logger for Inngest function logging, useful in scheduled functions
      */
     logger: logger,
-    logLevel: 'info',
-  });
+    logLevel: 'info'
+  })
   ```
 
   ### Delayed Functions
