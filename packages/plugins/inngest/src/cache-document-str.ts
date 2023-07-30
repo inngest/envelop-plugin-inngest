@@ -1,11 +1,13 @@
 // From https://github.com/n1ru4l/envelop/blob/main/packages/plugins/response-cache/src/cache-document-str.ts
 
-import { Plugin } from '@envelop/core';
 import { DocumentNode, ExecutionArgs, print } from 'graphql';
+import { Plugin } from '@envelop/core';
 
 const documentStringByDocument = new WeakMap<DocumentNode, string>();
 
-export function useCacheDocumentString<PluginContext extends Record<string, any> = {}>(): Plugin<PluginContext> {
+export function useCacheDocumentString<
+  PluginContext extends Record<string, any> = {},
+>(): Plugin<PluginContext> {
   return {
     onParse({ params: { source } }) {
       return function onParseEnd({ result }) {

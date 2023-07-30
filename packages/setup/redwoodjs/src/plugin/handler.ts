@@ -1,5 +1,4 @@
 import { colors } from '@redwoodjs/cli-helpers';
-
 import { tasks as setupPluginTasks } from './tasks';
 import type { SetupPluginTasksOptions } from './tasks';
 

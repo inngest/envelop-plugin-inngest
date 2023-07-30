@@ -1,4 +1,4 @@
-import type { UseInngestPluginOptions, UseInngestLogger, UseInngestLogLevel } from './types.js';
+import type { UseInngestLogger, UseInngestLogLevel, UseInngestPluginOptions } from './types.js';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
@@ -34,14 +34,26 @@ const consoleLog =
   (...args: Array<any>) =>
     console.log(prefix, ...args);
 
-const traceLog = console.info ? (...args: Array<any>) => console.info(tracePrefix, ...args) : consoleLog(tracePrefix);
-const debugLog = console.debug ? (...args: Array<any>) => console.debug(debugPrefix, ...args) : consoleLog(debugPrefix);
-const infoLog = console.info ? (...args: Array<any>) => console.info(infoPrefix, ...args) : consoleLog(infoPrefix);
-const warnLog = console.warn ? (...args: Array<any>) => console.warn(warnPrefix, ...args) : consoleLog(warnPrefix);
-const errorLog = console.error ? (...args: Array<any>) => console.error(errorPrefix, ...args) : consoleLog(errorPrefix);
+const traceLog = console.info
+  ? (...args: Array<any>) => console.info(tracePrefix, ...args)
+  : consoleLog(tracePrefix);
+const debugLog = console.debug
+  ? (...args: Array<any>) => console.debug(debugPrefix, ...args)
+  : consoleLog(debugPrefix);
+const infoLog = console.info
+  ? (...args: Array<any>) => console.info(infoPrefix, ...args)
+  : consoleLog(infoPrefix);
+const warnLog = console.warn
+  ? (...args: Array<any>) => console.warn(warnPrefix, ...args)
+  : consoleLog(warnPrefix);
+const errorLog = console.error
+  ? (...args: Array<any>) => console.error(errorPrefix, ...args)
+  : consoleLog(errorPrefix);
 
 const createLogger = (
-  logLevel: UseInngestLogLevel | 'silent' = globalThis.process?.env.DEBUG === '1' ? 'debug' : 'info'
+  logLevel: UseInngestLogLevel | 'silent' = globalThis.process?.env.DEBUG === '1'
+    ? 'debug'
+    : 'info',
 ) => {
   const score = logLevelScores[logLevel];
   return {
@@ -61,7 +73,9 @@ const createLogger = (
  * @param options Pick<UseInngestPluginOptions, 'logging'>
  * @returns UseInngestLogger
  */
-export const buildLogger = (options: Pick<UseInngestPluginOptions, 'logging'>): UseInngestLogger => {
+export const buildLogger = (
+  options: Pick<UseInngestPluginOptions, 'logging'>,
+): UseInngestLogger => {
   const logging = options?.logging != null ? options.logging : true;
 
   return typeof logging === 'boolean'

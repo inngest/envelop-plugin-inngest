@@ -1,8 +1,7 @@
+import { OperationTypeNode, parse } from 'graphql';
 import { makeExecutableSchema } from '@graphql-tools/schema';
-import { parse, OperationTypeNode } from 'graphql';
-
-import { shouldSendEvent } from '../src/should-send-event';
 import { buildLogger } from '../src/logger';
+import { shouldSendEvent } from '../src/should-send-event';
 
 describe('shouldSendEvent', () => {
   const schema = makeExecutableSchema({
