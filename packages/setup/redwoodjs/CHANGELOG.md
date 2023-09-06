@@ -1,5 +1,13 @@
 # inngest-setup-redwoodjs
 
+## 1.1.0
+
+### Minor Changes
+
+- [#156](https://github.com/inngest/envelop-plugin-inngest/pull/156)
+  [`2446212`](https://github.com/inngest/envelop-plugin-inngest/commit/2446212f46c27cb676e2071679f5759b78993da6)
+  Thanks [@dthyresson](https://github.com/dthyresson)! - Updates to Inngest SDK 2.1.0
+
 ## 1.0.0
 
 ### Major Changes

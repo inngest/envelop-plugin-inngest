@@ -1,6 +1,6 @@
 {
   "name": "inngest-setup-redwoodjs",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "description": "Setup Inngest in RedwoodJS",
   "repository": {
