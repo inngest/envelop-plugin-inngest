@@ -73,7 +73,7 @@ Inngest believes that:
 ## About Yoga and Envelop
 
 [GraphQL Yoga](https://the-guild.dev/graphql/yoga-server) is a batteries-included cross-platform
-GraphQL over HTTP spec-compliant GraphQL server powered by[Envelop](https://envelop.dev/) and
+GraphQL over HTTP spec-compliant GraphQL server powered by [Envelop](https://envelop.dev/) and
 [GraphQL Tools](https://graphql-tools.com/).
 
 Yoga uses Envelop under the hood so you can easily extend your server's capabilities with the
