@@ -2694,10 +2694,10 @@
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.39.tgz#e177e699ee1b8c22d23174caaa7422644389509f"
   integrity sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
 
-"@types/fast-redact@3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@types/fast-redact/-/fast-redact-3.0.2.tgz#ba2e62c56100283ee2030949119e985b0bb58104"
-  integrity sha512-VQ8OBFBFnGT9hGbeBOzKrtHQYev7HN72tsD/7kxQ+/2tQ5PS9cifUOxT8Z42O6iNJK5QPN6IsFm7DNMw6Uq2SQ==
+"@types/fast-redact@3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@types/fast-redact/-/fast-redact-3.0.4.tgz#7f7cdf30efd02ae6f9360f3361ee9a7a8b9a748d"
+  integrity sha512-tgGJaXucrCH4Yx2l/AI6e/JQksZhKGIQsVwBMTh+nxUhQDv5tXScTs5DHTw+qSKDXnHL2dTAh1e2rd5pcFQyNQ==
 
 "@types/findup-sync@4.0.2":
   version "4.0.2"
@@ -4699,10 +4699,10 @@ fast-querystring@^1.1.1:
   dependencies:
     fast-decode-uri-component "^1.0.1"
 
-fast-redact@3.1.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/fast-redact/-/fast-redact-3.1.2.tgz#d58e69e9084ce9fa4c1a6fa98a3e1ecf5d7839aa"
-  integrity sha512-+0em+Iya9fKGfEQGcd62Yv6onjBmmhV1uh86XVfOU8VwAe6kaFdQCWI9s0/Nnugx5Vd9tdbZ7e6gE2tR9dzXdw==
+fast-redact@3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/fast-redact/-/fast-redact-3.5.0.tgz#e9ea02f7e57d0cd8438180083e93077e496285e4"
+  integrity sha512-dwsoQlS7h9hMeYUq1W++23NDcBLV4KqONnITDV9DjfS3q1SgDGVrBdvvTLUotWtPSD7asWDV9/CmsZPy8Hf70A==
 
 fast-url-parser@^1.1.3:
   version "1.1.3"
