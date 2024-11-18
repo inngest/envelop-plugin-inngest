@@ -639,4 +639,4 @@ which will redact the email in the `variables` sent:
 
 ## Additional Information
 
-For more information about this plugin and Inngest, see the main [README](../../../README.md).
+For more information about this plugin and Inngest, see the main [README](https://github.com/inngest/envelop-plugin-inngest/blob/main/README.md).
