@@ -1687,12 +1687,12 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@envelop/core@4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@envelop/core/-/core-4.0.0.tgz#3aa22494c55b65abedb2983e2722055e6873575d"
-  integrity sha512-6usEZO86hWT0ZajAbhOX0QXlV++lrlEmu8br6KQVvyXOxttiHADIibgfzb3GtSI7RnnJDnrcRb7Jynv6Lca3iQ==
+"@envelop/core@4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@envelop/core/-/core-4.0.3.tgz#6bc3e1ed3b31aa41d81106eb5071a9b8eec188d0"
+  integrity sha512-O0Vz8E0TObT6ijAob8jYFVJavcGywKThM3UAsxUIBBVPYZTMiqI9lo2gmAnbMUnrDcAYkUTZEW9FDYPRdF5l6g==
   dependencies:
-    "@envelop/types" "4.0.0"
+    "@envelop/types" "4.0.1"
     tslib "^2.5.0"
 
 "@envelop/testing@6.0.0":
@@ -1703,10 +1703,10 @@
     "@graphql-tools/utils" "^10.0.0"
     tslib "^2.5.0"
 
-"@envelop/types@4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@envelop/types/-/types-4.0.0.tgz#6491d15b471434e74cd4b2321b68b8bb95f0ae61"
-  integrity sha512-dmBK16VVfKCkqYYemvE+gt1cPBP0d9CbYO4yjNhSSYy9K+w6+Lw48wOLK238mSR339PNAvwj/JW/qzNy2llggA==
+"@envelop/types@4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@envelop/types/-/types-4.0.1.tgz#145690d8266a003cdb06dd58fa1236e3c80050a9"
+  integrity sha512-ULo27/doEsP7uUhm2iTnElx13qTO6I5FKvmLoX41cpfuw8x6e0NUFknoqhEsLzAbgz8xVS5mjwcxGCXh4lDYzg==
   dependencies:
     tslib "^2.5.0"
 
